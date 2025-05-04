@@ -1,41 +1,59 @@
-import streamlit as st
-import random
+from flask import Flask, render_template, request, jsonify
+from openai import OpenAI
+import os
 
-# Charger les questions depuis le fichier
-with open("questions.txt", "r", encoding="utf-8") as f:
-    questions = [q.strip() for q in f if q.strip()]
+app = Flask(__name__)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-st.set_page_config(page_title="Chatbot NSI – Révisions BAC")
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-st.title("🎓 Chatbot NSI – Révisions BAC Pratique")
+@app.route("/ask", methods=["POST"])
+def ask():
+    data = request.json
+    user_input = data["message"]
+    file_path = "entrainement_pratique.txt"  # unique fichier de référence
 
-# Mémoriser les questions/réponses
-if "question_index" not in st.session_state:
-    st.session_state.question_index = random.randint(0, len(questions) - 1)
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            document_reference = f.read()
+    except FileNotFoundError:
+        return jsonify({"response": "❌ Le fichier d'entraînement est introuvable."})
 
-if "responses" not in st.session_state:
-    st.session_state.responses = []
+    try:
+        if user_input.lower() == "initier":
+            prompt = (
+                f"Tu es un assistant pédagogique NSI s'adressant à un élève. "
+                f"Tu vas t'appuyer strictement sur le document suivant pour poser des questions et analyser les réponses :\n\n"
+                f"{document_reference}\n\n"
+                f"Commence une session d'entraînement à la pratique des algorithmes du BAC. Pose une première question simple, sans donner la réponse."
+            )
+        else:
+            prompt = (
+                f"Tu es un assistant pédagogique NSI s'adressant à un élève. "
+                f"Voici le document de référence :\n\n"
+                f"{document_reference}\n\n"
+                f"Voici ce qu'a répondu l'élève : « {user_input} ». "
+                f"Analyse sa réponse, donne un retour, puis pose une nouvelle question si nécessaire."
+            )
 
-# Afficher la question actuelle
-current_question = questions[st.session_state.question_index]
-st.markdown(f"**Question :** {current_question}")
+        chat_completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Tu es un assistant NSI qui fait travailler un élève sur la pratique des algorithmes. Sois bienveillant, clair, et progressif."
+                },
+                {"role": "user", "content": prompt}
+            ]
+        )
 
-# Zone de réponse multi-ligne
-response = st.text_area("Ta réponse (code ou explication) :", height=200)
+        reply = chat_completion.choices[0].message.content.strip()
+        return jsonify({"response": reply})
 
-# Bouton pour envoyer la réponse
-if st.button("✅ Envoyer"):
-    if response.strip():
-        st.session_state.responses.append((current_question, response))
-        # Passer à une autre question au hasard
-        st.session_state.question_index = random.randint(0, len(questions) - 1)
-        st.experimental_rerun()
+    except Exception as e:
+        return jsonify({"response": f"❌ Erreur : {str(e)}"})
 
-# Affichage des réponses précédentes
-if st.session_state.responses:
-    st.markdown("---")
-    st.markdown("### 📚 Réponses précédentes :")
-    for q, r in reversed(st.session_state.responses):
-        st.markdown(f"**Q :** {q}")
-        st.markdown("**Réponse :**")
-        st.code(r, language="python")
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=81)
