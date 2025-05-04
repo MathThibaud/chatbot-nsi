@@ -1,2 +1,4 @@
 flask
 openai
+python-dotenv  # si tu veux gérer .env localement (optionnel)
+
