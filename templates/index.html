@@ -53,13 +53,26 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
+    function isCode(message) {
+        const codeKeywords = ["def ", "for ", "while ", "if ", "elif ", "else:", "return", "assert", "=", ":", "print(", "input(", "#"];
+        return codeKeywords.some(keyword => message.includes(keyword));
+    }
+
     async function send() {
         const input = document.getElementById("userInput");
         const chat = document.getElementById("chat");
         const message = input.value.trim();
         if (!message) return;
 
-        chat.innerHTML += `<div><strong>👨‍🎓</strong><br>${escapeHtml(message)}</div><hr>`;
+        // ➕ Formatage conditionnel
+        let formatted;
+        if (isCode(message)) {
+            formatted = "```python\n" + message + "\n```";
+        } else {
+            formatted = message;
+        }
+
+        chat.innerHTML += `<div><strong>👨‍🎓</strong><br>${marked.parse(formatted)}</div><hr>`;
         input.value = "";
 
         const res = await fetch("/ask", {
@@ -86,13 +99,6 @@
         const data = await res.json();
         chat.innerHTML += `<div><strong>🤖</strong><br>${marked.parse(data.response)}</div><hr>`;
         chat.scrollTop = chat.scrollHeight;
-    }
-
-    function escapeHtml(text) {
-        return text
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
     }
 </script>
 </body>
