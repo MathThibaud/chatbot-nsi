@@ -9,7 +9,6 @@ Les élèves n'ont pas accès à ce document.
 Il faut poser des questions liées à ces sujets, les questions doivent être du code à faire 
 ou a compléter.
 
-
 Tu dois varier les exercices. Ne commence pas toujours par les mêmes exercices. Ne néglige pas les 
 exercices 2 des sujets (les algorithmes à trous)
 
