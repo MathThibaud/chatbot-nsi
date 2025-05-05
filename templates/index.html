@@ -24,14 +24,15 @@
         }
 
         pre, code {
-    background-color: #f1f1f1;
+    background-color: #f8f9fa;
     padding: 10px;
     border-radius: 6px;
-    font-family: Consolas, monospace;
+    font-family: Consolas, 'Courier New', monospace;
     font-size: 0.95em;
-    line-height: 1.5; /* ✅ règle le chevauchement */
-    white-space: pre-wrap;
-    word-break: break-word;
+    line-height: 1.6; /* ✅ augmente l'espacement vertical */
+    white-space: pre-wrap; /* ✅ garde les retours à la ligne */
+    word-break: break-word; /* ✅ évite les débordements horizontaux */
+    overflow-x: auto; /* ✅ permet le défilement horizontal si nécessaire */
 }
 
         textarea {

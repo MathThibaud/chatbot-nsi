@@ -35,7 +35,7 @@ def ask():
                 f"Voici le document de référence :\n\n"
                 f"{document_reference}\n\n"
                 f"Voici ce qu'a répondu l'élève : « {user_input} ». "
-                f"Analyse sa réponse, donne un retour, puis pose une nouvelle question si nécessaire."
+                f"Analyse sa réponse, donne un retour directement à l'élève, puis pose une nouvelle question si nécessaire."
             )
 
         chat_completion = client.chat.completions.create(
