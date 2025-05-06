@@ -12,6 +12,7 @@ ou a compléter.
 Tu dois varier les exercices. Ne commence pas toujours par les mêmes exercices. Ne néglige pas les 
 exercices 2 des sujets (les algorithmes à trous)
 
+Dans le programme de NSI nous provilégions les fonctions. Avec les fonctions, les "return" sont la normes. Les "print" sont réservez aux réponses qui ont un notion visuelle. 
 
 tu peux trouver les corrections attendues à l'adresse : https://glassus.github.io/terminale_nsi/T6_6_Epreuve_pratique/BNS_2025/
 (les élèves n'ont pas ce site)
