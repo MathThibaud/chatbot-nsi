@@ -12,18 +12,28 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
+        pages = [page.get_text().replace("\n", " ").strip() for page in doc]
         sujets = []
-
-        for page in doc:
-            texte = page.get_text()
-            texte = texte.replace("\n", " ").strip()
-
-            match = re.search(r"(EXERCICE\s*1.*?)(EXERCICE\s*2.*?)((EXERCICE\s*1)|$)", texte, re.IGNORECASE)
-            if match:
-                ex1 = match.group(1).strip()
-                ex2 = match.group(2).strip()
-                sujets.append((ex1, ex2))
-
+        i = 0
+        while i < len(pages):
+            page = pages[i]
+            if "EXERCICE 1" in page:
+                ex1 = ""
+                ex2 = ""
+                # Récupérer pages de l'exercice 1
+                while i < len(pages) and "EXERCICE 2" not in pages[i]:
+                    ex1 += " " + pages[i]
+                    i += 1
+                # Récupérer pages de l'exercice 2
+                while i < len(pages) and ("EXERCICE 1" not in pages[i] or "EXERCICE 2" in pages[i]):
+                    ex2 += " " + pages[i]
+                    i += 1
+                # Nettoyage et découpe
+                ex1_txt = ex1.split("EXERCICE 1", 1)[1].strip() if "EXERCICE 1" in ex1 else ex1.strip()
+                ex2_txt = ex2.split("EXERCICE 2", 1)[1].strip() if "EXERCICE 2" in ex2 else ex2.strip()
+                sujets.append(("EXERCICE 1 " + ex1_txt, "EXERCICE 2 " + ex2_txt))
+            else:
+                i += 1
         return sujets
     except Exception as e:
         print("❌ Erreur d’extraction PDF :", e)
