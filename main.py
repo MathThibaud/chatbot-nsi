@@ -28,6 +28,20 @@ def charger_exercices_md(md_path="sujets_BNS_2025.md"):
         print("❌ Erreur lecture Markdown :", e)
         return []
 
+
+@app.route("/get_examen_affichage")
+def get_examen_affichage():
+    try:
+        with open("sujets_affichage.md", "r", encoding="utf-8") as f:
+            contenu = f.read()
+        sujets = contenu.split("# ✅ Sujet ")
+        sujets = [s.strip() for s in sujets if s.strip()]
+        sujet = random.choice(sujets)
+        return jsonify({"sujet": f"✅ Sujet {sujet}"})
+    except Exception as e:
+        return jsonify({"sujet": "❌ Erreur lors du chargement du sujet."})
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
