@@ -12,13 +12,31 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def nettoyer_indentation(texte):
     lignes = texte.splitlines()
     propres = []
+    indent = 0
+
     for ligne in lignes:
-        # Si ligne semble être du code Python, indenter
-        if re.match(r"^(def |class |for |while |if |elif |else|return|print|assert)", ligne.strip()):
-            propres.append("    " + ligne.strip())
+        stripped = ligne.strip()
+
+        if not stripped:
+            propres.append("")
+            continue
+
+        # Déterminer si on est sur une ligne de début de bloc
+        if stripped.endswith(":") or re.match(r"^(def |class |for |while |if |elif |else)", stripped):
+            propres.append("    " * indent + stripped)
+            indent += 1
+        elif stripped.startswith("else") or stripped.startswith("elif"):
+            indent = max(indent - 1, 0)
+            propres.append("    " * indent + stripped)
+            indent += 1
+        elif stripped.startswith("return") or stripped.startswith("print") or stripped.startswith("nb_test"):
+            propres.append("    " * indent + stripped)
         else:
-            propres.append(ligne)
-    return "\n".join(propres)
+            # ligne quelconque, appliquer indent actuel
+            propres.append("    " * indent + stripped)
+
+    return "\\n".join(propres)
+
 
 def extraire_exercices_du_pdf(pdf_path):
     try:
