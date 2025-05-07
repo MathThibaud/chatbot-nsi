@@ -2,66 +2,30 @@ from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 import os
 import random
-import fitz  # PyMuPDF
 import re
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def nettoyer_indentation(texte):
-    lignes = texte.splitlines()
-    propres = []
-    indent = 0
-
-    for ligne in lignes:
-        stripped = ligne.strip()
-
-        if not stripped:
-            propres.append("")
-            continue
-
-        if stripped.endswith(":") or re.match(r"^(def |class |for |while |if |elif |else)", stripped):
-            propres.append("    " * indent + stripped)
-            indent += 1
-        elif stripped.startswith("else") or stripped.startswith("elif"):
-            indent = max(indent - 1, 0)
-            propres.append("    " * indent + stripped)
-            indent += 1
-        elif stripped.startswith("return") or stripped.startswith("print") or stripped.startswith("nb_test"):
-            propres.append("    " * indent + stripped)
-        else:
-            propres.append("    " * indent + stripped)
-
-    return "\n".join(propres)
-
-def extraire_exercices_du_pdf(pdf_path):
+def charger_exercices_md(md_path="sujets_BNS_2025.md"):
     try:
-        doc = fitz.open(pdf_path)
-        raw_pages = [page.get_text() for page in doc]
-        sujets = []
-        i = 0
-
-        while i < len(raw_pages):
-            page = raw_pages[i]
-            match_debut = re.search(r"1\s*/\s*(\d)", page)
-            if match_debut:
-                n = int(match_debut.group(1))
-                bloc = raw_pages[i:i + n] if i + n <= len(raw_pages) else raw_pages[i:]
-                bloc_nettoye = [re.sub(r"\b\d+\s*/\s*\d+\b", "", p) for p in bloc]
-                texte_complet = "\n".join(bloc_nettoye)
-                if "EXERCICE 1" in texte_complet and "EXERCICE 2" in texte_complet:
-                    partie1 = texte_complet.split("EXERCICE 1", 1)[1]
-                    partie2 = partie1.split("EXERCICE 2", 1)
-                    ex1 = nettoyer_indentation("EXERCICE 1\n" + partie2[0].strip())
-                    ex2 = nettoyer_indentation("EXERCICE 2\n" + partie2[1].strip()) if len(partie2) > 1 else "❌ Exercice 2 non trouvé"
-                    sujets.append((ex1, ex2))
-                i += n
-            else:
-                i += 1
-        print(f"✅ {len(sujets)} sujets détectés dans le PDF")
-        return sujets
+        with open(md_path, "r", encoding="utf-8") as f:
+            contenu = f.read()
+        sujets = contenu.split("# Sujet ")
+        exercices = []
+        for sujet in sujets[1:]:
+            lignes = sujet.strip().splitlines()
+            titre = lignes[0].strip()
+            corps = "\n".join(lignes[1:])
+            if "EXERCICE 1" in corps and "EXERCICE 2" in corps:
+                part1 = corps.split("EXERCICE 1", 1)[1]
+                part2_split = part1.split("EXERCICE 2", 1)
+                ex1 = "EXERCICE 1\n" + part2_split[0].strip()
+                ex2 = "EXERCICE 2\n" + part2_split[1].strip() if len(part2_split) > 1 else "❌ Exercice 2 non trouvé"
+                exercices.append((ex1, ex2))
+        return exercices
     except Exception as e:
-        print("❌ Erreur d’extraction PDF :", e)
+        print("❌ Erreur lecture Markdown :", e)
         return []
 
 @app.route("/")
@@ -86,8 +50,8 @@ def ask():
 
     try:
         if user_input.lower() == "initier":
-            exercices = extraire_exercices_du_pdf("static/pdf/BNS_2025_pdf_unique.pdf")
-            question = exercices[0][0] if exercices else "❌ Aucun exercice disponible."
+            sujets = charger_exercices_md()
+            question = sujets[0][0] if sujets else "❌ Aucun exercice disponible."
             prompt = (
                 f"{document_reference}\n\n"
                 f"Voici un exercice extrait du sujet officiel :\n{question}\n"
@@ -110,7 +74,6 @@ def ask():
 
         reply = chat_completion.choices[0].message.content.strip()
         return jsonify({"response": reply})
-
     except Exception as e:
         return jsonify({"response": f"❌ Erreur : {str(e)}"})
 
@@ -120,10 +83,10 @@ def examen():
 
 @app.route("/get_examen", methods=["GET"])
 def get_examen():
-    exercices = extraire_exercices_du_pdf("static/pdf/BNS_2025_pdf_unique.pdf")
-    if not exercices:
+    sujets = charger_exercices_md()
+    if not sujets:
         return jsonify({"exercice1": "❌ Exercice 1 introuvable", "exercice2": "❌ Exercice 2 introuvable"})
-    sujet = random.choice(exercices)
+    sujet = random.choice(sujets)
     return jsonify({"exercice1": sujet[0], "exercice2": sujet[1]})
 
 @app.route("/correction-examen", methods=["POST"])
