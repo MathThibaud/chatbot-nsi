@@ -8,6 +8,17 @@
     <!-- ✅ Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- ✅ Highlight.js pour la coloration des réponses -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <!-- ✅ CodeMirror pour la saisie avec coloration -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
+
+    <!-- ✅ Style -->
     <style>
         body {
             background-image: url('../static/images/fond.jpg');
@@ -17,7 +28,7 @@
             background-attachment: fixed;
             margin: 0;
             font-family: sans-serif;
-            }
+        }
 
         #chat {
             background-color: #fff;
@@ -30,24 +41,33 @@
         }
 
         pre, code {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: Consolas, 'Courier New', monospace;
-    font-size: 0.95em;
-    line-height: 1.6; /* ✅ augmente l'espacement vertical */
-    white-space: pre-wrap; /* ✅ garde les retours à la ligne */
-    word-break: break-word; /* ✅ évite les débordements horizontaux */
-    overflow-x: auto; /* ✅ permet le défilement horizontal si nécessaire */
-}
-
-        textarea {
-            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            display: block;
         }
 
-        h1{
+        .copy-button {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
             color: whitesmoke;
             font-family: Monaco, Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .CodeMirror {
+            height: 150px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.95em;
         }
     </style>
 </head>
@@ -58,7 +78,8 @@
 
     <div id="chat" class="mb-3"></div>
 
-    <textarea id="userInput" class="form-control mb-3" rows="5" placeholder="Écris ta réponse ici..."></textarea>
+    <!-- ✅ Éditeur CodeMirror à la place du textarea -->
+    <div id="codeEditor" class="mb-3"></div>
 
     <div class="d-flex justify-content-between">
         <button class="btn btn-secondary" onclick="start()">Commencer l'entraînement</button>
@@ -66,22 +87,30 @@
     </div>
 </div>
 
-<!-- ✅ Marked.js for Markdown rendering -->
+<!-- ✅ Marked.js pour afficher Markdown -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
+    // ✅ Initialiser CodeMirror
+    const editor = CodeMirror(document.getElementById("codeEditor"), {
+        mode: "python",
+        lineNumbers: true,
+        theme: "default",
+        indentUnit: 4,
+        tabSize: 4,
+        indentWithTabs: false,
+    });
+
     function isCode(message) {
         const codeKeywords = ["def ", "for ", "while ", "if ", "elif ", "else:", "return", "assert", "=", ":", "print(", "input(", "#"];
         return codeKeywords.some(keyword => message.includes(keyword));
     }
 
     async function send() {
-        const input = document.getElementById("userInput");
         const chat = document.getElementById("chat");
-        const message = input.value.trim();
+        const message = editor.getValue().trim();
         if (!message) return;
 
-        // ➕ Formatage conditionnel
         let formatted;
         if (isCode(message)) {
             formatted = "```python\n" + message + "\n```";
@@ -90,7 +119,7 @@
         }
 
         chat.innerHTML += `<div><strong>👨‍🎓</strong><br>${marked.parse(formatted)}</div><hr>`;
-        input.value = "";
+        editor.setValue("");
 
         const res = await fetch("/ask", {
             method: "POST",
@@ -100,6 +129,8 @@
 
         const data = await res.json();
         chat.innerHTML += `<div><strong>🤖</strong><br>${marked.parse(data.response)}</div><hr>`;
+
+        mettreAJourCodeBlocks();
         chat.scrollTop = chat.scrollHeight;
     }
 
@@ -115,7 +146,38 @@
 
         const data = await res.json();
         chat.innerHTML += `<div><strong>🤖</strong><br>${marked.parse(data.response)}</div><hr>`;
+
+        mettreAJourCodeBlocks();
         chat.scrollTop = chat.scrollHeight;
+    }
+
+    // ✅ Ajout coloration + boutons "copier"
+    function mettreAJourCodeBlocks() {
+        const blocks = document.querySelectorAll('pre code');
+        blocks.forEach((block) => {
+            hljs.highlightElement(block);
+
+            const pre = block.parentElement;
+            if (!pre.querySelector('.copy-button')) {
+                const btn = document.createElement('button');
+                btn.textContent = "📋 Copier";
+                btn.className = "btn btn-sm btn-outline-secondary copy-button";
+                btn.onclick = () => copierTexte(block, btn);
+                pre.appendChild(btn);
+            }
+        });
+    }
+
+    // ✅ Fonction de copie
+    function copierTexte(element, bouton) {
+        const texte = element.innerText;
+        navigator.clipboard.writeText(texte).then(() => {
+            const ancienTexte = bouton.textContent;
+            bouton.textContent = "✅ Copié !";
+            setTimeout(() => {
+                bouton.textContent = ancienTexte;
+            }, 1500);
+        });
     }
 </script>
 </body>
