@@ -4,7 +4,6 @@ from openai import OpenAI
 import os
 import random
 import fitz  # PyMuPDF
-import re
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -12,7 +11,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
-        pages = [page.get_text().replace("\n", " ").strip() for page in doc]
+        pages = [page.get_text() for page in doc]  # conserve les 
+
         sujets = []
         i = 0
         while i < len(pages):
@@ -22,16 +22,16 @@ def extraire_exercices_du_pdf(pdf_path):
                 ex2 = ""
                 # Récupérer pages de l'exercice 1
                 while i < len(pages) and "EXERCICE 2" not in pages[i]:
-                    ex1 += " " + pages[i]
+                    ex1 += "\n" + pages[i]
                     i += 1
                 # Récupérer pages de l'exercice 2
                 while i < len(pages) and ("EXERCICE 1" not in pages[i] or "EXERCICE 2" in pages[i]):
-                    ex2 += " " + pages[i]
+                    ex2 += "\n" + pages[i]
                     i += 1
-                # Nettoyage et découpe
+                # Nettoyage
                 ex1_txt = ex1.split("EXERCICE 1", 1)[1].strip() if "EXERCICE 1" in ex1 else ex1.strip()
                 ex2_txt = ex2.split("EXERCICE 2", 1)[1].strip() if "EXERCICE 2" in ex2 else ex2.strip()
-                sujets.append(("EXERCICE 1 " + ex1_txt, "EXERCICE 2 " + ex2_txt))
+                sujets.append(("EXERCICE 1\n" + ex1_txt, "EXERCICE 2\n" + ex2_txt))
             else:
                 i += 1
         return sujets
@@ -138,4 +138,3 @@ def correction_examen():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-

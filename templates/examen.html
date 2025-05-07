@@ -15,7 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
 
-    <!-- Markdown rendering -->
+    <!-- Highlight.js pour syntaxe Python -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!-- Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -25,13 +29,13 @@
 
     <div class="mb-4">
         <h2>Exercice 1</h2>
-        <pre id="consigne1" class="p-2 bg-light border rounded"></pre>
+        <pre><code id="consigne1" class="language-python bg-light border p-3 rounded"></code></pre>
         <div id="editor1" class="mb-4"></div>
     </div>
 
     <div class="mb-4">
         <h2>Exercice 2</h2>
-        <pre id="consigne2" class="p-2 bg-light border rounded"></pre>
+        <pre><code id="consigne2" class="language-python bg-light border p-3 rounded"></code></pre>
         <div id="editor2" class="mb-4"></div>
     </div>
 
@@ -49,8 +53,10 @@
     window.onload = async function() {
         const res = await fetch("/get_examen");
         const data = await res.json();
-        document.getElementById("consigne1").innerText = data.exercice1;
-        document.getElementById("consigne2").innerText = data.exercice2;
+
+        document.getElementById("consigne1").textContent = data.exercice1;
+        document.getElementById("consigne2").textContent = data.exercice2;
+        hljs.highlightAll();
 
         editeur1 = CodeMirror(document.getElementById("editor1"), {
             mode: "python",
