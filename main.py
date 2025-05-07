@@ -11,8 +11,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
-        pages = [page.get_text() for page in doc]  # conserve les 
-
+        pages = [page.get_text() for page in doc]
         sujets = []
         i = 0
         while i < len(pages):
@@ -20,12 +19,12 @@ def extraire_exercices_du_pdf(pdf_path):
             if "EXERCICE 1" in page:
                 ex1 = ""
                 ex2 = ""
-                # Récupérer pages de l'exercice 1
+                # Récupérer pages pour Exercice 1
                 while i < len(pages) and "EXERCICE 2" not in pages[i]:
                     ex1 += "\n" + pages[i]
                     i += 1
-                # Récupérer pages de l'exercice 2
-                while i < len(pages) and ("EXERCICE 1" not in pages[i] or "EXERCICE 2" in pages[i]):
+                # Récupérer pages pour Exercice 2
+                while i < len(pages) and "BACCALAURÉAT SESSION" not in pages[i]:
                     ex2 += "\n" + pages[i]
                     i += 1
                 # Nettoyage
@@ -38,6 +37,7 @@ def extraire_exercices_du_pdf(pdf_path):
     except Exception as e:
         print("❌ Erreur d’extraction PDF :", e)
         return []
+
 
 @app.route("/")
 def index():
