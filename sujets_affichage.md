@@ -7,6 +7,7 @@ On considère dans cet exercice un graphe orienté représenté sous forme de li
 cence.
 On suppose que les sommets sont numérotés de 0 à n-1.
 Par exemple, le graphe suivant:
+<image: DeviceGray, width: 168, height: 347, bpc: 8>
 est représenté par la liste d’adjacence suivante:
 adj = [[1, 2], [2], [0], [0]]
 Écrire une fonction voisins_entrants(adj, x) qui prend en paramètre le graphe
@@ -109,7 +110,6 @@ return False
 ... .append(...)
 return True
 
-
 def nombre_points_rupture(ordre):
 '''
 Renvoie le nombre de point de rupture de ordre qui représente
@@ -204,8 +204,8 @@ Exemples :
 Écrire une fonction ecriture_binaire_entier_positif qui prend en paramètre
 un entier positif n et renvoie une chaine de caractère correspondant à l’écriture binaire de
 n.
-On rappelle que :
 - l’écriture binaire de 25 est 11001 car 25 = 1×24 +1×23 +0×22 +0×21 +1×20
+On rappelle que :
 ;
 - n % 2 vaut 0 ou 1 selon que n est pair ou impair ;
 - n // 2 donne le quotient de la division euclidienne de n par 2.
@@ -331,10 +331,10 @@ Exemples :
 ## EXERCICE 1
 
 (10 points)
-On rappelle que :
 - le nombre 𝑎𝑛 est le nombre 𝑎 × 𝑎 × 𝑎 × ⋯ × 𝑎, où le facteur 𝑎 apparaît 𝑛 fois,
 - en langage Python, l’instruction t[-1] permet d’accéder au dernier élément du
 tableau t.
+On rappelle que :
 Dans cet exercice, l’opérateur ** et la fonction pow ne sont pas autorisés.
 ProgrammerenlangagePythonunefonctionliste_puissancesquiprendenargument
 un nombre entier 𝑎, un entier strictement positif 𝑛 et qui renvoie la liste de ses puissances
@@ -434,7 +434,6 @@ et d’un booléen indiquant si le mot est parfait ou non.
 On rappelle que pour tester si un entier b divise un entier a, on utilise l’opérateur modulo
 a % b qui renvoie le reste de la division euclidienne de a par b. Si a % b vaut 0, alors b
 divise a.
-
 
 def codes_parfait(mot):
 """Renvoie un triplet
@@ -579,7 +578,6 @@ Elle est, par contre, mal parenthésée :
 - si dans le parcours, on trouve une parenthèse fermante, alors que la pile est vide ;
 - ou si, à la fin du parcours, la pile n’est pas vide.
 Compléter le code de la fonction bon_parenthesage ci-dessous:
-
 
 def bon_parenthesage(ch):
 """Renvoie un booléen indiquant si la chaîne ch
@@ -824,7 +822,6 @@ return romains[nombre[0]] + ...
 else:
 return ...
 
-
 Exemples :
 >>> traduire_romain("XIV")
 14
@@ -974,9 +971,6 @@ else:
 nouvelle_image[i][j] = ...
 return nouvelle_image
 
-
-
-
 Exemples :
 >>> img=[[20, 34, 254, 145, 6], [23, 124, 237, 225, 69],
 [197, 174, 207, 25, 87], [255, 0, 24, 197, 189]]
@@ -1072,6 +1066,7 @@ On cherche à déterminer les valeurs du triangle de Pascal (Figure 1).
 Dans le triangle de Pascal, chaque ligne commence et se termine par le nombre 1. Comme
 l’illustre la Figure 2, on additionne deux valeurs successives d’une ligne pour obtenir la
 valeur qui se situe sous la deuxième valeur.
+<image: DeviceRGB, width: 570, height: 230, bpc: 8>
 Compléter les fonctions ligne_suivante et pascal ci-dessous.
 La fonction
 ligne_suivante prend en paramètre une liste d’entiers ligne correspondant à une
@@ -1115,6 +1110,7 @@ def __init__(self, etiquette, gauche, droit):
 self.v = etiquette
 self.gauche = gauche
 self.droit = droit
+<image: DeviceGray, width: 160, height: 107, bpc: 8>
 L’arbre ci-dessus sera donc implémenté de la manière suivante :
 a = Noeud(1, Noeud(4, None, None),
 Noeud(0, None,
@@ -1289,7 +1285,6 @@ tab = [0, 0, 1, 0, 1, 0, 1, 1]
 ^
 ^
 
-
 - Étape 4 : on regarde la troisième case, qui contient un 1 : ce 1 va aller dans la seconde
 partie du tableau final et on l’échange avec l’avant-dernière case. Il est à présent bien
 positionné : on ne prend plus l’avant-dernière case en compte.
@@ -1368,7 +1363,6 @@ def recuperer_carte(self, pos):
 (entier compris entre 0 et 51). """
 ...
 ...
-
 
 Exemple :
 >>> jeu = Paquet_de_cartes()
@@ -1573,7 +1567,6 @@ tant l’écriture d’un nombre en binaire et renvoie l’écriture décimale d
 >>> bin_to_dec('101010')
 42
 
-
 def dec_to_bin(nb_dec):
 q, r = nb_dec // 2, nb_dec % 2
 if q == ...:
@@ -1644,7 +1637,7 @@ dans l’arbre, et qui :
 - garantit que l’arbre ainsi complété soit encore un arbre binaire de recherche.
 Tester ensuite ce code en utilisant la fonction parcours et en insérant successivement des
 nœuds d’étiquette 1, 4, 6 et 8 dans l’arbre binaire de recherche représenté ci- dessous :
-
+<image: DeviceRGB, width: 153, height: 138, bpc: 8>
 
 def insere(arbre, cle):
 """insere la cle dans l'arbre binaire de recherche
@@ -1750,6 +1743,7 @@ Exemples :
 (10 points)
 On considère une piste carrée qui contient 4 cases par côté. Les cases sont numérotées de 0
 inclus à 12 exclu comme ci-dessous :
+<image: DeviceGray, width: 150, height: 152, bpc: 8>
 L’objectif de l’exercice est d’implémenter le jeu suivant :
 Au départ, le joueur place son pion sur la case 0. A chaque coup, il lance un dé équilibré à
 six faces et avance son pion d’autant de cases que le nombre indiqué par le dé (entre 1 et 6
@@ -1845,7 +1839,6 @@ nmax = ...
 liste_finale = [ nom for nom in election if ... ]
 return ...
 
-
 Exemples d’utilisation :
 >>> depouille([ 'A', 'B', 'A' ])
 {'A': 2, 'B': 1}
@@ -1894,6 +1887,7 @@ dessus, en dessous, à droite, à gauche ou en diagonale : chaque case a donc 8 
 n’est pas située au bord de la grille).
 Un exemple de grille 5 × 5 de démineur dans laquelle la bombe est représentée par une
 étoile est représenté ci-dessous.
+<image: DeviceRGB, width: 195, height: 197, bpc: 8>
 On utilise une liste de listes pour représenter la grille et on choisit de coder une bombe par
 la valeur -1.
 L’exemple ci-dessus sera donc codé par la liste :
@@ -1916,7 +1910,6 @@ Compléter le code situé à la page suivante afin de générer des grilles de d
 vérifier que l’appel
 genere_grille([(1, 1), (2, 4), (3, 1), (3, 3), (4, 4)])
 renvoie bien la liste donnée en exemple.
-
 
 def voisinage(n, ligne, colonne):
 """ Renvoie la liste des coordonnées des voisins de la case
@@ -2036,7 +2029,6 @@ l’intrus est donc à droite des indices 3-4-5, donc à partir de l’indice 6.
 Compléter la fonction récursive trouver_intrus proposée page suivante qui met en œuvre
 cet algorithme.
 
-
 def trouver_intrus(tab, g, d):
 """Renvoie la valeur de l'intrus situé entre les indices g et d
 ↪
@@ -2091,6 +2083,7 @@ Une expression arithmétique ne comportant que les quatre opérations +, −, ×
 représentée sous forme d’arbre binaire. Les nœuds internes sont des opérateurs et les
 feuilles sont des nombres. Dans un tel arbre, la disposition des nœuds joue le rôle des
 parenthèses que nous connaissons bien.
+<image: DeviceGray, width: 313, height: 384, bpc: 8>
 En parcourant en profondeur infixe l’arbre binaire ci-dessus, on retrouve l’expression notée
 habituellement :
 (3 × (8 + 7)) − (2 + 1)
@@ -2112,7 +2105,6 @@ def est_une_feuille(self):
 """renvoie True si et seulement
 si le noeud est une feuille"""
 return self.gauche is None and self.droite is None
-
 
 def infixe(self):
 """renvoie la représentation infixe de l'expression en
@@ -2165,6 +2157,7 @@ Exemples:
 Dans cet exercice, on considère un graphe non orienté représenté sous forme de listes
 d’adjacence. On suppose que les sommets sont numérotés de 0 à n-1.
 Ainsi, le graphe suivant:
+<image: DeviceGray, width: 234, height: 132, bpc: 8>
 sera représenté par la liste d’adjacence suivante:
 adj = [[1, 2], [0, 3], [0], [1], [5], [4]]
 On souhaite déterminer les sommets accessibles depuis un sommet donné dans le graphe.
@@ -2251,6 +2244,7 @@ Dans cet exercice, on considère des arbres binaires de recherche qui sont :
 - soit l’arbre vide identifié par None ;
 - soit un nœud, contenant une clé et deux sous-arbres gauche et droit et représenté
 par un triplet (g, v, d) où g et d sont les sous-arbres gauche et droit et v la clé.
+<image: DeviceRGB, width: 391, height: 294, bpc: 8>
 Ainsi, l’arbre binaire de recherche abr1 ci-dessus est créé par le code python ci-dessous
 n0 = (None, 0, None)
 n3 = (None, 3, None)
@@ -2434,7 +2428,6 @@ si la pile n’est pas vide. Produit une erreur sinon.
 assert not self.est_vide()
 return self.contenu.pop()
 
-
 def eval_expression(tab):
 p = Pile()
 for ... in tab:
@@ -2540,10 +2533,10 @@ arbre.inserer(cle)
 On considère dans cet exercice une représentation binaire d’un entier non signé en tant que
 tableau de booléens.
 Si
-tab = [True, False, True, False, False, True, True]
 est un tel tableau, alors l’entier qu’il représente est 26 + 24 + 21 + 20 = 83. Cette représen-
 tation consistant à placer en premier le booléen indiquant la puissance la plus élevée de 2
 est dite big-endian ou grand-boutiste.
+tab = [True, False, True, False, False, True, True]
 Écrire une fonction gb_vers_entier qui prend en paramètre un tel tableau et renvoie
 l’entier qu’il représente.
 Exemple :
@@ -2617,6 +2610,7 @@ un entier positif a en écriture décimale et renvoie son écriture binaire sous
 chaine de caractères.
 L’algorithme utilise la méthode des divisions euclidiennes successives comme l’illustre
 l’exemple ci-après.
+<image: DeviceRGB, width: 480, height: 342, bpc: 8>
 Compléter le code de la fonction binaire.
 def binaire(a):
 '''convertit un nombre entier a en sa representation
@@ -2769,7 +2763,6 @@ return round( ... / total_coefficients, 1 )
 else:
 return None
 
-
 Exemples :
 >>> moyenne("Dupont", resultats)
 14.5
@@ -2804,6 +2797,7 @@ Exemples :
 Dans cet exercice, on appelle carré d’ordre 𝑛 un tableau de 𝑛 lignes et 𝑛 colonnes dont
 chaque case contient un entier naturel.
 Exemples :
+<image: DeviceGray, width: 847, height: 211, bpc: 8>
 Un carré est dit semimagique lorsque les sommes des éléments situés sur chaque ligne,
 chaque colonne sont égales.
 - Ainsi c2 et c3 sont semimagiques car la somme de chaque ligne et chaque colonne
@@ -2832,7 +2826,6 @@ def affiche(self):
 '''Affiche un carré'''
 for i in range(self.ordre):
 print(self.tableau[i])
-
 
 def somme_ligne(self, i):
 '''Calcule la somme des valeurs de la ligne i'''
@@ -2882,6 +2875,7 @@ Exemples :
 (10 points)
 Pour rappel, la conversion d’un nombre entier positif en binaire peut s’effectuer à l’aide des
 divisions successives comme illustré ici :
+<image: DeviceRGB, width: 206, height: 156, bpc: 8>
 Voici une fonction Python basée sur la méthode des divisions successives permettant de
 convertir un nombre entier positif en binaire :
 Compléter la fonction binaire.
@@ -2931,12 +2925,15 @@ appelés pixels, sont égaux soit à 0 soit à 1.
 Une composante d’une image est un sous-ensemble de l’image constitué uniquement de 1
 et de 0 qui sont côte à côte, soit horizontalement soit verticalement.
 Par exemple, les composantes de
+<image: DeviceGray, width: 306, height: 148, bpc: 8>
+<image: DeviceGray, width: 299, height: 139, bpc: 8>
 sont
 On souhaite, à partir d’un pixel égal à 1 dans une image M, donner la valeur val à tous les
 pixels de la composante à laquelle appartient ce pixel.
 La fonction colore_comp1 prend pour paramètre une image M (représentée par une liste
 de listes), deux entiers i et j et une valeur entière val. Elle met à la valeur val tous les
 pixels de la composante du pixel M[i][j] s’il vaut 1 et ne fait rien sinon.
+<image: DeviceGray, width: 312, height: 147, bpc: 8>
 Par exemple, colore_comp1(M, 2, 1, 3) donne
 Compléter le code récursif de la fonction colore_comp1 donné ci-dessous :
 def colore_comp1(M, i, j, val):
@@ -2985,6 +2982,7 @@ None
 ## EXERCICE 2
 
 (10 points)
+<image: DeviceRGB, width: 230, height: 168, bpc: 8>
 On travaille sur des dessins en noir et blanc obtenus à partir de pixels noirs et blancs : La
 figure « cœur » ci-dessus va servir d’exemple. On la représente par une grille de nombres,
 c’est-à-dire par une liste composée de sous-listes de même longueur. Chaque sous-liste
@@ -3016,7 +3014,6 @@ for elt in ... :
 for i in range(k):
 ...
 return liste_zoomee
-
 
 def dessin_zoom(grille,k):
 '''renvoie une grille où les lignes sont zoomées k fois
@@ -3171,7 +3168,6 @@ Compléter la fonction est_cyclique située à la page suivante en respectant la
 tion. On rappelle que la fonction Python len permet d’obtenir la longueur d’un diction-
 naire.
 
-
 def est_cyclique(plan):
 '''Prend en paramètre un dictionnaire `plan` correspondant à
 un plan d'envoi de messages (ici entre les personnes A, B, C,
@@ -3262,6 +3258,7 @@ dictionnaire où les clefs sont les caractères des nœuds de l’arbre et les v
 clef, la liste des caractères des fils gauche et droit du nœud. On utilise la valeur '' pour
 représenter un fils vide.
 Par exemple, l’arbre
+<image: DeviceRGB, width: 255, height: 245, bpc: 8>
 est stocké dans
 a = {'F':['B','G'], 'B':['A','D'], 'A':['',''], 'D':['C','E'], \
 'C':['',''], 'E':['',''], 'G':['','I'], 'I':['','H'], \
