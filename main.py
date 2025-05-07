@@ -12,22 +12,19 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
+        raw_pages = [page.get_text() for page in doc]
         sujets = []
-        pages = []
-        for page in doc:
-            texte = page.get_text()
-            # Supprimer les repères de pagination comme "2 / 3"
-            texte = re.sub(r"\b\d+\s*/\s*\d+\b", "", texte)
-            pages.append(texte)
-
         i = 0
-        while i < len(pages):
-            page = pages[i]
+
+        while i < len(raw_pages):
+            page = raw_pages[i]
             match_debut = re.search(r"1\s*/\s*(\d)", page)
             if match_debut:
                 n = int(match_debut.group(1))
-                bloc = pages[i:i + n] if i + n <= len(pages) else pages[i:]
-                texte_complet = "\n".join(bloc)
+                bloc = raw_pages[i:i + n] if i + n <= len(raw_pages) else raw_pages[i:]
+                # Supprimer les repères de pagination *après* avoir détecté le bloc
+                bloc_nettoye = [re.sub(r"\b\d+\s*/\s*\d+\b", "", p) for p in bloc]
+                texte_complet = "\n".join(bloc_nettoye)
                 if "EXERCICE 1" in texte_complet and "EXERCICE 2" in texte_complet:
                     partie1 = texte_complet.split("EXERCICE 1", 1)[1]
                     partie2 = partie1.split("EXERCICE 2", 1)
