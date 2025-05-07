@@ -8,35 +8,34 @@ import fitz  # PyMuPDF
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+import re
+
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
         pages = [page.get_text() for page in doc]
         sujets = []
-        i = 0
-        while i < len(pages):
-            page = pages[i]
-            if "EXERCICE 1" in page:
-                ex1 = ""
-                ex2 = ""
-                # Récupérer pages pour Exercice 1
-                while i < len(pages) and "EXERCICE 2" not in pages[i]:
-                    ex1 += "\n" + pages[i]
-                    i += 1
-                # Récupérer pages pour Exercice 2
-                while i < len(pages) and "BACCALAURÉAT SESSION" not in pages[i]:
-                    ex2 += "\n" + pages[i]
-                    i += 1
-                # Nettoyage
-                ex1_txt = ex1.split("EXERCICE 1", 1)[1].strip() if "EXERCICE 1" in ex1 else ex1.strip()
-                ex2_txt = ex2.split("EXERCICE 2", 1)[1].strip() if "EXERCICE 2" in ex2 else ex2.strip()
-                sujets.append(("EXERCICE 1\n" + ex1_txt, "EXERCICE 2\n" + ex2_txt))
-            else:
-                i += 1
+
+        bloc = []
+        for page in pages:
+            bloc.append(page)
+            # On détecte une fin de sujet par le motif "x / x" (ex : "3 / 3")
+            match = re.search(r"(\\b[1-9]\\s*/\\s*[1-9]\\b)", page)
+            if match:
+                texte_complet = "\n".join(bloc)
+                if "EXERCICE 1" in texte_complet and "EXERCICE 2" in texte_complet:
+                    # Séparer les deux exercices
+                    partie1 = texte_complet.split("EXERCICE 1", 1)[1]
+                    partie2 = partie1.split("EXERCICE 2", 1)
+                    ex1 = "EXERCICE 1\n" + partie2[0].strip()
+                    ex2 = "EXERCICE 2\n" + partie2[1].strip() if len(partie2) > 1 else "❌ Exercice 2 non trouvé"
+                    sujets.append((ex1, ex2))
+                bloc = []  # reset pour le prochain sujet
         return sujets
     except Exception as e:
         print("❌ Erreur d’extraction PDF :", e)
         return []
+
 
 
 @app.route("/")
