@@ -9,10 +9,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°01
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 On considère dans cet exercice un graphe orienté représenté sous forme de listes d’adja-
@@ -25,19 +25,26 @@ adj = [[1, 2], [2], [0], [0]]
 donné sous forme de liste d’adjacence et qui renvoie une liste contenant les voisins entrants
 du sommet x, c’est-à-dire les sommets y tels qu’il existe une arête de y vers x.
 Exemples:
+
+
+```python
 >>> voisins_entrants([[1, 2], [2], [0], [0]], 0)
 [2, 3]
+```
+
+
+```python
 >>> voisins_entrants([[1, 2], [2], [0], [0]], 1)
 [0]
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère dans cet exercice la suite de nombre suivante : 1, 11, 21, 1211, 111221, …
 Cette suite est construite ainsi : pour passer d’une valeur à la suivante, on la lit et on l’écrit
 sous la forme d’un nombre. Ainsi, pour 1211 :
-• on lit un 1, un 2, deux 1 ;
-• on écrit donc en nombre 1 1, 1 2, 2 1 ;
-• puis on concatène 111221.
+- on lit un 1, un 2, deux 1 ;
+- on écrit donc en nombre 1 1, 1 2, 2 1 ;
+- puis on concatène 111221.
 Compléter la fonction nombre_suivant qui prend en entrée un nombre sous forme de
 chaine de caractère et qui renvoie le nombre suivant par ce procédé, encore sous forme de
 chaîne de caractère.
@@ -58,11 +65,22 @@ lecture_... = ... + ...
 resultat += lecture_chiffre
 return resultat
 Exemples
+```
+
+
+```python
 >>> nombre_suivant('1211')
 '111221'
+```
+
+
+```python
 >>> nombre_suivant('311')
 '1321'
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -77,10 +95,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°02
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction max_et_indice qui prend en paramètre un tableau non vide tab
@@ -88,35 +106,50 @@ EXERCICE 1 (10 points)
 ce tableau ainsi que l’indice de sa première apparition dans ce tableau.
 L’utilisation de la fonction native max n’est pas autorisée.
 Exemples :
+
+
+```python
 >>> max_et_indice([1, 5, 6, 9, 1, 2, 3, 7, 9, 8])
 (9, 3)
+```
+
+
+```python
 >>> max_et_indice([-2])
 (-2, 0)
+```
+
+
+```python
 >>> max_et_indice([-1, -1, 3, 3, 3])
 (3, 2)
+```
+
+
+```python
 >>> max_et_indice([1, 1, 1, 1])
 (1, 0)
-2 / 4
+
 
 EXERCICE 2 (10 points)
 L’ordre des gènes sur un chromosome est représenté par un tableau ordre de n cases
 d’entiers distincts deux à deux et compris entre 1 et n.
 Par exemple, ordre = [5, 4, 3, 6, 7, 2, 1, 8, 9] dans le cas n = 9.
 On dit qu’il y a un point de rupture dans ordre dans chacune des situations suivantes :
-• la première valeur de ordre n’est pas 1 ;
-• l’écart entre deux gènes consécutifs n’est pas égal à 1 ;
-• la dernière valeur de ordre n’est pas n.
+- la première valeur de ordre n’est pas 1 ;
+- l’écart entre deux gènes consécutifs n’est pas égal à 1 ;
+- la dernière valeur de ordre n’est pas n.
 Par exemple, si ordre = [5, 4, 3, 6, 7, 2, 1, 8, 9] avec n = 9, on a
-• un point de rupture au début car 5 est différent de 1
-• un point de rupture entre 3 et 6 (l’écart est de 3)
-• un point de rupture entre 7 et 2 (l’écart est de 5)
-• un point de rupture entre 1 et 8 (l’écart est de 7)
+- un point de rupture au début car 5 est différent de 1
+- un point de rupture entre 3 et 6 (l’écart est de 3)
+- un point de rupture entre 7 et 2 (l’écart est de 5)
+- un point de rupture entre 1 et 8 (l’écart est de 7)
 Il y a donc 4 points de rupture.
 Compléter les fonctions Python est_un_ordre et nombre_points_rupture pro-
 posées à la page suivante pour que :
-• la fonction est_un_ordre renvoie True si le tableau passé en paramètre
+- la fonction est_un_ordre renvoie True si le tableau passé en paramètre
 représente bien un ordre de gènes de chromosome et False sinon ;
-• la fonction nombre_points_rupture renvoie le nombre de points de rupture
+- la fonction nombre_points_rupture renvoie le nombre de points de rupture
 d’un tableau passé en paramètre représentant l’ordre de gènes d’un chromosome.
 def est_un_ordre(tab):
 '''
@@ -131,7 +164,7 @@ if x < ... or x >... or ...:
 return False
 ... .append(...)
 return True
-3 / 4
+
 
 def nombre_points_rupture(ordre):
 '''
@@ -152,19 +185,46 @@ i = i + 1
 if ordre[i] != ...: # le dernier n'est pas n
 nb = nb + 1
 Exemples :
+```
+
+
+```python
 >>> est_un_ordre([1, 6, 2, 8, 3, 7])
 False
+```
+
+
+```python
 >>> est_un_ordre([5, 4, 3, 6, 7, 2, 1, 8, 9])
 True
+```
+
+
+```python
 >>> nombre_points_rupture([5, 4, 3, 6, 7, 2, 1, 8, 9])
 4
+```
+
+
+```python
 >>> nombre_points_rupture([1, 2, 3, 4, 5])
 0
+```
+
+
+```python
 >>> nombre_points_rupture([1, 6, 2, 8, 3, 7, 4, 5])
 7
+```
+
+
+```python
 >>> nombre_points_rupture([2, 1, 3, 4])
 2
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -179,15 +239,15 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°03
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 On s’intéresse à la suite d’entiers définie par :
-• les deux premières valeurs sont égales à 1 ;
-• ensuite, chaque valeur est obtenue en faisant la somme des deux valeurs qui la précè-
+- les deux premières valeurs sont égales à 1 ;
+- ensuite, chaque valeur est obtenue en faisant la somme des deux valeurs qui la précè-
 dent.
 La troisième valeur est donc 1+1 = 2, la quatrième est 1+2 = 3, la cinquième est 2+3 = 5,
 la sixième est 3 + 5 = 8, et ainsi de suite.
@@ -195,13 +255,24 @@ Cette suite d’entiers est connue sous le nom de suite de Fibonacci.
 Écrire en Python une fonction fibonacci qui prend en paramètre un entier n supposé
 strictement positif et qui renvoie le terme d’indice n de cette suite.
 Exemples :
+
+
+```python
 >>> fibonacci(1)
 1
+```
+
+
+```python
 >>> fibonacci(2)
 1
+```
+
+
+```python
 >>> fibonacci(25)
 75025
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère la fonction eleves_du_mois prenant en paramètres eleves et notes
@@ -224,11 +295,26 @@ note_maxi = ...
 meilleurs_eleves = [...]
 return (note_maxi, meilleurs_eleves)
 Exemples :
+```
+
+
+```python
 >>> eleves_nsi = ['a','b','c','d','e','f','g','h','i','j']
+```
+
+
+```python
 >>> notes_nsi = [30, 40, 80, 60, 58, 80, 75, 80, 60, 24]
+```
+
+
+```python
 >>> eleves_du_mois(eleves_nsi, notes_nsi)
 (80, ['c', 'f', 'h'])
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -243,33 +329,52 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°04
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction ecriture_binaire_entier_positif qui prend en paramètre
 un entier positif n et renvoie une chaine de caractère correspondant à l’écriture binaire de
 n.
 On rappelle que :
-• l’écriture binaire de 25 est 11001 car 25 = 1×24 +1×23 +0×22 +0×21 +1×20
+- l’écriture binaire de 25 est 11001 car 25 = 1×24 +1×23 +0×22 +0×21 +1×20
 ;
-• n % 2 vaut 0 ou 1 selon que n est pair ou impair ;
-• n // 2 donne le quotient de la division euclidienne de n par 2.
+- n % 2 vaut 0 ou 1 selon que n est pair ou impair ;
+- n // 2 donne le quotient de la division euclidienne de n par 2.
 Il est interdit dans cet exercice d’utiliser la fonction bin de Python.
 Exemples :
+
+
+```python
 >>> 5 % 2
 1
+```
+
+
+```python
 >>> 5 // 2
 2
+```
+
+
+```python
 >>> ecriture_binaire_entier_positif(0)
 '0'
+```
+
+
+```python
 >>> ecriture_binaire_entier_positif(2)
 '10'
+```
+
+
+```python
 >>> ecriture_binaire_entier_positif(105)
 '1101001'
-2 / 3
+
 
 EXERCICE 2 (10 points)
 La fonction tri_bulles prend en paramètre un tableau tab d’entiers (type list) et le
@@ -282,11 +387,11 @@ dernière position le plus grand élément du tableau privé de son dernier él�
 dant encore à des échanges d’éléments voisins. Ce principe est répété jusqu’à placer le
 minimum en première position.
 Exemple : pour trier le tableau [7, 9, 4, 3] :
-• première étape : 7 et 9 ne sont pas échangés, puis 9 et 4 sont échangés, puis 9 et 3
+- première étape : 7 et 9 ne sont pas échangés, puis 9 et 4 sont échangés, puis 9 et 3
 sont échangés, le tableau est alors [7, 4, 3, 9]
-• deuxième étape : 7 et 4 sont échangés, puis 7 et 3 sont échangés, le tableau est alors
+- deuxième étape : 7 et 4 sont échangés, puis 7 et 3 sont échangés, le tableau est alors
 [4, 3, 7, 9]
-• troisième étape : 4 et 3 sont échangés, le tableau est alors [3, 4, 7, 9]
+- troisième étape : 4 et 3 sont échangés, le tableau est alors [3, 4, 7, 9]
 Compléter le code Python ci-dessous qui implémente la fonction tri_bulles.
 def echange(tab, i, j):
 '''Echange les éléments d'indice i et j dans le tableau tab.'''
@@ -302,19 +407,58 @@ for j in range(...):
 if ... > ...:
 echange(tab, j, ...)
 Exemples :
+```
+
+
+```python
 >>> tab = []
+```
+
+
+```python
 >>> tri_bulles(tab)
+```
+
+
+```python
 >>> tab
 []
+```
+
+
+```python
 >>> tab2 = [9, 3, 7, 2, 3, 1, 6]
+```
+
+
+```python
 >>> tri_bulles(tab2)
+```
+
+
+```python
 >>> tab2
 [1, 2, 3, 3, 6, 7, 9]
+```
+
+
+```python
 >>> tab3 = [9, 7, 4, 3]
+```
+
+
+```python
 >>> tri_bulles(tab3)
+```
+
+
+```python
 >>> tab3
 [3, 4, 7, 9]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -329,22 +473,33 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°05
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Programmer une fonction renverse, prenant en paramètre une chaîne de caractères non
 vide mot et renvoie cette chaîne de caractères en ordre inverse.
 Exemple :
+
+
+```python
 >>> renverse("")
 ""
+```
+
+
+```python
 >>> renverse("abc")
 "cba"
+```
+
+
+```python
 >>> renverse("informatique")
 "euqitamrofni"
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Un nombre premier est un nombre entier naturel qui admet exactement deux diviseurs
@@ -355,10 +510,10 @@ On considère pour cela un tableau tab de n booléens (type list), initialement 
 à True, sauf tab[0] et tab[1] qui valent False, 0 et 1 n’étant pas des nombres pre-
 miers.
 On parcourt alors ce tableau de gauche à droite et pour chaque indice i :
-• si tab[i] vaut True : le nombre i est premier et on donne la valeur False à toutes
+- si tab[i] vaut True : le nombre i est premier et on donne la valeur False à toutes
 les cases du tableau dont l’indice est un multiple de i, à partir de 2*i (c’est-à-dire
 2*i, 3*i …).
-• si tab[i] vaut False : le nombre i n’est pas premier et on n’effectue aucun change-
+- si tab[i] vaut False : le nombre i n’est pas premier et on n’effectue aucun change-
 ment sur le tableau.
 On dispose de la fonction crible, donnée ci-dessous et à compléter, prenant en paramètre
 un entier n strictement supérieur à 1 et renvoyant un tableau contenant tous les nombres
@@ -378,11 +533,22 @@ tab[multiple] = ...
 multiple = ...
 return premiers
 Exemples :
+```
+
+
+```python
 >>> crible(40)
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+```
+
+
+```python
 >>> crible(5)
 [2, 3]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -397,15 +563,15 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°06
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 On rappelle que :
-• le nombre 𝑎𝑛 est le nombre 𝑎 × 𝑎 × 𝑎 × ⋯ × 𝑎, où le facteur 𝑎 apparaît 𝑛 fois,
-• en langage Python, l’instruction t[-1] permet d’accéder au dernier élément du
+- le nombre 𝑎𝑛 est le nombre 𝑎 × 𝑎 × 𝑎 × ⋯ × 𝑎, où le facteur 𝑎 apparaît 𝑛 fois,
+- en langage Python, l’instruction t[-1] permet d’accéder au dernier élément du
 tableau t.
 Dans cet exercice, l’opérateur ** et la fonction pow ne sont pas autorisés.
 ProgrammerenlangagePythonunefonctionliste_puissancesquiprendenargument
@@ -415,17 +581,36 @@ Programmer également une fonction liste_puissances_borne qui prend en argu-
 ment un nombre entier 𝑎 supérieur ou égal à 2 et un entier borne, et qui renvoie la liste de
 ses puissances, à l’exclusion de 𝑎0, strictement inférieures à borne.
 Exemples :
+
+
+```python
 >>> liste_puissances(3, 5)
 [3, 9, 27, 81, 243]
+```
+
+
+```python
 >>> liste_puissances(-2, 4)
 [-2, 4, -8, 16]
+```
+
+
+```python
 >>> liste_puissances_borne(2, 16)
 [2, 4, 8]
+```
+
+
+```python
 >>> liste_puissances_borne(2, 17)
 [2, 4, 8, 16]
+```
+
+
+```python
 >>> liste_puissances_borne(5, 5)
 []
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On affecte à chaque lettre de l’alphabet un code selon le tableau ci-dessous :
@@ -493,10 +678,10 @@ la juxtaposition des codes de chacun de ses caractères, et d’autre part, son 
 qui est la somme des codes de chacun de ses caractères.
 Par ailleurs, on dit que ce mot est « parfait » si le code additionné divise le code concaténé.
 Exemples :
-• Pour le mot "PAUL", le code concaténé est la chaîne '1612112', soit l’entier 1 612
+- Pour le mot "PAUL", le code concaténé est la chaîne '1612112', soit l’entier 1 612
 112. Son code additionné est l’entier 50 car 16 + 1 + 21 + 12 = 50. 50 ne divise pas
 l’entier 1 612 112. Ainsi, le mot "PAUL" n’est pas parfait.
-• Pour le mot "ALAIN", le code concaténé est la chaîne '1121914', soit l’entier 1
+- Pour le mot "ALAIN", le code concaténé est la chaîne '1121914', soit l’entier 1
 121 914. Le code additionné est l’entier 37 car 1 + 12 + 1 + 9 + 14 = 37. 37 divise l’entier
 1 121 914. Ainsi, le mot "ALAIN" est parfait.
 Compléterlafonctioncodes_parfaitsituéeàlapagesuivanteetquiprendenparamètre
@@ -505,7 +690,7 @@ et d’un booléen indiquant si le mot est parfait ou non.
 On rappelle que pour tester si un entier b divise un entier a, on utilise l’opérateur modulo
 a % b qui renvoie le reste de la division euclidienne de a par b. Si a % b vaut 0, alors b
 divise a.
-3 / 4
+
 
 def codes_parfait(mot):
 """Renvoie un triplet
@@ -524,11 +709,22 @@ code_concatene = int(code_concatene)
 mot_est_parfait = ...
 return code_additionne, code_concatene, mot_est_parfait
 Exemples :
+```
+
+
+```python
 >>> codes_parfait("PAUL")
 (50, 1612112, False)
+```
+
+
+```python
 >>> codes_parfait("ALAIN")
 (37, 1121914, True)
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -543,19 +739,19 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°07
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Le nombre d’occurrences d’un caractère dans une chaîne de caractère est le nombre d’ap-
 paritions de ce caractère dans la chaîne.
 Exemples :
-• le nombre d’occurrences du caractère 'o' dans 'bonjour' est 2 ;
-• le nombre d’occurrences du caractère 'b' dans 'Bébé' est 1 ;
-• le nombre d’occurrences du caractère 'B' dans 'Bébé' est 1 ;
-• le nombre d’occurrences du caractère ' ' dans 'Hello world !' est 2.
+- le nombre d’occurrences du caractère 'o' dans 'bonjour' est 2 ;
+- le nombre d’occurrences du caractère 'b' dans 'Bébé' est 1 ;
+- le nombre d’occurrences du caractère 'B' dans 'Bébé' est 1 ;
+- le nombre d’occurrences du caractère ' ' dans 'Hello world !' est 2.
 On cherche les occurrences des caractères dans une phrase. On souhaite stocker ces occur-
 rences dans un dictionnaire dont les clefs seraient les caractères de la phrase et les valeurs
 l’occurrence de ces caractères.
@@ -565,7 +761,7 @@ L’ordre des clefs n’a pas d’importance.
 Écrire une fonction nbr_occurrences prenant comme paramètre une chaîne de carac-
 tères chaine et renvoyant le dictionnaire des nombres d’occurrences des caractères de
 cette chaîne.
-2 / 3
+
 
 EXERCICE 2 (10 points)
 La fonction fusion prend deux tableaux tab1, tab2 (type list) d’entiers triés par ordre
@@ -598,13 +794,27 @@ i2 = i2 + 1
 i = ...
 return tab12
 Exemple :
+
+
+```python
 >>> fusion([1,2,3],[])
 [1, 2, 3]
+```
+
+
+```python
 >>> fusion([], [])
 []
+```
+
+
+```python
 >>> fusion([1, 6, 10],[0, 7, 8, 9])
 [0, 1, 6, 7, 8, 9, 10]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -619,28 +829,35 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°08
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire la fonction maximum_tableau, prenant en paramètre un tableau non vide de nom-
 bres tab (de type list) et renvoyant le plus grand élément de ce tableau.
 Exemples :
+
+
+```python
 >>> maximum_tableau([98, 12, 104, 23, 131, 9])
 131
+```
+
+
+```python
 >>> maximum_tableau([-27, 24, -3, 15])
 24
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On dispose de chaînes de caractères contenant uniquement des parenthèses ouvrantes et
 fermantes.
 Un parenthésage est correct si :
-• le nombre de parenthèses ouvrantes de la chaîne est égal au nombre de parenthèses
+- le nombre de parenthèses ouvrantes de la chaîne est égal au nombre de parenthèses
 fermantes ;
-• en parcourant la chaîne de gauche à droite, le nombre de parenthèses déjà ouvertes
+- en parcourant la chaîne de gauche à droite, le nombre de parenthèses déjà ouvertes
 doit être, à tout moment, supérieur ou égal au nombre de parenthèses déjà fermées.
 Ainsi, ((()())(())) est un parenthésage correct.
 Les parenthésages ())(() et (())(() sont, eux, incorrects.
@@ -671,10 +888,10 @@ trouve une parenthèse fermante, on dépile (si possible) la parenthèse ouvrant
 sommet de la pile.
 La chaîne est alors bien parenthésée si, à la fin du parcours, la pile est vide.
 Elle est, par contre, mal parenthésée :
-• si dans le parcours, on trouve une parenthèse fermante, alors que la pile est vide ;
-• ou si, à la fin du parcours, la pile n’est pas vide.
+- si dans le parcours, on trouve une parenthèse fermante, alors que la pile est vide ;
+- ou si, à la fin du parcours, la pile n’est pas vide.
 Compléter le code de la fonction bon_parenthesage ci-dessous:
-3 / 4
+
 
 def bon_parenthesage(ch):
 """Renvoie un booléen indiquant si la chaîne ch
@@ -690,13 +907,28 @@ else:
 ...
 return ...
 Exemples :
+```
+
+
+```python
 >>> bon_parenthesage("((()())(()))")
 True
+```
+
+
+```python
 >>> bon_parenthesage("())(()")
 False
+```
+
+
+```python
 >>> bon_parenthesage("(())(()")
 False
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -711,24 +943,39 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°09
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Programmer la fonction multiplication, prenant en paramètres deux nombres entiers
 relatifs n1 et n2, et qui renvoie le produit de ces deux nombres.
 Les seules opérations autorisées sont l’addition et la soustraction.
+
+
+```python
 >>> multiplication(3, 5)
 15
+```
+
+
+```python
 >>> multiplication(-4, -8)
 32
+```
+
+
+```python
 >>> multiplication(-2, 6)
 -12
+```
+
+
+```python
 >>> multiplication(-2, 0)
 0
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On s’intéresse dans cet exercice à la recherche dichotomique dans un tableau trié d’en-
@@ -752,11 +999,22 @@ else:
 fin = ...
 return ...
 Exemples :
+```
+
+
+```python
 >>> dichotomie([15, 16, 18, 19, 23, 24, 28, 29, 31, 33],28)
 True
+```
+
+
+```python
 >>> dichotomie([15, 16, 18, 19, 23, 24, 28, 29, 31, 33],27)
 False
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -771,10 +1029,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°10
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche qui prend en paramètres un tableau tab de nombres
@@ -783,10 +1041,17 @@ chotomique du nombre entier n dans le tableau non vide tab.
 Cette fonction doit renvoyer un indice correspondant au nombre cherché s’il est dans le
 tableau, None sinon.
 Exemples :
+
+
+```python
 >>> recherche([2, 3, 4, 5, 6], 5)
 3
+```
+
+
+```python
 >>> recherche([2, 3, 4, 6, 7], 5) # renvoie None
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Le codage de César transforme un message en changeant chaque lettre en la décalant dans
@@ -814,11 +1079,22 @@ resultat = ...
 return resultat
 Compléter la fonction cesar.
 Exemples :
+```
+
+
+```python
 >>> cesar('BONJOUR A TOUS. VIVE LA MATIERE NSI !', 4)
 'FSRNSYV E XSYW. ZMZI PE QEXMIVI RWM !'
+```
+
+
+```python
 >>> cesar('GTSOTZW F YTZX. ANAJ QF RFYNJWJ SXN !', -5)
 'BONJOUR A TOUS. VIVE LA MATIERE NSI !'
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -833,10 +1109,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°11
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Un arbre binaire est soit vide, représenté en Python par la valeur None, soit un nœud
@@ -845,12 +1121,19 @@ arbres gauche et droit.
 On souhaite écrire une fonction parcours_largeur qui prend en paramètre un arbre
 binaire et qui renvoie la liste des étiquettes des nœuds de l’arbre parcourus en largeur.
 Exemples :
+
+
+```python
 >>> arbre = ( ( (None, 1, None), 2, (None, 3, None) ),
 4,
 ( (None, 5, None), 6, (None, 7, None) ) )
+```
+
+
+```python
 >>> parcours_largeur(arbre)
 [4, 2, 6, 1, 3, 5, 7]
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère un tableau non vide de nombre entiers, positifs ou négatifs, et on souhaite
@@ -864,9 +1147,9 @@ l’indice i.
 Si on connait la plus grande somme possible de ses éléments consécutifs se terminant à
 l’indice i-1, on peut déterminer la plus grande somme possible de ses éléments consécutifs
 se terminant à l’indice i :
-• soit on obtient une plus grande somme en ajoutant tab[i] à cette somme précé-
+- soit on obtient une plus grande somme en ajoutant tab[i] à cette somme précé-
 dente ;
-• soit on commence une nouvelle somme à partir de tab[i].
+- soit on commence une nouvelle somme à partir de tab[i].
 Compléter la fonction somme_max ci-dessous qui réalise cet algorithme.
 def somme_max(tab):
 n = len(tab)
@@ -885,15 +1168,30 @@ if ... > ...:
 maximum = i
 return sommes_max[...]
 Exemples :
+```
+
+
+```python
 >>> somme_max([1, 2, 3, 4, 5])
 15
 >> somme_max([1, 2, -3, 4, 5])
 9
+```
+
+
+```python
 >>> somme_max([1, 2, -2, 4, 5])
 10
+```
+
+
+```python
 >>> somme_max([1, -2, 3, 10, -4, 7, 2, -5])
 18
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -908,27 +1206,46 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°12
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Programmer la fonction fusion prenant en paramètres deux tableaux non vides tab1
 et tab2 (type list) d’entiers, chacun dans l’ordre croissant, et renvoyant un tableau trié
 dans l’ordre croissant et contenant l’ensemble des valeurs de tab1 et tab2.
 Exemples :
+
+
+```python
 >>> fusion([3, 5], [2, 5])
 [2, 3, 5, 5]
+```
+
+
+```python
 >>> fusion([-2, 4], [-3, 5, 10])
 [-3, -2, 4, 5, 10]
+```
+
+
+```python
 >>> fusion([4], [2, 6])
 [2, 4, 6]
+```
+
+
+```python
 >>> fusion([], [])
 []
+```
+
+
+```python
 >>> fusion([1, 2, 3], [])
 [1, 2, 3]
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Le but de cet exercice est d’écrire une fonction récursive traduire_romain qui prend
@@ -943,14 +1260,14 @@ romains = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500,
 "M":1000}
 ↪
 Le code de la fonction traduire_romain fournie repose sur le principe suivant :
-• la valeur d’un caractère est ajoutée à la valeur du reste de la chaîne si ce caractère a
+- la valeur d’un caractère est ajoutée à la valeur du reste de la chaîne si ce caractère a
 une valeur supérieure (ou égale) à celle du caractère qui le suit ;
-• la valeur d’un caractère est retranchée à la valeur du reste de la chaîne si ce caractère
+- la valeur d’un caractère est retranchée à la valeur du reste de la chaîne si ce caractère
 a une valeur strictement inférieure à celle du caractère qui le suit.
 Ainsi, XIV correspond au nombre 10 + 5 - 1 puisque :
-• la valeur de X (10) est supérieure à celle de I (1), on ajoute donc 10 à la valeur du reste
+- la valeur de X (10) est supérieure à celle de I (1), on ajoute donc 10 à la valeur du reste
 de la chaîne, c’est-à-dire IV ;
-• la valeur de I (1) est strictement inférieure à celle de V (5), on soustrait donc 1 à la
+- la valeur de I (1) est strictement inférieure à celle de V (5), on soustrait donc 1 à la
 valeur du reste de la chaîne, c’est-à-dire V.
 On rappelle que pour priver une chaîne de caractères de son premier caractère, on utilisera
 l’instruction :
@@ -966,16 +1283,31 @@ elif romains[nombre[0]] >= ...:
 return romains[nombre[0]] + ...
 else:
 return ...
-3 / 4
+
 
 Exemples :
+```
+
+
+```python
 >>> traduire_romain("XIV")
 14
+```
+
+
+```python
 >>> traduire_romain("CXLII")
 142
+```
+
+
+```python
 >>> traduire_romain("MMXXIV")
 2024
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -990,10 +1322,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°13
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche qui prend en paramètres elt nombre entier et tab un
@@ -1002,14 +1334,29 @@ de elt dans tab si elt est dans tab et None sinon.
 L’objectif de cet exercice est de parcourir un tableau, il est interdit d’utiliser la méthode
 index des listes Python.
 Exemples :
+
+
+```python
 >>> recherche(1, [2, 3, 4]) # renvoie None
+```
+
+
+```python
 >>> recherche(1, [10, 12, 1, 56])
 2
+```
+
+
+```python
 >>> recherche(50, [1, 50, 1])
 1
+```
+
+
+```python
 >>> recherche(15, [8, 9, 10, 15])
 3
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère la fonction insere ci-dessous qui prend en argument un tableau tab d’en-
@@ -1034,15 +1381,34 @@ i = ...
 return tab_a
 Compléter la fonction insere ci-dessus.
 Exemples :
+```
+
+
+```python
 >>> insere([1, 2, 4, 5], 3)
 [1, 2, 3, 4, 5]
+```
+
+
+```python
 >>> insere([1, 2, 7, 12, 14, 25], 30)
 [1, 2, 7, 12, 14, 25, 30]
+```
+
+
+```python
 >>> insere([2, 3, 4], 1)
 [1, 2, 3, 4]
+```
+
+
+```python
 >>> insere([], 1)
 [1]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1057,17 +1423,17 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°14
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 5 pages numérotées de 1 / 5 à 5 / 5
+Le sujet comporte 5 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 5
+
 
 EXERCICE 1 (10 points)
 Dans cet exercice les tableaux sont représentés par des listes Python (type list).
 Écrire en python deux fonctions :
-• lancer de paramètre n, un entier positif, qui renvoie un tableau de n entiers obtenus
+- lancer de paramètre n, un entier positif, qui renvoie un tableau de n entiers obtenus
 aléatoirement entre 1 et 6 (1 et 6 inclus) ;
-• paire_6 de paramètre tab, un tableau de n entiers compris entre 1 et 6 et qui
+- paire_6 de paramètre tab, un tableau de n entiers compris entre 1 et 6 et qui
 renvoie un booléen égal à True si le nombre de 6 est supérieur ou égal à 2, False
 sinon.
 On pourra utiliser la fonction randint(a,b) du module random pour laquelle la docu-
@@ -1075,27 +1441,74 @@ mentation officielle est la suivante :
 random.randint(a, b)
 Renvoie un entier aléatoire N tel que a <= N <= b.
 Exemples :
+
+
+```python
 >>> lancer1 = lancer(5)
+```
+
+
+```python
 >>> lancer1
 [5, 6, 6, 2, 2]
+```
+
+
+```python
 >>> paire_6(lancer1)
 True
+```
+
+
+```python
 >>> lancer2 = lancer(5)
+```
+
+
+```python
 >>> lancer2
 [6, 5, 1, 6, 6]
+```
+
+
+```python
 >>> paire_6(lancer2)
 True
+```
+
+
+```python
 >>> lancer3 = lancer(3)
+```
+
+
+```python
 >>> lancer3
 [2, 2, 6]
+```
+
+
+```python
 >>> paire_6(lancer3)
 False
+```
+
+
+```python
 >>> lancer4 = lancer(0)
+```
+
+
+```python
 >>> lancer4
 []
+```
+
+
+```python
 >>> paire_6(lancer4)
 False
-2 / 5
+
 
 EXERCICE 2 (10 points)
 On considère une image en 256 niveaux de gris que l’on représente par une grille de nombres,
@@ -1140,24 +1553,47 @@ nouvelle_image[i][j] = ...
 else:
 nouvelle_image[i][j] = ...
 return nouvelle_image
-3 / 5
 
-4 / 5
+
+
 
 Exemples :
+```
+
+
+```python
 >>> img=[[20, 34, 254, 145, 6], [23, 124, 237, 225, 69],
 [197, 174, 207, 25, 87], [255, 0, 24, 197, 189]]
+```
+
+
+```python
 >>> nombre_lignes(img)
 4
+```
+
+
+```python
 >>> nombre_colonnes(img)
 5
+```
+
+
+```python
 >>> negatif(img)
 [[235, 221, 1, 110, 249], [232, 131, 18, 30, 186],
 [58, 81, 48, 230, 168], [0, 255, 231, 58, 66]]
+```
+
+
+```python
 >>> binaire(img,120)
 [[0, 0, 255, 255, 0],[0, 255, 255, 255, 0],
 [255, 255, 255, 0, 0],[255, 0, 0, 255, 255]]
-5 / 5
+
+
+---
+```
 
 ---
 
@@ -1172,35 +1608,50 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°15
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Programmer la fonction multiplication qui en paramètres deux nombres entiers relat-
 ifs n1 et n2, et qui renvoie le produit de ces deux nombres.
 Les seules opérations arithmétiques autorisées sont l’addition et la soustraction.
 Exemples :
+
+
+```python
 >>> multiplication(3, 5)
 15
+```
+
+
+```python
 >>> multiplication(-4, -8)
 32
+```
+
+
+```python
 >>> multiplication(-2, 6)
 -12
+```
+
+
+```python
 >>> multiplication(-2, 0)
 0
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Soit tab un tableau non vide d’entiers triés dans l’ordre croissant et n un entier.
 La fonction chercher ci-dessous doit renvoyer un indice où la valeur n apparaît dans tab
 si cette valeur y figure et None sinon.
 Les paramètres de la fonction sont :
-• tab, le tableau dans lequel s’effectue la recherche ;
-• x, l’entier à chercher dans le tableau ;
-• i, l’indice de début de la partie du tableau où s’effectue la recherche ;
-• j, l’indice de fin de la partie du tableau où s’effectue la recherche.
+- tab, le tableau dans lequel s’effectue la recherche ;
+- x, l’entier à chercher dans le tableau ;
+- i, l’indice de début de la partie du tableau où s’effectue la recherche ;
+- j, l’indice de fin de la partie du tableau où s’effectue la recherche.
 L’algorithme demandé est une recherche dichotomique récursive.
 Recopier et compléter le code de la fonction chercher suivante :
 def chercher(tab, x, i, j):
@@ -1217,15 +1668,38 @@ return chercher(tab, x, ... , ...)
 else:
 return ...
 Exemples :
+```
+
+
+```python
 >>> chercher([1, 5, 6, 6, 9, 12], 7, 0, 5)
+```
+
+
+```python
 >>> chercher([1, 5, 6, 6, 9, 12], 9, 0, 5)
 4
+```
+
+
+```python
 >>> chercher([1, 5, 6, 6, 9, 12], 6, 0, 5)
 2
+```
+
+
+```python
 >>> chercher([1], 0, 0, 0)
+```
+
+
+```python
 >>> chercher([1], 1, 0, 0)
 0
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1240,23 +1714,23 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°16
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction moyenne(notes) qui renvoie la moyenne pondérée des résultats
 contenus dans le tableau notes, non vide, donné en paramètre. Ce tableau contient des
 couples (note, coefficient) dans lesquels :
-• note est un nombre de type flottant (float) compris entre 0 et 20 ;
-• coefficient est un nombre entier strictement positif.
+- note est un nombre de type flottant (float) compris entre 0 et 20 ;
+- coefficient est un nombre entier strictement positif.
 Ainsi l’expression moyenne([(15.0,2),(9.0,1),(12.0,3)]) devra renvoyer
 12.5 comme résultat du calcul suivant :
 2 × 15 + 1 × 9 + 3 × 12
 2 + 1 + 3
 = 12, 5
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On cherche à déterminer les valeurs du triangle de Pascal (Figure 1).
@@ -1284,13 +1758,27 @@ ligne_k = ...
 triangle.append(ligne_k)
 return triangle
 Exemples :
+
+
+```python
 >>> ligne_suivante([1, 3, 3, 1])
 [1, 4, 6, 4, 1]
+```
+
+
+```python
 >>> pascal(2)
 [[1], [1, 1], [1, 2, 1]]
+```
+
+
+```python
 >>> pascal(3)
 [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1]]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1305,10 +1793,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°17
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Un arbre binaire est soit vide, représenté en Python par la valeur None, soit un nœud,
@@ -1329,19 +1817,42 @@ taille de l’arbre que cette instance implémente.
 renvoie la hauteur de l’arbre que cette instance implémente.
 On considère que la hauteur d’un arbre vide est -1 et la taille d’un arbre vide est 0.
 Exemples :
+
+
+```python
 >>> hauteur(a)
 2
+```
+
+
+```python
 >>> taille(a)
 4
+```
+
+
+```python
 >>> hauteur(None)
 -1
+```
+
+
+```python
 >>> taille(None)
 0
+```
+
+
+```python
 >>> hauteur(Noeud(1, None, None))
 0
+```
+
+
+```python
 >>> taille(Noeud(1, None, None))
 1
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On rappelle que les tableaux sont représentés par des listes en Python du type list.
@@ -1355,10 +1866,22 @@ ou égaux à indice apparaissent décalés vers la droite dans le tableau tab_in
 Si indice est égal au nombre d’éléments du tableau tab, l’élément element est ajouté
 dans tab_ins après tous les éléments du tableau tab.
 Exemples :
+```
+
+
+```python
 >>> ajoute(1, 4, [7, 8, 9])
 [7, 4, 8, 9]
+```
+
+
+```python
 >>> ajoute(3, 4, [7, 8, 9])
 [7, 8, 9, 4]
+```
+
+
+```python
 >>> ajoute(0, 4, [7, 8, 9])
 [4, 7, 8, 9]
 Compléter et tester le code ci-dessous :
@@ -1373,7 +1896,10 @@ tab_ins[...] = ...
 for i in range(indice + 1, nbre_elts + 1):
 tab_ins[i] = ...
 return tab_ins
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1388,10 +1914,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°18
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction moyenne qui prend en paramètre un tableau d’entiers non vide et qui
@@ -1399,13 +1925,24 @@ renvoie un nombre flottant donnant la moyenne de ces entiers.
 Attention : il est interdit d’utiliser la fonction sum ou la fonction mean (module statis-
 tics) de Python.
 Exemples
+
+
+```python
 >>> moyenne([1])
 1.0
+```
+
+
+```python
 >>> moyenne([1, 2, 3, 4, 5, 6, 7])
 4.0
+```
+
+
+```python
 >>> moyenne([1, 2])
 1.5
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Le but de l’exercice est de compléter une fonction qui détermine si une valeur est présente
@@ -1427,15 +1964,34 @@ else:
 fin = ...
 return False
 Exemples :
+```
+
+
+```python
 >>> dichotomie([15, 16, 18, 19, 23, 24, 28, 29, 31, 33], 28)
 True
+```
+
+
+```python
 >>> dichotomie([15, 16, 18, 19, 23, 24, 28, 29, 31, 33], 27)
 False
+```
+
+
+```python
 >>> dichotomie([15, 16, 18, 19, 23, 24, 28, 29, 31, 33], 1)
 False
+```
+
+
+```python
 >>> dichotomie([], 28)
 False
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1450,25 +2006,40 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°19
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche_min qui prend en paramètre un tableau de nombres tab
 non vide, et qui renvoie l’indice de la première occurrence du minimum de ce tableau. Les
 tableaux seront représentés sous forme de liste Python.
 Exemples :
+
+
+```python
 >>> recherche_min([5])
 0
+```
+
+
+```python
 >>> recherche_min([2, 4, 1])
 2
+```
+
+
+```python
 >>> recherche_min([5, 3, 2, 2, 4])
 2
+```
+
+
+```python
 >>> recherche_min([-1, -2, -3, -3])
 2
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On considère la fonction separe ci-dessous qui prend en argument un tableau tab dont
@@ -1488,8 +2059,16 @@ droite = ...
 return tab
 Compléter la fonction separe ci-dessus.
 Exemples :
+```
+
+
+```python
 >>> separe([1, 0, 1, 0, 1, 0, 1, 0])
 [0, 0, 0, 0, 1, 1, 1, 1]
+```
+
+
+```python
 >>> separe([1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0])
 [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 Description d’étapes effectuées par la fonction separe sur le tableau ci-dessous, les carac-
@@ -1497,27 +2076,27 @@ tères ^ indiquent les cases pointées par les indices gauche et droite :
 tab = [1, 0, 1, 0, 1, 0, 1, 0]
 ^
 ^
-• Étape 1 : on regarde la première case, qui contient un 1 : ce 1 va aller dans la seconde
+- Étape 1 : on regarde la première case, qui contient un 1 : ce 1 va aller dans la seconde
 partie du tableau final et on l’échange avec la dernière case. Il est à présent bien
 positionné : on ne prend plus la dernière case en compte.
 tab = [0, 0, 1, 0, 1, 0, 1, 1]
 ^
 ^
-• Étape 2 : on regarde à nouveau la première case, qui contient maintenant un 0 : ce 0
+- Étape 2 : on regarde à nouveau la première case, qui contient maintenant un 0 : ce 0
 va aller dans la première partie du tableau final et est bien positionné : on ne prend
 plus la première case en compte.
 tab = [0, 0, 1, 0, 1, 0, 1, 1]
 ^
 ^
-• Étape 3 : on regarde la seconde case, qui contient un 0 : ce 0 va aller dans la première
+- Étape 3 : on regarde la seconde case, qui contient un 0 : ce 0 va aller dans la première
 partie du tableau final et est bien positionné : on ne prend plus la seconde case en
 compte.
 tab = [0, 0, 1, 0, 1, 0, 1, 1]
 ^
 ^
-3 / 4
 
-• Étape 4 : on regarde la troisième case, qui contient un 1 : ce 1 va aller dans la seconde
+
+- Étape 4 : on regarde la troisième case, qui contient un 1 : ce 1 va aller dans la seconde
 partie du tableau final et on l’échange avec l’avant-dernière case. Il est à présent bien
 positionné : on ne prend plus l’avant-dernière case en compte.
 tab = [0, 0, 1, 0, 1, 0, 1, 1]
@@ -1525,7 +2104,10 @@ tab = [0, 0, 1, 0, 1, 0, 1, 1]
 ^
 Et ainsi de suite…
 tab = [0, 0, 0, 0, 1, 1, 1, 1]
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -1540,10 +2122,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°20
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction min_et_max qui prend en paramètre un tableau de nombres tab non
@@ -1553,17 +2135,36 @@ Les tableaux seront représentés sous forme de liste Python.
 L’utilisation des fonctions natives min, max et sorted, ainsi que la méthode sort n’est
 pas autorisée.
 Exemples :
+
+
+```python
 >>> min_et_max([0, 1, 4, 2, -2, 9, 3, 1, 7, 1])
 {'min': -2, 'max': 9}
+```
+
+
+```python
 >>> min_et_max([0, 1, 2, 3])
 {'min': 0, 'max': 3}
+```
+
+
+```python
 >>> min_et_max([3])
 {'min': 3, 'max': 3}
+```
+
+
+```python
 >>> min_et_max([1, 3, 2, 1, 3])
 {'min': 1, 'max': 3}
+```
+
+
+```python
 >>> min_et_max([-1, -1, -1, -1, -1])
 {'min': -1, 'max': -1}
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On dispose d’une classe Carte permettant de créer des objets modélisant des cartes à
@@ -1607,21 +2208,48 @@ def recuperer_carte(self, pos):
 (entier compris entre 0 et 51). """
 ...
 ...
-3 / 4
+
 
 Exemple :
+```
+
+
+```python
 >>> jeu = Paquet_de_cartes()
+```
+
+
+```python
 >>> carte1 = jeu.recuperer_carte(20)
+```
+
+
+```python
 >>> carte1.recuperer_valeur() \
 + " de " + carte1.recuperer_couleur()
 "8 de coeur"
+```
+
+
+```python
 >>> carte2 = jeu.recuperer_carte(0)
+```
+
+
+```python
 >>> carte2.recuperer_valeur() \
 + " de " + carte2.recuperer_couleur()
 "As de pique"
+```
+
+
+```python
 >>> carte3 = jeu.recuperer_carte(52)
 AssertionError : paramètre pos invalide
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -1636,24 +2264,31 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°21
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrireunefonctionindices_maxiquiprendenparamètreuntableaunonvidedenombre
 entiers tab, représenté par une liste Python et qui renvoie un tuple (maxi, indices)
 où :
-• maxi est le plus grand élément du tableau tab ;
-• indices est une liste Python contenant les indices du tableau tab où apparaît ce
+- maxi est le plus grand élément du tableau tab ;
+- indices est une liste Python contenant les indices du tableau tab où apparaît ce
 plus grand élément.
 Exemple :
+
+
+```python
 >>> indices_maxi([1, 5, 6, 9, 1, 2, 3, 7, 9, 8])
 (9, [3, 8])
+```
+
+
+```python
 >>> indices_maxi([7])
 (7, [0])
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Cet exercice utilise des piles qui seront représentées par des listes Python.
@@ -1688,13 +2323,28 @@ if ... >= 0:
 ...
 return ...
 Exemples :
+```
+
+
+```python
 >>> renverse([1, 2, 3, 4, 5])
 [5, 4, 3, 2, 1]
+```
+
+
+```python
 >>> positifs([-1, 0, 5, -3, 4, -6, 10, 9, -8])
 [0, 5, 4, 10, 9]
+```
+
+
+```python
 >>> positifs([-2])
 []
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1709,26 +2359,45 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°22
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche qui prend en paramètres elt un nombre entier et tab un
 tableau de nombres entiers (type list), et qui renvoie l’indice de la dernière occurrence
 de elt dans tab si elt est dans tab et None sinon.
 Exemples :
+
+
+```python
 >>> recherche(1, [2, 3, 4]) # renvoie None
+```
+
+
+```python
 >>> recherche(1, [10, 12, 1, 56])
 2
+```
+
+
+```python
 >>> recherche(1, [1, 0, 42, 7])
 0
+```
+
+
+```python
 >>> recherche(1, [1, 50, 1])
 2
+```
+
+
+```python
 >>> recherche(1, [8, 1, 10, 1, 7, 1, 8])
 5
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On définit une classe gérant une adresse IPv4.
@@ -1764,16 +2433,35 @@ Compléter le code ci-dessus et instancier trois objets : adresse1, adresse2, ad
 avec respectivement les arguments suivants :
 '192.168.0.1', '192.168.0.2', '192.168.0.0'
 Vérifier que :
+```
+
+
+```python
 >>> adresse1.liste_octets()
 [192, 168, 0, 1]
+```
+
+
+```python
 >>> adresse1.est_reservee()
 False
+```
+
+
+```python
 >>> adresse3.est_reservee()
 True
+```
+
+
+```python
 >>> adresse2.adresse_suivante().adresse # acces valide à adresse
 # ici car on sait que l'adresse suivante existe
 '192.168.0.3'
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -1788,10 +2476,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°23
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 On veut trier par ordre croissant les notes d’une évaluation qui sont des nombres entiers
@@ -1804,14 +2492,29 @@ valant i dans le tableau notes_eval.
 des notes et renvoyant un tableau contenant les mêmes valeurs que notes_eval mais
 triées dans l’ordre croissant.
 Exemple :
+
+
+```python
 >>> notes_eval = [2, 0, 5, 9, 6, 9, 10, 5, 7,
 9, 9, 5, 0, 9, 6, 5, 4]
+```
+
+
+```python
 >>> eff = effectif_notes(notes_eval)
+```
+
+
+```python
 >>> eff
 [2, 0, 1, 0, 1, 4, 2, 1, 0, 5, 1]
+```
+
+
+```python
 >>> notes_triees(eff)
 [0, 0, 2, 4, 5, 5, 5, 5, 6, 6, 7, 9, 9, 9, 9, 9, 10]
-2 / 4
+
 
 EXERCICE 2 (10 points)
 L’objectif de cet exercice est d’écrire deux fonctions récursives dec_to_bin et
@@ -1829,25 +2532,33 @@ L’exemple suivant montre comment obtenir l’écriture en binaire du nombre 25
 = 110012
 L’écriture binaire de 25 est donc 11001.
 On rappelle également que
-• l’expression a // 2 calcule le quotient de la division euclidienne de a par 2 ;
-• l’expression a % 2 calcule le reste dans la division euclidienne de a par 2.
+- l’expression a // 2 calcule le quotient de la division euclidienne de a par 2 ;
+- l’expression a % 2 calcule le reste dans la division euclidienne de a par 2.
 On indique enfin qu’en Python si mot = "informatique", alors
-• l’expression mot[-1] vaut 'e', c’est-à-dire le dernier caractère de la chaîne de
+- l’expression mot[-1] vaut 'e', c’est-à-dire le dernier caractère de la chaîne de
 caractères mot ;
-• l’expression mot[:-1] vaut 'informatiqu' , c’est-à-dire l’ensemble de la chaîne
+- l’expression mot[:-1] vaut 'informatiqu' , c’est-à-dire l’ensemble de la chaîne
 de caractères mot privée de son dernier caractère.
 Compléter, puis tester, le code des deux fonctions situées à la page suivante.
 On précise que la fonction récursive dec_to_bin prend en paramètre un nombre entier
 et renvoie une chaîne de caractères contenant l’écriture en binaire du nombre passé en
 paramètre.
 Exemple :
+```
+
+
+```python
 >>> dec_to_bin(25)
 '11001'
 La fonction récursive bin_to_dec prend en paramètre une chaîne de caractères représen-
 tant l’écriture d’un nombre en binaire et renvoie l’écriture décimale de ce nombre.
+```
+
+
+```python
 >>> bin_to_dec('101010')
 42
-3 / 4
+
 
 def dec_to_bin(nb_dec):
 q, r = nb_dec // 2, nb_dec % 2
@@ -1867,7 +2578,10 @@ bit_droit = 0
 else:
 ...
 return ... * bin_to_dec(nb_bin[:-1]) + ...
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -1882,23 +2596,34 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°24
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrireunefonctionenumerequiprendenparamètreuntableautab(typelist)etrenvoie
 un dictionnaire d dont les clés sont les éléments de tab avec pour valeur associée la liste
 des indices de l’élément dans le tableau tab.
 Exemple :
+
+
+```python
 >>> enumere([])
 {}
+```
+
+
+```python
 >>> enumere([1, 2, 3])
 {1: [0], 2: [1], 3: [2]}
+```
+
+
+```python
 >>> enumere([1, 1, 2, 3, 2, 1])
 {1: [0, 1, 5], 2: [2, 4], 3: [3]}
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Un arbre binaire est soit vide, représenté en Python par la valeur None, soit un nœud,
@@ -1926,12 +2651,12 @@ vide passée en argument.
 Compléter le code de la fonction insere, présenté page suivante, qui prend en argument
 un arbre binaire de recherche arbre représenté ainsi et une étiquette cle, non présente
 dans l’arbre, et qui :
-• renvoie une nouvelle feuille d’étiquette cle s’il est vide ;
-• renvoie l’arbre après l’avoir modifié en insérant cle sinon ;
-• garantit que l’arbre ainsi complété soit encore un arbre binaire de recherche.
+- renvoie une nouvelle feuille d’étiquette cle s’il est vide ;
+- renvoie l’arbre après l’avoir modifié en insérant cle sinon ;
+- garantit que l’arbre ainsi complété soit encore un arbre binaire de recherche.
 Tester ensuite ce code en utilisant la fonction parcours et en insérant successivement des
 nœuds d’étiquette 1, 4, 6 et 8 dans l’arbre binaire de recherche représenté ci- dessous :
-3 / 4
+
 
 def insere(arbre, cle):
 """insere la cle dans l'arbre binaire de recherche
@@ -1945,7 +2670,10 @@ arbre.gauche = insere(arbre.gauche, cle)
 else:
 arbre.droit = ...
 return arbre
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -1960,10 +2688,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°25
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 On a relevé les valeurs moyennes annuelles des températures à Paris pour la période allant
@@ -1976,9 +2704,12 @@ tableaux et qui renvoie la plus petite valeur relevée au cours de la période e
 spondante.
 On suppose que la température minimale est atteinte une seule fois.
 Exemple :
+
+
+```python
 >>> annee_temperature_minimale(t_moy, annees)
 (12.5, 2016)
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Un mot palindrome peut se lire de la même façon de gauche à droite ou de droite à gauche :
@@ -1989,9 +2720,9 @@ L’objectif de cet exercice est d’obtenir un programme Python permettant de t
 nombre est un nombre palindrome.
 Pour remplir cette tâche, on vous demande de compléter le code des trois fonctions ci-
 dessous qui s’appuient les unes sur les autres :
-• inverse_chaine : qui renvoie une chaîne de caractères inversée ;
-• est_palindrome : qui teste si une chaîne de caractères est un palindrome ;
-• est_nbre_palindrome : qui teste si un nombre est un palindrome.
+- inverse_chaine : qui renvoie une chaîne de caractères inversée ;
+- est_palindrome : qui teste si une chaîne de caractères est un palindrome ;
+- est_nbre_palindrome : qui teste si un nombre est un palindrome.
 Compléter le code des trois fonctions ci-dessous.
 def inverse_chaine(chaine):
 '''Retourne la chaine inversée'''
@@ -2010,17 +2741,40 @@ est un palindrome'''
 chaine = ...
 return est_palindrome(chaine)
 Exemples :
+```
+
+
+```python
 >>> inverse_chaine('bac')
 'cab'
+```
+
+
+```python
 >>> est_palindrome('NSI')
 False
+```
+
+
+```python
 >>> est_palindrome('ISN-NSI')
 True
+```
+
+
+```python
 >>> est_nbre_palindrome(214312)
 False
+```
+
+
+```python
 >>> est_nbre_palindrome(213312)
 True
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2035,28 +2789,39 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°26
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction ajoute_dictionnaires qui prend en paramètres deux diction-
 naires d1 et d2 dont les clés sont des nombres et renvoie le dictionnaire d défini de la façon
 suivante :
-• les clés de d sont celles de d1 et celles de d2 réunies ;
-• si une clé est présente dans les deux dictionnaires d1 et d2, sa valeur associée dans
+- les clés de d sont celles de d1 et celles de d2 réunies ;
+- si une clé est présente dans les deux dictionnaires d1 et d2, sa valeur associée dans
 le dictionnaire d est la somme de ses valeurs dans les dictionnaires d1 et d2 ;
-• si une clé n’est présente que dans un des deux dictionnaires, sa valeur associée dans
+- si une clé n’est présente que dans un des deux dictionnaires, sa valeur associée dans
 le dictionnaire d est la même que sa valeur dans le dictionnaire où elle est présente.
 Exemples :
+
+
+```python
 >>> ajoute_dictionnaires({1: 5, 2: 7}, {2: 9, 3: 11})
 {1: 5, 2: 16, 3: 11}
+```
+
+
+```python
 >>> ajoute_dictionnaires({}, {2: 9, 3: 11})
 {2: 9, 3: 11}
+```
+
+
+```python
 >>> ajoute_dictionnaires({1: 5, 2: 7}, {})
 {1: 5, 2: 7}
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère une piste carrée qui contient 4 cases par côté. Les cases sont numérotées de 0
@@ -2090,7 +2855,10 @@ cases_vues[case_en_cours] = True
 nombre_cases_vues = ...
 n = ...
 return n
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2105,27 +2873,46 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°27
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction verifie qui prend en paramètre un tableau de valeurs numériques et
 qui renvoie True si ce tableau est trié dans l’ordre croissant, False sinon.
 Un tableau vide est considéré comme trié.
 Exemples :
+
+
+```python
 >>> verifie([0, 5, 8, 8, 9])
 True
+```
+
+
+```python
 >>> verifie([8, 12, 4])
 False
+```
+
+
+```python
 >>> verifie([-1, 4])
 True
+```
+
+
+```python
 >>> verifie([])
 True
+```
+
+
+```python
 >>> verifie([5])
 True
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On considère dans cet exercice l’élection d’un vainqueur à l’issue d’un vote. Les résultats
@@ -2136,11 +2923,11 @@ urne = ['A', 'A', 'A', 'B', 'C', 'B', 'C', 'B', 'C', 'B']
 indiquant que 3 candidats ont obtenu au moins un vote chacun : A, B et C.
 On cherche à déterminer le ou les candidats ayant obtenu le plus de suffrages. Pour cela, on
 propose d’écrire deux fonctions :
-• la fonction depouille doit permettre de compter le nombre de votes exprimés pour
+- la fonction depouille doit permettre de compter le nombre de votes exprimés pour
 chacune des issues. Elle prend en paramètre un tableau et renvoie le résultat dans un
 dictionnaire dont les clés sont les noms des issues et les valeurs le nombre de votes
 en leur faveur ;
-• la fonction vainqueurs doit désigner le nom du ou des gagnants. Elle prend en
+- la fonction vainqueurs doit désigner le nom du ou des gagnants. Elle prend en
 paramètre un dictionnaire non vide dont la structure est celle du dictionnaire renvoyé
 par la fonction depouille et renvoie un tableau. Ce tableau peut donc contenir
 plusieurs éléments s’il y a des artistes ex-aequo.
@@ -2167,22 +2954,49 @@ if ... > ... :
 nmax = ...
 liste_finale = [ nom for nom in election if ... ]
 return ...
-3 / 4
+
 
 Exemples d’utilisation :
+```
+
+
+```python
 >>> depouille([ 'A', 'B', 'A' ])
 {'A': 2, 'B': 1}
+```
+
+
+```python
 >>> depouille([])
 {}
+```
+
+
+```python
 >>> election = depouille(['A', 'A', 'A', 'B', 'C',
 'B', 'C', 'B', 'C', 'B'])
+```
+
+
+```python
 >>> election
 {'A': 3, 'B': 4, 'C': 3}
+```
+
+
+```python
 >>> vainqueurs(election)
 ['B']
+```
+
+
+```python
 >>> vainqueurs({ 'A' : 2, 'B' : 2, 'C' : 1})
 ['A', 'B']
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -2197,27 +3011,46 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°28
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction a_doublon qui prend en paramètre un tableau trié de nombres dans
 l’ordre croissant et renvoie True si ce tableau contient au moins deux nombres identiques,
 False sinon.
 Exemple :
+
+
+```python
 >>> a_doublon([])
 False
+```
+
+
+```python
 >>> a_doublon([1])
 False
+```
+
+
+```python
 >>> a_doublon([1, 2, 4, 6, 6])
 True
+```
+
+
+```python
 >>> a_doublon([2, 5, 7, 7, 7, 9])
 True
+```
+
+
+```python
 >>> a_doublon([0, 2, 3])
 False
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On souhaite générer des grilles du jeu de démineur à partir de la position des bombes à
@@ -2251,7 +3084,7 @@ Compléter le code situé à la page suivante afin de générer des grilles de d
 vérifier que l’appel
 genere_grille([(1, 1), (2, 4), (3, 1), (3, 3), (4, 4)])
 renvoie bien la liste donnée en exemple.
-3 / 4
+
 
 def voisinage(n, ligne, colonne):
 """ Renvoie la liste des coordonnées des voisins de la case
@@ -2287,7 +3120,10 @@ grille[ligne][colonne] = ... # place la bombe
 ...
 # incrémente ses voisins
 return grille
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -2302,10 +3138,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°29
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 On considère des tables, c’est-à-dire des tableaux de dictionnaires ayant tous les mêmes
@@ -2318,21 +3154,32 @@ animaux = [ {'nom':'Medor', 'espece':'chien', 'age':5, 'enclos':2},
 {'nom':'Belle', 'espece':'chien', 'age':6, 'enclos':3},
 {'nom':'Mirza', 'espece':'chat', 'age':6, 'enclos':5}]
 Programmer une fonction selection_enclos qui :
-• prend en paramètres :
+- prend en paramètres :
 – une table animaux contenant des enregistrements relatifs à des animaux
 (comme dans l’exemple ci-dessus),
 – un numéro d’enclos num_enclos ;
-• renvoie une table contenant les enregistrements de animaux dont l’attribut
+- renvoie une table contenant les enregistrements de animaux dont l’attribut
 'enclos' est num_enclos.
 Exemples avec la table animaux ci-dessus :
+
+
+```python
 >>> selection_enclos(animaux, 5)
 [{'nom':'Titine', 'espece':'chat', 'age':2, 'enclos':5},
 {'nom':'Mirza', 'espece':'chat', 'age':6, 'enclos':5}]
+```
+
+
+```python
 >>> selection_enclos(animaux, 2)
 [{'nom':'Medor', 'espece':'chien', 'age':5, 'enclos':2}]
+```
+
+
+```python
 >>> selection_enclos(animaux, 7)
 []
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On considère des tableaux de nombres dont tous les éléments sont présents exactement
@@ -2345,9 +3192,9 @@ tab_b = [8, 5, 5, 5, 9, 9, 9, 18, 18, 18, 3, 3, 3]
 tab_c = [5, 5, 5, 1, 1, 1, 0, 0, 0, 6, 6, 6, 3, 8, 8, 8]
 #l'intrus est 3
 On remarque qu’avec de tels tableaux :
-• pour les indices multiples de 3 situés strictement avant l’intrus, l’élément correspon-
+- pour les indices multiples de 3 situés strictement avant l’intrus, l’élément correspon-
 dant et son voisin de droite sont égaux,
-• pour les indices multiples de 3 situés après l’intrus, l’élément correspondant et son
+- pour les indices multiples de 3 situés après l’intrus, l’élément correspondant et son
 voisin de droite - s’il existe - sont différents.
 Cequel’onpeutobserverci-dessousenobservantlesvaleursdespairesdevoisinsmarquées
 par des caractères ^ :
@@ -2382,7 +3229,7 @@ En revanche, si on s’intéresse à l’indice 3, on voit les valeurs 9 et 9 qu
 l’intrus est donc à droite des indices 3-4-5, donc à partir de l’indice 6.
 Compléter la fonction récursive trouver_intrus proposée page suivante qui met en œuvre
 cet algorithme.
-3 / 4
+
 
 def trouver_intrus(tab, g, d):
 """Renvoie la valeur de l'intrus situé entre les indices g et d
@@ -2400,16 +3247,31 @@ return ...
 else:
 return ...
 Exemples :
+```
+
+
+```python
 >>> trouver_intrus([3, 3, 3, 9, 9, 9, 1, 1, 1, 7,
 2, 2, 2, 4, 4, 4, 8, 8, 8], 0, 18)
 7
+```
+
+
+```python
 >>> trouver_intrus([8, 5, 5, 5, 9, 9, 9, 18, 18, 18, 3, 3, 3],
 0, 12)
 8
+```
+
+
+```python
 >>> trouver_intrus([5, 5, 5, 1, 1, 1, 0, 0, 0,
 6, 6, 6, 3, 8, 8, 8], 0, 15)
 3
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -2424,10 +3286,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°30
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Le codage par différence (delta encoding en anglais) permet de compresser un tableau
@@ -2439,11 +3301,18 @@ Programmer la fonction delta(liste) qui prend en paramètre un tableau non vide 
 nombres entiers et qui renvoie un tableau contenant les valeurs entières compressées à
 l’aide cette technique.
 Exemples :
+
+
+```python
 >>> delta([1000, 800, 802, 1000, 1003])
 [1000, -200, 2, 198, 3]
+```
+
+
+```python
 >>> delta([42])
 [42]
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Une expression arithmétique ne comportant que les quatre opérations +, −, ×, ÷ peut être
@@ -2471,7 +3340,7 @@ def est_une_feuille(self):
 """renvoie True si et seulement
 si le noeud est une feuille"""
 return self.gauche is None and self.droite is None
-3 / 4
+
 
 def infixe(self):
 """renvoie la représentation infixe de l'expression en
@@ -2484,20 +3353,47 @@ if ... is not None:
 s = s + ... + ...
 return s
 Exemples :
+```
+
+
+```python
 >>> a = Expr(Expr(None, 1, None), '+', Expr(None, 2, None))
+```
+
+
+```python
 >>> a.infixe()
 '(1+2)'
+```
+
+
+```python
 >>> b = Expr(Expr(Expr(None, 1, None), '+', Expr(None, 2, None)),
 '*', Expr(Expr(None, 3, None), '+', Expr(None, 4, None)))
+```
+
+
+```python
 >>> b.infixe()
 '((1+2)*(3+4))'
+```
+
+
+```python
 >>> e = Expr(
 Expr(Expr(None, 3, None), '*', Expr(Expr(None, 8, None),
 '+', Expr(None, 7, None))),
 '-', Expr(Expr(None, 2, None), '+', Expr(None, 1, None)))
+```
+
+
+```python
 >>> e.infixe()
 '((3*(8+7))-(2+1))'
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -2512,25 +3408,40 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°31
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche_motif qui prend en paramètre une chaîne de caractères
 motif non vide et une chaîne de caractères texte et qui renvoie la liste des positions de
 motif dans texte. Si motif n’apparaît pas, la fonction renvoie une liste vide.
 Exemples:
+
+
+```python
 >>> recherche_motif("ab", "")
 []
+```
+
+
+```python
 >>> recherche_motif("ab", "cdcdcdcd")
 []
+```
+
+
+```python
 >>> recherche_motif("ab", "abracadabra")
 [0, 7]
+```
+
+
+```python
 >>> recherche_motif("ab", "abracadabraab")
 [0, 7, 11]
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Dans cet exercice, on considère un graphe non orienté représenté sous forme de listes
@@ -2558,11 +3469,22 @@ acc = []
 parcours(adj, ...)
 return acc
 Exemples :
+```
+
+
+```python
 >>> accessibles([[1, 2], [0, 3], [0], [1], [5], [4]], 0)
 [0, 1, 3, 2]
+```
+
+
+```python
 >>> accessibles([[1, 2], [0, 3], [0], [1], [5], [4]], 4)
 [4, 5]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2577,10 +3499,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°32
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction occurrences(caractere, chaine) qui prend en paramètres
@@ -2589,13 +3511,24 @@ tères.
 Cette fonction renvoie le nombre d’occurrences de caractere dans chaine, c’est-à-dire
 le nombre de fois où caractere apparaît dans chaine.
 Exemples :
+
+
+```python
 >>> occurrences('e', "sciences")
 2
+```
+
+
+```python
 >>> occurrences('i',"mississippi")
 4
+```
+
+
+```python
 >>> occurrences('a',"mississippi")
 0
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On s’intéresse à un algorithme récursif qui permet de rendre la monnaie à partir d’une liste
@@ -2616,13 +3549,28 @@ return ... + rendu_glouton(a_rendre - v, rang)
 else:
 return rendu_glouton(a_rendre, ...)
 On devra obtenir :
+```
+
+
+```python
 >>> rendu_glouton(67, 0)
 [50, 10, 5, 2]
+```
+
+
+```python
 >>> rendu_glouton(291, 0)
 [100, 100, 50, 20, 20, 1]
+```
+
+
+```python
 >>> rendu_glouton(291,1) # si on ne dispose pas de billets de 100
 [50, 50, 50, 50, 50, 20, 20, 1]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2637,15 +3585,15 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°33
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Dans cet exercice, on considère des arbres binaires de recherche qui sont :
-• soit l’arbre vide identifié par None ;
-• soit un nœud, contenant une clé et deux sous-arbres gauche et droit et représenté
+- soit l’arbre vide identifié par None ;
+- soit un nœud, contenant une clé et deux sous-arbres gauche et droit et représenté
 par un triplet (g, v, d) où g et d sont les sous-arbres gauche et droit et v la clé.
 Ainsi, l’arbre binaire de recherche abr1 ci-dessus est créé par le code python ci-dessous
 n0 = (None, 0, None)
@@ -2657,13 +3605,24 @@ clé cle et un arbre binaire de recherche a , et qui renvoie un arbre binaire de
 dans lequel cle a été insérée.
 Dans le cas où cle est déjà présente dans a, la fonction renvoie un arbre identique à a.
 Résultats à obtenir :
+
+
+```python
 >>> insertion_abr(abr1, 4)
 ((None,0,None),1,(None,2,(None,3,(None,4,None))))
+```
+
+
+```python
 >>> insertion_abr(abr1, -5)
 (((None,-5,None),0,None),1,(None,2,(None,3,None)))
+```
+
+
+```python
 >>> insertion_abr(abr1, 2)
 ((None,0,None),1,(None,2,(None,3,None)))
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On dispose d’un ensemble d’objets dont on connaît, pour chacun, la masse. On souhaite
@@ -2675,11 +3634,11 @@ des objets dans la première boîte où cela est possible.
 Par exemple, pour ranger dans des boîtes de capacité c = 5 un ensemble de trois objets
 dont les masses sont représentées en Python par la liste [1, 5, 2], on procède de la
 façon suivante :
-• Le premier objet, de masse 1, va dans une première boite.
-• Le deuxième objet, de masse 5, ne peut pas aller dans la même boite que le premier
+- Le premier objet, de masse 1, va dans une première boite.
+- Le deuxième objet, de masse 5, ne peut pas aller dans la même boite que le premier
 objet car cela dépasserait la capacité de la boite. On place donc cet objet dans une
 deuxième boîte.
-• Le troisième objet, de masse 2, va dans la première boîte.
+- Le troisième objet, de masse 2, va dans la première boîte.
 On a donc utilisé deux boîtes de capacité c = 5 pour ranger les 3 objets.
 Compléter la fonction Python empaqueter(liste_masses, c) suivante pour qu’elle
 renvoie le nombre de boîtes de capacité c nécessaires pour empaqueter un ensemble
@@ -2701,13 +3660,28 @@ if i == nb_boites:
 boites[i] = ...
 return ...
 Exemples :
+```
+
+
+```python
 >>> empaqueter([1, 2, 3, 4, 5], 10)
 2
+```
+
+
+```python
 >>> empaqueter([1, 2, 3, 4, 5], 5)
 4
+```
+
+
+```python
 >>> empaqueter([7, 6, 3, 4, 8, 5, 9, 2], 11)
 5
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2722,37 +3696,48 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°34
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction tri_selection qui prend en paramètre un tableau tab de nombres
 entiers (type list) et qui le modifie afin qu’il soit trié par ordre croissant.
 On utilisera l’algorithme suivant :
-• on recherche le plus petit élément du tableau, en le parcourant du rang 0 au dernier
+- on recherche le plus petit élément du tableau, en le parcourant du rang 0 au dernier
 rang, et on l’échange avec l’élément d’indice 0 ;
-• on recherche ensuite le plus petit élément du tableau restreint du rang 1 au dernier
+- on recherche ensuite le plus petit élément du tableau restreint du rang 1 au dernier
 rang, et on l’échange avec l’élément d’indice 1 ;
-• on continue de cette façon jusqu’à ce que le tableau soit entièrement triée.
+- on continue de cette façon jusqu’à ce que le tableau soit entièrement triée.
 Exemple :
+
+
+```python
 >>> tab = [1, 52, 6, -9, 12]
+```
+
+
+```python
 >>> tri_selection(tab)
+```
+
+
+```python
 >>> tab
 [-9, 1, 6, 12, 52]
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Le jeu du « plus ou moins » consiste à deviner un nombre entier choisi entre 1 et 99.
 Une élève de NSI décide de le coder en langage Python de la manière suivante :
-• le programme génère un nombre entier aléatoire compris entre 1 et 99 ;
-• si la proposition de l’utilisatrice est plus petite que le nombre cherché, l’utilisatrice en
+- le programme génère un nombre entier aléatoire compris entre 1 et 99 ;
+- si la proposition de l’utilisatrice est plus petite que le nombre cherché, l’utilisatrice en
 est avertie. Elle peut alors en tester un autre ;
-• si la proposition de l’utilisatrice est plus grande que le nombre cherché, l’utilisatrice
+- si la proposition de l’utilisatrice est plus grande que le nombre cherché, l’utilisatrice
 en est avertie. Elle peut alors en tester un autre ;
-• si l’utilisatrice trouve le bon nombre en 10 essais ou moins, elle gagne ;
-• si l’utilisatrice a fait plus de 10 essais sans trouver le bon nombre, elle perd.
+- si l’utilisatrice trouve le bon nombre en 10 essais ou moins, elle gagne ;
+- si l’utilisatrice a fait plus de 10 essais sans trouver le bon nombre, elle perd.
 La fonction randint est utilisée.
 Si a et b sont des entiers tels que a <= b, randint(a,b) renvoie un nombre entier
 compris entre a et b inclus.
@@ -2773,7 +3758,10 @@ print ("Bravo ! Le nombre était ", ...)
 print("Nombre d'essais: ", ...)
 else:
 print ("Perdu ! Le nombre était ", ...)
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2788,10 +3776,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°35
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Sur le réseau social TipTop, on s’intéresse au nombre de « like » des abonnés. Les données
@@ -2799,17 +3787,24 @@ sont stockées dans des dictionnaires où les clés sont les pseudos et les vale
 dantes sont les nombres de « like » comme ci-dessous :
 { 'Bob': 102, 'Ada': 201, 'Alice': 103, 'Tim': 50 }
 Écrire une fonction max_dico qui :
-• prend en paramètre un dictionnaire dico non vide dont les clés sont des chaînes de
+- prend en paramètre un dictionnaire dico non vide dont les clés sont des chaînes de
 caractères et les valeurs associées sont des entiers ;
-• et qui renvoie un tuple dont :
+- et qui renvoie un tuple dont :
 – la première valeur est la clé du dictionnaire associée à la valeur maximale ;
 – la seconde valeur est la première valeur maximale présente dans le dictionnaire.
 Exemples :
+
+
+```python
 >>> max_dico({ 'Bob': 102, 'Ada': 201, 'Alice': 103, 'Tim': 50 })
 ('Ada', 201)
+```
+
+
+```python
 >>> max_dico({ 'Alan': 222, 'Ada': 201, 'Eve': 222, 'Tim': 50 })
 ('Alan', 222)
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Nous avons l’habitude de noter les expressions arithmétiques avec des parenthèses comme
@@ -2823,11 +3818,11 @@ Autre exemple, la notation postfixe de 3 × 2 + 5 est modélisée par le tableau
 D’une manière plus générale, la valeur associée à une expression arithmétique en notation
 postfixe est déterminée à l’aide d’une pile en parcourant l’expression arithmétique de
 gauche à droite de la façon suivante :
-• si l’élément parcouru est un nombre, on le place au sommet de la pile ;
-• si l’élément parcouru est un opérateur, on récupère les deux éléments situés au som-
+- si l’élément parcouru est un nombre, on le place au sommet de la pile ;
+- si l’élément parcouru est un opérateur, on récupère les deux éléments situés au som-
 met de la pile et on leur applique l’opérateur. On place alors le résultat au sommet de
 la pile.
-• à la fin du parcours, il reste alors un seul élément dans la pile qui est le résultat de
+- à la fin du parcours, il reste alors un seul élément dans la pile qui est le résultat de
 l’expression arithmétique.
 Dans le cadre de cet exercice, on se limitera aux opérations × et +.
 Pour cet exercice, on dispose d’une classe Pile qui implémente les méthodes de base sur
@@ -2852,7 +3847,7 @@ si la pile n’est pas vide. Produit une erreur sinon.
 """
 assert not self.est_vide()
 return self.contenu.pop()
-3 / 4
+
 
 def eval_expression(tab):
 p = Pile()
@@ -2867,13 +3862,28 @@ resultat = ...
 p.empiler(...)
 return ...
 Exemples :
+```
+
+
+```python
 >>> eval_expression([2, 3, '+', 5, '*'])
 25
+```
+
+
+```python
 >>> eval_expression([1, 2, '+', 3, '*'])
 9
+```
+
+
+```python
 >>> eval_expression([1, 2, 3, '+', '*'])
 5
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -2888,16 +3898,16 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°36
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Dans cet exercice, on considère des phrases composées de mots.
-• On appelle mot une chaîne de caractères composée avec des caractères choisis parmi
+- On appelle mot une chaîne de caractères composée avec des caractères choisis parmi
 les 26 lettres minuscules ou majuscules de l’alphabet.
-• On appelle phrase une chaîne de caractères :
+- On appelle phrase une chaîne de caractères :
 – composée avec un ou plusieurs mots séparés entre eux par un seul caractère
 espace ' ',
 – se finissant :
@@ -2910,15 +3920,30 @@ Voici deux exemples de phrases :
 Après avoir remarqué le lien entre le nombre de mots et le nombre de caractères espace
 dans une phrase, programmer une fonction nombre_de_mots qui prend en paramètre
 une phrase et renvoie le nombre de mots présents dans cette phrase.
+
+
+```python
 >>> nombre_de_mots('Cet exercice est simple.')
 4
+```
+
+
+```python
 >>> nombre_de_mots('Le point d exclamation est séparé !')
 6
+```
+
+
+```python
 >>> nombre_de_mots('Combien de mots y a t il dans cette phrase ?')
 10
+```
+
+
+```python
 >>> nombre_de_mots('Fin.')
 1
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Un arbre binaire de recherche est soit vide, représenté en Python par la valeur None, soit
@@ -2949,18 +3974,45 @@ else:
 Compléter la méthode récursive inserer afin qu’elle permette d’insérer une clé dans
 l’arbre binaire de recherche non vide sur lequel on l’appelle.
 Voici un exemple d’utilisation :
+```
+
+
+```python
 >>> arbre = Noeud(7)
+```
+
+
+```python
 >>> for cle in (3, 9, 1, 6):
 arbre.inserer(cle)
+```
+
+
+```python
 >>> arbre.gauche.etiquette
 3
+```
+
+
+```python
 >>> arbre.droit.etiquette
 9
+```
+
+
+```python
 >>> arbre.gauche.gauche.etiquette
 1
+```
+
+
+```python
 >>> arbre.gauche.droit.etiquette
 6
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -2975,10 +4027,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°37
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 On considère dans cet exercice une représentation binaire d’un entier non signé en tant que
@@ -2991,17 +4043,32 @@ est dite big-endian ou grand-boutiste.
 Écrire une fonction gb_vers_entier qui prend en paramètre un tel tableau et renvoie
 l’entier qu’il représente.
 Exemple :
+
+
+```python
 >>> gb_vers_entier([])
 0
+```
+
+
+```python
 >>> gb_vers_entier([True])
 1
+```
+
+
+```python
 >>> gb_vers_entier([True, False, True,
 False, False, True, True])
 83
+```
+
+
+```python
 >>> gb_vers_entier([True, False, False, False,
 False, False, True, False])
 130
-2 / 3
+
 
 EXERCICE 2 (10 points)
 La fonction tri_insertion suivante prend en argument un tableau tab (type list) et
@@ -3031,11 +4098,26 @@ tab[j] = tab[j-1]
 j = ...
 tab[j] = ...
 Exemple :
+```
+
+
+```python
 >>> tab = [98, 12, 104, 23, 131, 9]
+```
+
+
+```python
 >>> tri_insertion(tab)
+```
+
+
+```python
 >>> tab
 [9, 12, 23, 98, 104, 131]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3050,21 +4132,28 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°38
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction moyenne qui prend en paramètre un tableau non vide de nombres
 flottants et qui renvoie la moyenne des valeurs du tableau. Les tableaux seront représentés
 sous forme de liste Python.
 Exemples :
+
+
+```python
 >>> moyenne([1.0])
 1.0
+```
+
+
+```python
 >>> moyenne([1.0, 2.0, 4.0])
 2.3333333333333335
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère la fonction binaire à la page suivante. Cette fonction prend en paramètre
@@ -3084,15 +4173,34 @@ bin_a = ... + bin_a
 a = ...
 return bin_a
 Exemples :
+```
+
+
+```python
 >>> binaire(83)
 '1010011'
+```
+
+
+```python
 >>> binaire(6)
 '110'
+```
+
+
+```python
 >>> binaire(127)
 '1111111'
+```
+
+
+```python
 >>> binaire(0)
 '0'
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3107,10 +4215,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°39
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Programmer la fonction moyenne prenant en paramètre un tableau d’entiers tab (de type
@@ -3118,13 +4226,24 @@ list) qui renvoie la moyenne de ses éléments si le tableau est non vide. Propo
 façon de traiter le cas où le tableau passé en paramètre est vide.
 Dans cet exercice, on s’interdira d’utiliser la fonction Python sum.
 Exemples :
+
+
+```python
 >>> moyenne([5,3,8])
 5.333333333333333
+```
+
+
+```python
 >>> moyenne([1,2,3,4,5,6,7,8,9,10])
 5.5
+```
+
+
+```python
 >>> moyenne([])
 # Comportement différent suivant le traitement proposé.
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère un tableau d’entiers tab (de type list) dont les éléments sont des 0 ou des
@@ -3135,9 +4254,9 @@ contenant que des 0 et des 1 sont vides.
 [0, ..., 0, <zone non triée>, 1, ..., 1]
 Tant que la zone non triée n’est pas réduite à un seul élément, on regarde son premier
 élément :
-• si cet élément vaut 0, on considère qu’il appartient désormais à la zone ne contenant
+- si cet élément vaut 0, on considère qu’il appartient désormais à la zone ne contenant
 que des 0 ;
-• si cet élément vaut 1, il est échangé avec le dernier élément de la zone non triée et on
+- si cet élément vaut 1, il est échangé avec le dernier élément de la zone non triée et on
 considère alors qu’il appartient à la zone ne contenant que des 1.
 Dans tous les cas, la longueur de la zone non triée diminue de 1.
 Compléter la fonction tri suivante :
@@ -3155,11 +4274,26 @@ tab[j] = ...
 ...
 j = ...
 Exemple :
+```
+
+
+```python
 >>> tab = [0,1,0,1,0,1,0,1,0]
+```
+
+
+```python
 >>> tri(tab)
+```
+
+
+```python
 >>> tab
 [0, 0, 0, 0, 0, 1, 1, 1, 1]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3174,36 +4308,51 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°40
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction recherche_indices_classement qui prend en paramètres un
 entier elt et un tableau d’entiers tab représenté par une liste Python, et qui renvoie trois
 listes Python d’entiers:
-• lapremièrelistecontientlesindicesdesvaleursdutableautabstrictementinférieures
+- lapremièrelistecontientlesindicesdesvaleursdutableautabstrictementinférieures
 à elt ;
-• la deuxième liste contient les indices des valeurs du tableau tab égales à elt ;
-• la troisième liste contient les indices des valeurs du tableau tab strictement
+- la deuxième liste contient les indices des valeurs du tableau tab égales à elt ;
+- la troisième liste contient les indices des valeurs du tableau tab strictement
 supérieures à elt.
 Exemples :
+
+
+```python
 >>> recherche_indices_classement(3, [1, 3, 4, 2, 4, 6, 3, 0])
 ([0, 3, 7], [1, 6], [2, 4, 5])
+```
+
+
+```python
 >>> recherche_indices_classement(3, [1, 4, 2, 4, 6, 0])
 ([0, 2, 5], [], [1, 3, 4])
->>>recherche_indices_classement(3, [1, 1, 1, 1])
+```
+
+
+```python
+>>> recherche_indices_classement(3, [1, 1, 1, 1])
 ([0, 1, 2, 3], [], [])
+```
+
+
+```python
 >>> recherche_indices_classement(3, [])
 ([], [], [])
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Une professeure de NSI décide de gérer les résultats de sa classe sous la forme d’un diction-
 naire :
-• les clefs sont les noms des élèves ;
-• les valeurs sont des dictionnaires dont les clefs sont les types d’épreuves sous forme
+- les clefs sont les noms des élèves ;
+- les valeurs sont des dictionnaires dont les clefs sont les types d’épreuves sous forme
 de chaîne de caractères et les valeurs sont les notes obtenues associées à leurs coeffi-
 cients dans une liste.
 Avec :
@@ -3247,14 +4396,25 @@ total_points = total_points + ... * coefficient
 return round( ... / total_coefficients, 1 )
 else:
 return None
-3 / 4
+
 
 Exemples :
+```
+
+
+```python
 >>> moyenne("Dupont", resultats)
 14.5
+```
+
+
+```python
 >>> moyenne("Durand", resultats)
 8.5
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -3269,27 +4429,34 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°41
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 L’opérateur « ou exclusif » entre deux bits renvoie 0 si les deux bits sont égaux et 1 s’ils sont
 différents. Il est symbolisé par le symbole ⊕. Ainsi :
-• 0 ⊕ 0 = 0
-• 0 ⊕ 1 = 1
-• 1 ⊕ 0 = 1
-• 1 ⊕ 1 = 0
+- 0 ⊕ 0 = 0
+- 0 ⊕ 1 = 1
+- 1 ⊕ 0 = 1
+- 1 ⊕ 1 = 0
 Écrire une fonction ou_exclusif qui prend en paramètres deux tableaux de 0 ou de 1 de
 même longueur et qui renvoie un tableau où l’élément situé à position i est le résultat, par
 l’opérateur « ou exclusif », des éléments à la position i des tableaux passés en paramètres.
 Exemples :
+
+
+```python
 >>> ou_exclusif([1, 0, 1, 0, 1, 1, 0, 1], [0, 1, 1, 1, 0, 1, 0, 0])
 [1, 1, 0, 1, 1, 0, 0, 1]
+```
+
+
+```python
 >>> ou_exclusif([1, 1, 0, 1], [0, 0, 1, 1])
 [1, 1, 1, 0]
-2 / 4
+
 
 EXERCICE 2 (10 points)
 Dans cet exercice, on appelle carré d’ordre 𝑛 un tableau de 𝑛 lignes et 𝑛 colonnes dont
@@ -3297,17 +4464,29 @@ chaque case contient un entier naturel.
 Exemples :
 Un carré est dit semimagique lorsque les sommes des éléments situés sur chaque ligne,
 chaque colonne sont égales.
-• Ainsi c2 et c3 sont semimagiques car la somme de chaque ligne et chaque colonne
+- Ainsi c2 et c3 sont semimagiques car la somme de chaque ligne et chaque colonne
 est égale à 8 pour c2 et 12 pour c3.
-• Le carre c3bis n’est pas semimagique car la somme de la première ligne est égale à 15
+- Le carre c3bis n’est pas semimagique car la somme de la première ligne est égale à 15
 alors que celle de la deuxième ligne est égale à 10.
 La classe Carre ci-après contient des méthodes qui permettent de manipuler des carrés.
-• La méthode constructeur crée un carré sous forme d’un tableau à deux dimensions à
+- La méthode constructeur crée un carré sous forme d’un tableau à deux dimensions à
 partir d’une liste d’entiers, et d’un ordre.
-• La méthode affiche permet d’afficher le carré créé.
+- La méthode affiche permet d’afficher le carré créé.
 Exemple :
+```
+
+
+```python
 >>> lst_c3 = [3, 4, 5, 4, 4, 4, 5, 4, 3]
+```
+
+
+```python
 >>> c3 = Carre(lst_c3, 3)
+```
+
+
+```python
 >>> c3.affiche()
 [3, 4, 5]
 [4, 4, 4]
@@ -3323,7 +4502,7 @@ def affiche(self):
 '''Affiche un carré'''
 for i in range(self.ordre):
 print(self.tableau[i])
-3 / 4
+
 
 def somme_ligne(self, i):
 '''Calcule la somme des valeurs de la ligne i'''
@@ -3349,7 +4528,10 @@ if ... != s:
 return ...
 return ...
 Tester la méthode est_semimagique sur les carrés c2, c3 et c3bis.
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -3364,23 +4546,34 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°42
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction Python appelée nb_repetitions qui prend en paramètres un élé-
 ment elt et un tableautab (type list) d’éléments du même type et qui renvoie le nombre
 de fois où l’élément apparaît dans le tableau.
 Exemples :
+
+
+```python
 >>> nb_repetitions(5, [2, 5, 3, 5, 6, 9, 5])
 3
+```
+
+
+```python
 >>> nb_repetitions('A', ['B', 'A', 'B', 'A', 'R'])
 2
+```
+
+
+```python
 >>> nb_repetitions(12, [1, '!', 7, 21, 36, 44])
 0
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Pour rappel, la conversion d’un nombre entier positif en binaire peut s’effectuer à l’aide des
@@ -3399,11 +4592,22 @@ bin_a = ... + bin_a
 a = ...
 return bin_a
 Exemples :
+```
+
+
+```python
 >>> binaire(0)
 '0'
+```
+
+
+```python
 >>> binaire(77)
 '1001101'
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3418,27 +4622,46 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°43
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction couples_consecutifs qui prend en paramètre un tableau de nom-
 bres entiers tab non vide (type list), et qui renvoie la liste Python (éventuellement vide)
 des couples d’entiers consécutifs successifs qu’il peut y avoir dans tab.
 Exemples :
+
+
+```python
 >>> couples_consecutifs([1, 4, 3, 5])
 []
+```
+
+
+```python
 >>> couples_consecutifs([1, 4, 5, 3])
 [(4, 5)]
+```
+
+
+```python
 >>> couples_consecutifs([1, 1, 2, 4])
 [(1, 2)]
+```
+
+
+```python
 >>> couples_consecutifs([7, 1, 2, 5, 3, 4])
 [(1, 2), (3, 4)]
+```
+
+
+```python
 >>> couples_consecutifs([5, 1, 2, 3, 8, -5, -4, 7])
 [(1, 2), (2, 3), (-5, -4)]
-2 / 3
+
 
 EXERCICE 2 (10 points)
 Soit une image binaire représentée dans un tableau à 2 dimensions. Les éléments M[i][j],
@@ -3467,11 +4690,26 @@ colore_comp1(M, ..., ..., val)
 if ...: # propage à droite
 ...
 Exemple :
+```
+
+
+```python
 >>> M = [[0, 0, 1, 0], [0, 1, 0, 1], [1, 1, 1, 0], [0, 1, 1, 0]]
+```
+
+
+```python
 >>> colore_comp1(M, 2, 1, 3)
+```
+
+
+```python
 >>> M
 [[0, 0, 1, 0], [0, 3, 0, 1], [3, 3, 3, 0], [0, 3, 3, 0]]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3486,10 +4724,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°44
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 Dans cet exercice on cherche à calculer la moyenne pondérée d’un élève dans une matière
@@ -3500,16 +4738,23 @@ cient 2, sa moyenne pondérée sera donnée par
 3 + 1 + 2
 = 14, 333...
 Écrire une fonction moyenne :
-• qui prend en paramètre une liste notes non vide de tuples à deux éléments entiers
+- qui prend en paramètre une liste notes non vide de tuples à deux éléments entiers
 de la forme (note, coefficient) (int ou float) positifs ou nuls ;
-• et qui renvoie la moyenne pondérée des notes de la liste sous forme de flottant si la
+- et qui renvoie la moyenne pondérée des notes de la liste sous forme de flottant si la
 somme des coefficients est non nulle, None sinon.
 Exemple :
+
+
+```python
 >>> moyenne([(8, 2), (12, 0), (13.5, 1), (5, 0.5)])
 9.142857142857142
+```
+
+
+```python
 >>> moyenne([(3, 0), (5, 0)])
 None
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On travaille sur des dessins en noir et blanc obtenus à partir de pixels noirs et blancs : La
@@ -3543,7 +4788,7 @@ for elt in ... :
 for i in range(k):
 ...
 return liste_zoomee
-3 / 4
+
 
 def dessin_zoom(grille,k):
 '''renvoie une grille où les lignes sont zoomées k fois
@@ -3555,6 +4800,10 @@ for i in range(k):
 ... .append(...)
 return grille_zoomee
 Exemples :
+```
+
+
+```python
 >>> coeur = [[0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0],
 [0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0],
 [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
@@ -3565,6 +4814,10 @@ Exemples :
 [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]]
+```
+
+
+```python
 >>> affiche(coeur)
 **
 **
@@ -3586,6 +4839,10 @@ Exemples :
 *
 * *
 *
+```
+
+
+```python
 >>> affiche(dessin_zoom(coeur,2))
 ****
 ****
@@ -3631,9 +4888,16 @@ Exemples :
 **
 **
 **
+```
+
+
+```python
 >>> liste_zoom([1,2,3],3)
 [1, 1, 1, 2, 2, 2, 3, 3, 3]
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -3648,49 +4912,64 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°45
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 4 pages numérotées de 1 / 4 à 4 / 4
+Le sujet comporte 4 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 4
+
 
 EXERCICE 1 (10 points)
 On considère des chaînes de caractères contenant uniquement des majuscules et des carac-
 tères * appelées mots à trous.
 Par exemple INFO*MA*IQUE, ***I***E** et *S* sont des mots à trous.
 Programmer une fonction correspond :
-• qui prend en paramètres deux chaînes de caractères mot et mot_a_trous où
+- qui prend en paramètres deux chaînes de caractères mot et mot_a_trous où
 mot_a_trous est un mot à trous comme indiqué ci-dessus ;
-• et qui renvoie :
+- et qui renvoie :
 – True si on peut obtenir mot en remplaçant convenablement les caractères '*'
 de mot_a_trous ;
 – False sinon.
 Exemple :
+
+
+```python
 >>> correspond('INFORMATIQUE', 'INFO*MA*IQUE')
 True
+```
+
+
+```python
 >>> correspond('AUTOMATIQUE', 'INFO*MA*IQUE')
 False
+```
+
+
+```python
 >>> correspond('STOP', 'S*')
 False
+```
+
+
+```python
 >>> correspond('AUTO', '*UT*')
 True
-2 / 4
+
 
 EXERCICE 2 (10 points)
 On considère au plus 26 personnes A, B, C, D, E, F … qui peuvent s’envoyer des messages
 avec deux règles à respecter :
-• chaque personne ne peut envoyer des messages qu’à une seule personne (éventuelle-
+- chaque personne ne peut envoyer des messages qu’à une seule personne (éventuelle-
 ment elle-même),
-• chaque personne ne peut recevoir des messages qu’en provenance d’une seule per-
+- chaque personne ne peut recevoir des messages qu’en provenance d’une seule per-
 sonne (éventuellement elle-même).
 Voici un exemple - avec 6 personnes - de « plan d’envoi des messages » qui respecte les
 règles ci-dessus, puisque chaque personne est présente une seule fois dans chaque colonne
 :
-• A envoie ses messages à E
-• E envoie ses messages à B
-• B envoie ses messages à F
-• F envoie ses messages à A
-• C envoie ses messages à D
-• D envoie ses messages à C
+- A envoie ses messages à E
+- E envoie ses messages à B
+- B envoie ses messages à F
+- F envoie ses messages à A
+- C envoie ses messages à D
+- D envoie ses messages à C
 Le dictionnaire correspondant à ce plan d’envoi est alors le suivant :
 plan_a = {'A':'E', 'B':'F', 'C':'D', 'D':'C', 'E':'B', 'F':'A'}
 Un cycle est une suite de personnes dans laquelle la dernière est la même que la première.
@@ -3702,14 +4981,14 @@ comporte un unique cycle : A, C, E, B, F, D. Dans ce cas, lorsqu’un plan d’e
 unique cycle, on dit que le plan d’envoi est cyclique.
 Pour savoir si un plan d’envoi de messages comportant N personnes est cyclique, on peut
 utiliser l’algorithme ci-dessous :
-• on part d’un expéditeur (ici A) et on inspecte son destinataire dans le plan d’envoi,
-• chaque destinataire devient à son tour expéditeur, selon le plan d’envoi, tant qu’on
+- on part d’un expéditeur (ici A) et on inspecte son destinataire dans le plan d’envoi,
+- chaque destinataire devient à son tour expéditeur, selon le plan d’envoi, tant qu’on
 ne « retombe » pas sur l’expéditeur initial,
-• le plan d’envoi est cyclique si on l’a parcouru en entier.
+- le plan d’envoi est cyclique si on l’a parcouru en entier.
 Compléter la fonction est_cyclique située à la page suivante en respectant la spécifica-
 tion. On rappelle que la fonction Python len permet d’obtenir la longueur d’un diction-
 naire.
-3 / 4
+
 
 def est_cyclique(plan):
 '''Prend en paramètre un dictionnaire `plan` correspondant à
@@ -3725,15 +5004,34 @@ destinataire = ...
 nb_destinataires = ...
 return nb_destinataires == ...
 Exemples :
+```
+
+
+```python
 >>> est_cyclique({'A':'E','F':'A','C':'D','E':'B','B':'F','D':'C'})
 False
+```
+
+
+```python
 >>> est_cyclique({'A':'E','F':'C','C':'D','E':'B','B':'F','D':'A'})
 True
+```
+
+
+```python
 >>> est_cyclique({'A':'B','F':'C','C':'D','E':'A','B':'F','D':'E'})
 True
+```
+
+
+```python
 >>> est_cyclique({'A':'B','F':'A','C':'D','E':'C','B':'F','D':'E'})
 False
-4 / 4
+
+
+---
+```
 
 ---
 
@@ -3748,10 +5046,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°46
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Écrire une fonction compte_occurrences prenant en paramètres une valeur x et un
@@ -3759,13 +5057,24 @@ tableau tab (de type list) et renvoyant le nombre d’occurrences de x dans tab.
 L’objectif de cet exercice étant de parcourir un tableau, il est interdit d’utiliser la méthode
 count des listes Python.
 Exemples :
+
+
+```python
 >>> compte_occurrences(5, [])
 0
+```
+
+
+```python
 >>> compte_occurrences(5, [-2, 3, 1, 5, 3, 7, 4])
 1
+```
+
+
+```python
 >>> compte_occurrences('a', ['a','b','c','a','d','e','a'])
 3
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère dans cet exercice un algorithme glouton pour le rendu de monnaie. Pour
@@ -3774,10 +5083,10 @@ de suite jusqu’à ce que la somme restante à rendre soit nulle.
 Les pièces de monnaie utilisées sont :
 pieces = [1, 2, 5, 10, 20, 50, 100, 200]
 On souhaite écrire une fonction rendu_monnaie qui prend en paramètres
-• un entier somme_due représentant la somme à payer ;
-• un entier somme_versee représentant la somme versée qui est supérieure ou égale
+- un entier somme_due représentant la somme à payer ;
+- un entier somme_versee représentant la somme versée qui est supérieure ou égale
 à somme_due ;
-• et qui renvoie un tableau de type list contenant les pièces qui composent le rendu
+- et qui renvoie un tableau de type list contenant les pièces qui composent le rendu
 de la monnaie restante, c’est-à-dire de somme_versee - somme_due.
 Ainsi, l’instruction rendu_monnaie(452, 500) renvoie le tableau [20, 20, 5, 2,
 1].
@@ -3796,11 +5105,22 @@ rendu.append(...)
 a_rendre = ...
 return rendu
 Compléter ce code et le tester :
+```
+
+
+```python
 >>> rendu_monnaie(700, 700)
 []
+```
+
+
+```python
 >>> rendu_monnaie(102, 500)
 [200, 100, 50, 20, 20, 5, 2, 1]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3815,10 +5135,10 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°47
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Dans cet exercice, un arbre binaire de caractères non vide est stocké sous la forme d’un
@@ -3837,23 +5157,34 @@ On observe que, par exemple, arbre[lettre][0], respectivement arbre[let-
 tre][1], permet d’atteindre la clé du sous-arbre gauche, respectivement droit, de l’arbre
 arbre de sommet lettre.
 Exemples :
+
+
+```python
 >>> taille(a, 'F')
 9
+```
+
+
+```python
 >>> taille(a, 'B')
 5
+```
+
+
+```python
 >>> taille(a, 'I')
 2
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On considère l’algorithme de tri de tableau suivant : à chaque étape, on parcourt le sous-
 tableau des éléments non rangés et on place le plus petit élément en première position de
 ce sous-tableau.
 Exemple avec le tableau : t = [41, 55, 21, 18, 12, 6, 25]
-• Étape 1 : on parcourt tous les éléments du tableau, on permute le plus petit élément
+- Étape 1 : on parcourt tous les éléments du tableau, on permute le plus petit élément
 avec le premier.
 Le tableau devient t = [6, 55, 21, 18, 12, 41, 25]
-• Étape 2 : on parcourt tous les éléments sauf le premier, on permute le plus petit
+- Étape 2 : on parcourt tous les éléments sauf le premier, on permute le plus petit
 élément trouvé avec le second.
 Le tableau devient : t = [6, 12, 21, 18, 55, 41, 25]
 Et ainsi de suite.
@@ -3874,11 +5205,26 @@ if tab[i] < ...:
 imin = i
 echange(tab, ..., ...)
 Compléter ce code de façon à obtenir :
+```
+
+
+```python
 >>> tab = [41, 55, 21, 18, 12, 6, 25]
+```
+
+
+```python
 >>> tri_selection(tab)
+```
+
+
+```python
 >>> tab
 [6, 12, 18, 21, 25, 41, 55]
-3 / 3
+
+
+---
+```
 
 ---
 
@@ -3893,22 +5239,33 @@ Partie pratique
 Classe Terminale de la voie générale
 Sujet n°48
 DURÉE DE L'ÉPREUVE : 1 heure
-Le sujet comporte 3 pages numérotées de 1 / 3 à 3 / 3
+Le sujet comporte 3 pages numérotées de à 
 Dès que le sujet vous est remis, assurez-vous qu’il est complet.
 Le candidat doit traiter les 2 exercices.
-1 / 3
+
 
 EXERCICE 1 (10 points)
 Programmer la fonction recherche, prenant en paramètre un tableau non vide tab (type
 list) d’entiers et un entier n, et qui renvoie l’indice de la dernière occurrence de l’élément
 cherché. Si l’élément n’est pas présent, la fonction renvoie None.
 Exemples
+
+
+```python
 >>> recherche([5, 3],1) # renvoie None
+```
+
+
+```python
 >>> recherche([2,4],2)
 0
+```
+
+
+```python
 >>> recherche([2,3,5,2,4],2)
 3
-2 / 3
+
 
 EXERCICE 2 (10 points)
 On souhaite programmer une fonction indiquant le point le plus proche d’un point de départ
@@ -3935,15 +5292,34 @@ min_point = ...
 min_dist = ...
 return min_point
 Exemples :
+```
+
+
+```python
 >>> distance_carre((1, 0), (5, 3))
 25
+```
+
+
+```python
 >>> distance_carre((1, 0), (0, 1))
 2
+```
+
+
+```python
 >>> point_le_plus_proche((0, 0), [(7, 9), (2, 5), (5, 2)])
 (2, 5)
+```
+
+
+```python
 >>> point_le_plus_proche((5, 2), [(7, 9), (2, 5), (5, 2)])
 (5, 2)
-3 / 3
+
+
+---
+```
 
 ---
 
