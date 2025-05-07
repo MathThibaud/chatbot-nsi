@@ -1,102 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Examen blanc - Chatbot NSI</title>
+    <title>Examen Blanc NSI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 
-    <!-- CodeMirror -->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Highlight.js pour la coloration syntaxique -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <!-- Marked.js pour interpréter le Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- CodeMirror pour l'édition avec coloration -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
 
-    <!-- Highlight.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-
-    <!-- MathJax -->
-    <script>
-    window.MathJax = {
-      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
-      svg: {fontCache: 'global'}
-    };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: sans-serif;
+        }
+        .CodeMirror {
+            height: 200px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 1rem;
+        }
+        pre code {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center">📝 Examen blanc NSI</h1>
-    <p class="text-center">Lis attentivement les deux consignes, puis code tes réponses dans les zones prévues.</p>
+    <h1>📝 Examen blanc NSI</h1>
 
     <div class="mb-4">
-        <h2>Exercice 1</h2>
-        <pre><code id="consigne1" class="language-python bg-light border p-3 rounded"></code></pre>
-        <div id="editor1" class="mb-4"></div>
+        <h4>Exercice 1</h4>
+        <div id="ex1" class="p-3 bg-white border rounded"></div>
+        <div id="editor1"></div>
     </div>
 
     <div class="mb-4">
-        <h2>Exercice 2</h2>
-        <pre><code id="consigne2" class="language-python bg-light border p-3 rounded"></code></pre>
-        <div id="editor2" class="mb-4"></div>
+        <h4>Exercice 2</h4>
+        <div id="ex2" class="p-3 bg-white border rounded"></div>
+        <div id="editor2"></div>
     </div>
 
     <div class="text-center mb-4">
-        <button class="btn btn-success" onclick="corriger()">✅ Valider mes réponses</button>
+        <button class="btn btn-primary" onclick="soumettre()">Soumettre les réponses</button>
     </div>
 
-    <hr>
-    <div id="correction" class="mt-4"></div>
+    <div id="correction" class="bg-light p-3 rounded border"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-    let editeur1, editeur2;
+    let editor1, editor2;
 
     window.onload = async function() {
         const res = await fetch("/get_examen");
         const data = await res.json();
 
-        document.getElementById("consigne1").textContent = data.exercice1;
-        document.getElementById("consigne2").textContent = data.exercice2;
+        document.getElementById("ex1").innerHTML = marked.parse(data.exercice1);
+        document.getElementById("ex2").innerHTML = marked.parse(data.exercice2);
 
-        hljs.highlightAll();
-        if (window.MathJax) MathJax.typeset();
-
-        editeur1 = CodeMirror(document.getElementById("editor1"), {
+        editor1 = CodeMirror(document.getElementById("editor1"), {
             mode: "python",
             lineNumbers: true,
             theme: "default",
-            indentUnit: 4,
-            tabSize: 4
+            indentUnit: 4
         });
 
-        editeur2 = CodeMirror(document.getElementById("editor2"), {
+        editor2 = CodeMirror(document.getElementById("editor2"), {
             mode: "python",
             lineNumbers: true,
             theme: "default",
-            indentUnit: 4,
-            tabSize: 4
+            indentUnit: 4
         });
     };
 
-    async function corriger() {
-        const reponse1 = editeur1.getValue().trim();
-        const reponse2 = editeur2.getValue().trim();
-        const correction = document.getElementById("correction");
-        correction.innerHTML = "<p>⏳ Analyse en cours...</p>";
+    async function soumettre() {
+        const reponse1 = editor1.getValue().trim();
+        const reponse2 = editor2.getValue().trim();
 
         const res = await fetch("/correction-examen", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ reponse1, reponse2 })
         });
 
         const data = await res.json();
-        correction.innerHTML = marked.parse(data.response);
-        if (window.MathJax) MathJax.typeset();
+        document.getElementById("correction").innerHTML = marked.parse(data.response);
     }
 </script>
 </body>
