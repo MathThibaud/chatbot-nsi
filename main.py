@@ -34,7 +34,7 @@ def extraire_exercices_du_pdf(pdf_path):
             else:
                 i += 1
         print(f"✅ {len(sujets)} sujets détectés dans le PDF")
-    return sujets
+        return sujets
     except Exception as e:
         print("❌ Erreur d’extraction PDF :", e)
         return []
