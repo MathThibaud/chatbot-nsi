@@ -4,39 +4,40 @@ from openai import OpenAI
 import os
 import random
 import fitz  # PyMuPDF
+import re
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-import re
 
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
         pages = [page.get_text() for page in doc]
         sujets = []
+        i = 0
 
-        bloc = []
-        for page in pages:
-            bloc.append(page)
-            # On détecte une fin de sujet par le motif "x / x" (ex : "3 / 3")
-            match = re.search(r"(\\b[1-9]\\s*/\\s*[1-9]\\b)", page)
-            if match:
+        while i < len(pages):
+            page = pages[i]
+            match_debut = re.search(r"1\s*/\s*(\d)", page)
+            if match_debut:
+                n = int(match_debut.group(1))
+                bloc = pages[i:i + n] if i + n <= len(pages) else pages[i:]
                 texte_complet = "\n".join(bloc)
                 if "EXERCICE 1" in texte_complet and "EXERCICE 2" in texte_complet:
-                    # Séparer les deux exercices
+                    # Extraire les deux parties
                     partie1 = texte_complet.split("EXERCICE 1", 1)[1]
                     partie2 = partie1.split("EXERCICE 2", 1)
                     ex1 = "EXERCICE 1\n" + partie2[0].strip()
                     ex2 = "EXERCICE 2\n" + partie2[1].strip() if len(partie2) > 1 else "❌ Exercice 2 non trouvé"
                     sujets.append((ex1, ex2))
-                bloc = []  # reset pour le prochain sujet
-        return sujets
+                i += n
+            else:
+                i += 1
+        print(f"✅ {len(sujets)} sujets détectés dans le PDF")
+    return sujets
     except Exception as e:
         print("❌ Erreur d’extraction PDF :", e)
         return []
-
-
 
 @app.route("/")
 def index():
@@ -137,3 +138,4 @@ def correction_examen():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
