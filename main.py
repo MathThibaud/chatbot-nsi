@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 import os
@@ -21,7 +20,6 @@ def nettoyer_indentation(texte):
             propres.append("")
             continue
 
-        # Déterminer si on est sur une ligne de début de bloc
         if stripped.endswith(":") or re.match(r"^(def |class |for |while |if |elif |else)", stripped):
             propres.append("    " * indent + stripped)
             indent += 1
@@ -32,11 +30,9 @@ def nettoyer_indentation(texte):
         elif stripped.startswith("return") or stripped.startswith("print") or stripped.startswith("nb_test"):
             propres.append("    " * indent + stripped)
         else:
-            # ligne quelconque, appliquer indent actuel
             propres.append("    " * indent + stripped)
 
-    return "\\n".join(propres)
-
+    return "\n".join(propres)
 
 def extraire_exercices_du_pdf(pdf_path):
     try:
@@ -167,4 +163,3 @@ def correction_examen():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
