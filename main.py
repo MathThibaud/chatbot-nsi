@@ -11,15 +11,20 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def extraire_exercices_du_pdf(pdf_path):
     try:
         doc = fitz.open(pdf_path)
-        texte = ""
-        for page in doc:
-            texte += page.get_text()
-    except Exception:
-        return []
+        sujets = []
 
-    lignes = texte.split("\n")
-    exercices = [l.strip() for l in lignes if l.strip().lower().startswith("exercice")]
-    return exercices
+        for page in doc:
+            texte = page.get_text()
+            if "EXERCICE 1" in texte and "EXERCICE 2" in texte:
+                parties = texte.split("EXERCICE 1")
+                if len(parties) > 1 and "EXERCICE 2" in parties[1]:
+                    ex1 = "EXERCICE 1" + parties[1].split("EXERCICE 2")[0].strip()
+                    ex2 = "EXERCICE 2" + parties[1].split("EXERCICE 2")[1].strip()
+                    sujets.append((ex1, ex2))
+        return sujets
+    except Exception as e:
+        print("Erreur extraction PDF :", e)
+        return []
 
 @app.route("/")
 def index():
@@ -34,7 +39,6 @@ def ask():
     data = request.json
     user_input = data["message"]
     file_path = "entrainement_pratique.txt"
-    exercices = extraire_exercices_du_pdf("static/pdf/BNS_2025_pdf_unique.pdf")
 
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -44,10 +48,11 @@ def ask():
 
     try:
         if user_input.lower() == "initier":
-            question = random.choice(exercices) if exercices else "❌ Aucun exercice disponible."
+            exercices = extraire_exercices_du_pdf("static/pdf/BNS_2025_pdf_unique.pdf")
+            question = exercices[0][0] if exercices else "❌ Aucun exercice disponible."
             prompt = (
                 f"{document_reference}\n\n"
-                f"Propose un exercice d'entraînement inspiré de celui-ci :\n{question}\n"
+                f"Voici un exercice extrait du sujet officiel :\n{question}\n"
                 f"Ne donne pas la réponse. Attends celle de l'élève."
             )
         else:
@@ -73,10 +78,15 @@ def ask():
 
 @app.route("/examen")
 def examen():
+    return render_template("examen.html")
+
+@app.route("/get_examen", methods=["GET"])
+def get_examen():
     exercices = extraire_exercices_du_pdf("static/pdf/BNS_2025_pdf_unique.pdf")
-    ex1 = exercices[0] if len(exercices) > 0 else "❌ Exercice 1 non trouvé"
-    ex2 = exercices[1] if len(exercices) > 1 else "❌ Exercice 2 non trouvé"
-    return render_template("examen.html", exo1=ex1, exo2=ex2)
+    if not exercices:
+        return jsonify({"exercice1": "❌ Exercice 1 introuvable", "exercice2": "❌ Exercice 2 introuvable"})
+    sujet = random.choice(exercices)
+    return jsonify({"exercice1": sujet[0], "exercice2": sujet[1]})
 
 @app.route("/correction-examen", methods=["POST"])
 def correction_examen():
