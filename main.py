@@ -4,6 +4,7 @@ from openai import OpenAI
 import os
 import random
 import fitz  # PyMuPDF
+import re
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -15,15 +16,17 @@ def extraire_exercices_du_pdf(pdf_path):
 
         for page in doc:
             texte = page.get_text()
-            if "EXERCICE 1" in texte and "EXERCICE 2" in texte:
-                parties = texte.split("EXERCICE 1")
-                if len(parties) > 1 and "EXERCICE 2" in parties[1]:
-                    ex1 = "EXERCICE 1" + parties[1].split("EXERCICE 2")[0].strip()
-                    ex2 = "EXERCICE 2" + parties[1].split("EXERCICE 2")[1].strip()
-                    sujets.append((ex1, ex2))
+            texte = texte.replace("\n", " ").strip()
+
+            match = re.search(r"(EXERCICE\s*1.*?)(EXERCICE\s*2.*?)((EXERCICE\s*1)|$)", texte, re.IGNORECASE)
+            if match:
+                ex1 = match.group(1).strip()
+                ex2 = match.group(2).strip()
+                sujets.append((ex1, ex2))
+
         return sujets
     except Exception as e:
-        print("Erreur extraction PDF :", e)
+        print("❌ Erreur d’extraction PDF :", e)
         return []
 
 @app.route("/")
@@ -125,3 +128,4 @@ def correction_examen():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
