@@ -10,9 +10,11 @@ body {
 }
 
 h1, h2 {
-    color: whitesmoke;
     font-family: Monaco, Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
+}
+.site-title {
+    color: #000000; /* noir */
 }
 
 .container {
