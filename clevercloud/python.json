@@ -1,3 +1,9 @@
 {
-    "python_version": "3.11"
-}
+    "build": {
+      "requirements": "requirements.txt"
+    },
+    "deploy": {
+      "script": "uwsgi --ini uwsgi.ini"
+    }
+  }
+  
