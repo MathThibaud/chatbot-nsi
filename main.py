@@ -11,6 +11,9 @@ import re
 
 
 app = Flask(__name__)
+
+print("✅ Flask app créée")
+
 try:
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 except Exception as e:
@@ -152,3 +155,4 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port)
 
 
+print("✅ Fin de main.py atteinte")
