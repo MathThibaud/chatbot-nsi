@@ -16,26 +16,14 @@ except Exception as e:
     print("❌ Erreur lors de la création du client OpenAI :", e)
     client = None
 
-def charger_exercices_md(md_path="sujets_BNS_2025.md"):
-    try:
-        with open(md_path, "r", encoding="utf-8") as f:
-            contenu = f.read()
-        sujets = contenu.split("# Sujet ")
-        exercices = []
-        for sujet in sujets[1:]:
-            lignes = sujet.strip().splitlines()
-            titre = lignes[0].strip()
-            corps = "\n".join(lignes[1:])
-            if "EXERCICE 1" in corps and "EXERCICE 2" in corps:
-                part1 = corps.split("EXERCICE 1", 1)[1]
-                part2_split = part1.split("EXERCICE 2", 1)
-                ex1 = "EXERCICE 1\n" + part2_split[0].strip()
-                ex2 = "EXERCICE 2\n" + part2_split[1].strip() if len(part2_split) > 1 else "❌ Exercice 2 non trouvé"
-                exercices.append((ex1, ex2))
-        return exercices
-    except Exception as e:
-        print("❌ Erreur lecture Markdown :", e)
-        return []
+def charger_exercices_markdown():
+    dossier = "exercices"
+    fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
+    if not fichiers:
+        return "❌ Aucun exercice trouvé"
+    fichier_choisi = random.choice(fichiers)
+    with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
+        return f.read()
 
 @app.route("/get_examen_affichage")
 def get_examen_affichage():
@@ -116,7 +104,13 @@ def get_examen():
     
     return jsonify({"exercice1": ex1_html, "exercice2": ex2_html})
 
-
+@app.route("/get_examen_markdown", methods=["GET"])
+def get_examen_markdown():
+    try:
+        contenu = charger_exercices_markdown()
+        return jsonify({"markdown": contenu})
+    except Exception as e:
+        return jsonify({"markdown": f"❌ Erreur : {str(e)}"})
 
 @app.route("/correction-examen", methods=["POST"])
 def correction_examen():
