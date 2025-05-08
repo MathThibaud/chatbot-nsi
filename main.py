@@ -1,14 +1,10 @@
 print("💡 main.py est en train d'être importé")
 
-
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 import os
 import random
-import re
-
-
-
+import markdown
 
 app = Flask(__name__)
 
@@ -18,7 +14,7 @@ try:
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 except Exception as e:
     print("❌ Erreur lors de la création du client OpenAI :", e)
-    client = None  # pour éviter d'autres plantages
+    client = None
 
 def charger_exercices_md(md_path="sujets_BNS_2025.md"):
     try:
@@ -41,7 +37,6 @@ def charger_exercices_md(md_path="sujets_BNS_2025.md"):
         print("❌ Erreur lecture Markdown :", e)
         return []
 
-
 @app.route("/get_examen_affichage")
 def get_examen_affichage():
     try:
@@ -53,7 +48,6 @@ def get_examen_affichage():
         return jsonify({"sujet": f"✅ Sujet {sujet}"})
     except Exception as e:
         return jsonify({"sujet": "❌ Erreur lors du chargement du sujet."})
-
 
 @app.route("/")
 def index():
@@ -114,7 +108,10 @@ def get_examen():
     if not sujets:
         return jsonify({"exercice1": "❌ Exercice 1 introuvable", "exercice2": "❌ Exercice 2 introuvable"})
     sujet = random.choice(sujets)
-    return jsonify({"exercice1": sujet[0], "exercice2": sujet[1]})
+    return jsonify({
+        "exercice1": markdown.markdown(sujet[0]),
+        "exercice2": markdown.markdown(sujet[1])
+    })
 
 @app.route("/correction-examen", methods=["POST"])
 def correction_examen():
@@ -153,7 +150,5 @@ def correction_examen():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-application = app
 
 print("✅ Fin de main.py atteinte")
