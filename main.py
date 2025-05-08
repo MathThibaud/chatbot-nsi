@@ -1,11 +1,21 @@
+print("💡 main.py est en train d'être importé")
+
+
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 import os
 import random
 import re
 
+
+
+
 app = Flask(__name__)
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+try:
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+except Exception as e:
+    print("❌ Erreur lors de la création du client OpenAI :", e)
+    client = None  # pour éviter d'autres plantages
 
 def charger_exercices_md(md_path="sujets_BNS_2025.md"):
     try:
