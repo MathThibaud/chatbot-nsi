@@ -1,68 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Examen blanc NSI</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        .exercice { 
-            white-space: pre-wrap; 
-            background: #f8f8f8; 
-            padding: 1em; 
-            border-radius: 8px; 
-            margin-bottom: 2em; 
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2em;
+            max-width: 900px;
+            margin: auto;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .exercice {
+            white-space: pre-wrap;
+            background: #f0f0f0;
+            padding: 1em;
+            border-radius: 6px;
             font-family: monospace;
+            margin-bottom: 1em;
         }
         textarea {
             width: 100%;
             height: 150px;
-            margin-top: 1em;
             font-family: monospace;
+            margin-bottom: 2em;
         }
         button {
-            margin-top: 1em;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
         }
     </style>
 </head>
 <body>
+    <h1>Examen blanc de NSI</h1>
+    <div id="bloc-examen">
+        <h2>Exercice 1</h2>
+        <div id="ex1" class="exercice">Chargement de l'exercice 1...</div>
+        <textarea id="reponse1" placeholder="Votre réponse à l'exercice 1..."></textarea>
 
-    <h1>🧪 Examen blanc de NSI</h1>
+        <h2>Exercice 2</h2>
+        <div id="ex2" class="exercice">Chargement de l'exercice 2...</div>
+        <textarea id="reponse2" placeholder="Votre réponse à l'exercice 2..."></textarea>
 
-    <div id="ex1" class="exercice">Chargement de l'exercice 1...</div>
-    <textarea id="reponse1" placeholder="Votre réponse à l'exercice 1..."></textarea>
-
-    <div id="ex2" class="exercice">Chargement de l'exercice 2...</div>
-    <textarea id="reponse2" placeholder="Votre réponse à l'exercice 2..."></textarea>
-
-    <button onclick="envoyerCorrection()">Envoyer pour correction</button>
-
-    <h2>📝 Correction</h2>
-    <div id="correction" class="exercice">La correction apparaîtra ici.</div>
+        <button onclick="soumettre()">Soumettre mes réponses</button>
+    </div>
+    <div id="correction" style="margin-top: 2em;"></div>
 
     <script>
-        // Récupération des exercices
-        fetch("/get_examen")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("ex1").textContent = data.exercice1;
-                document.getElementById("ex2").textContent = data.exercice2;
-            });
+        function chargerExamen() {
+            fetch("/get_examen")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("ex1").textContent = data.exercice1;
+                    document.getElementById("ex2").textContent = data.exercice2;
+                });
+        }
 
-        // Envoi des réponses pour correction
-        function envoyerCorrection() {
+        function soumettre() {
             const rep1 = document.getElementById("reponse1").value;
             const rep2 = document.getElementById("reponse2").value;
 
             fetch("/correction-examen", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ reponse1: rep1, reponse2: rep2 })
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("correction").textContent = data.response;
+                document.getElementById("correction").innerText = data.response;
             });
         }
+
+        chargerExamen();
     </script>
 </body>
 </html>
