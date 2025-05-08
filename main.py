@@ -153,4 +153,4 @@ if __name__ == "__main__":
 
 print("✅ Fin de main.py atteinte")
 
-app = app
+application = app
