@@ -2,32 +2,54 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Examen blanc</title>
+    <title>Examen blanc NSI</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .exercice { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
-        textarea { width: 100%; height: 150px; }
-        .resultat { white-space: pre-wrap; margin-top: 20px; background: #f0f0f0; padding: 10px; }
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .exercice { 
+            white-space: pre-wrap; 
+            background: #f8f8f8; 
+            padding: 1em; 
+            border-radius: 8px; 
+            margin-bottom: 2em; 
+            font-family: monospace;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 1em;
+            font-family: monospace;
+        }
+        button {
+            margin-top: 1em;
+        }
     </style>
 </head>
 <body>
-    <h1>Examen blanc</h1>
-    <div class="exercice" id="exercice1"></div>
-    <textarea id="reponse1" placeholder="Votre réponse à l'exercice 1"></textarea>
-    <div class="exercice" id="exercice2"></div>
-    <textarea id="reponse2" placeholder="Votre réponse à l'exercice 2"></textarea>
-    <button onclick="envoyer()">Envoyer les réponses</button>
-    <div class="resultat" id="resultat"></div>
+
+    <h1>🧪 Examen blanc de NSI</h1>
+
+    <div id="ex1" class="exercice">Chargement de l'exercice 1...</div>
+    <textarea id="reponse1" placeholder="Votre réponse à l'exercice 1..."></textarea>
+
+    <div id="ex2" class="exercice">Chargement de l'exercice 2...</div>
+    <textarea id="reponse2" placeholder="Votre réponse à l'exercice 2..."></textarea>
+
+    <button onclick="envoyerCorrection()">Envoyer pour correction</button>
+
+    <h2>📝 Correction</h2>
+    <div id="correction" class="exercice">La correction apparaîtra ici.</div>
 
     <script>
+        // Récupération des exercices
         fetch("/get_examen")
             .then(response => response.json())
             .then(data => {
-                document.getElementById("exercice1").innerHTML = data.exercice1;
-                document.getElementById("exercice2").innerHTML = data.exercice2;
+                document.getElementById("ex1").textContent = data.exercice1;
+                document.getElementById("ex2").textContent = data.exercice2;
             });
 
-        function envoyer() {
+        // Envoi des réponses pour correction
+        function envoyerCorrection() {
             const rep1 = document.getElementById("reponse1").value;
             const rep2 = document.getElementById("reponse2").value;
 
@@ -38,7 +60,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("resultat").textContent = data.response;
+                document.getElementById("correction").textContent = data.response;
             });
         }
     </script>
