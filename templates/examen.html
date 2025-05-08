@@ -3,83 +3,98 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Examen blanc NSI</title>
+    <title>Examen Blanc - NSI</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/11.1.0/marked.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 2em;
-            max-width: 900px;
-            margin: auto;
+            margin: 2em;
             background-color: #f9f9f9;
         }
-        h1, h2 {
-            color: #333;
-        }
-        .exercice {
-            white-space: pre-wrap;
-            background: #f0f0f0;
+        .markdown-rendered {
+            background: white;
             padding: 1em;
-            border-radius: 6px;
-            font-family: monospace;
-            margin-bottom: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 2em;
         }
         textarea {
             width: 100%;
             height: 150px;
+            margin-top: 10px;
+            margin-bottom: 20px;
             font-family: monospace;
-            margin-bottom: 2em;
+            font-size: 1em;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
         }
         button {
-            padding: 0.7em 1.5em;
+            padding: 10px 20px;
             font-size: 1em;
-            border-radius: 5px;
-            background-color: #28a745;
+            border-radius: 6px;
+            background-color: #007BFF;
             color: white;
             border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Examen blanc de NSI</h1>
-    <div id="bloc-examen">
+    <h1>🧪 Examen blanc de NSI</h1>
+
+    <div id="exercice1-container">
         <h2>Exercice 1</h2>
-        <div id="ex1" class="exercice">Chargement de l'exercice 1...</div>
-        <textarea id="reponse1" placeholder="Votre réponse à l'exercice 1..."></textarea>
-
-        <h2>Exercice 2</h2>
-        <div id="ex2" class="exercice">Chargement de l'exercice 2...</div>
-        <textarea id="reponse2" placeholder="Votre réponse à l'exercice 2..."></textarea>
-
-        <button onclick="soumettre()">Soumettre mes réponses</button>
+        <div id="exercice1" class="markdown-rendered"></div>
+        <textarea id="reponse1" placeholder="Votre réponse ici..."></textarea>
     </div>
-    <div id="correction" style="margin-top: 2em;"></div>
+
+    <div id="exercice2-container">
+        <h2>Exercice 2</h2>
+        <div id="exercice2" class="markdown-rendered"></div>
+        <textarea id="reponse2" placeholder="Votre réponse ici..."></textarea>
+    </div>
+
+    <button onclick="envoyer()">Envoyer mes réponses</button>
+
+    <div id="correction" class="markdown-rendered"></div>
 
     <script>
-        function chargerExamen() {
+        function chargerExercices() {
             fetch("/get_examen")
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("ex1").textContent = data.exercice1;
-                    document.getElementById("ex2").textContent = data.exercice2;
+                    document.getElementById("exercice1").innerHTML = marked.parse(data.exercice1);
+                    document.getElementById("exercice2").innerHTML = marked.parse(data.exercice2);
+                    hljs.highlightAll();
                 });
         }
 
-        function soumettre() {
-            const rep1 = document.getElementById("reponse1").value;
-            const rep2 = document.getElementById("reponse2").value;
+        function envoyer() {
+            const reponse1 = document.getElementById("reponse1").value;
+            const reponse2 = document.getElementById("reponse2").value;
 
             fetch("/correction-examen", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ reponse1: rep1, reponse2: rep2 })
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ reponse1, reponse2 })
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("correction").innerText = data.response;
+                document.getElementById("correction").innerHTML = marked.parse(data.response);
+                hljs.highlightAll();
             });
         }
 
-        chargerExamen();
+        window.onload = chargerExercices;
     </script>
 </body>
 </html>
