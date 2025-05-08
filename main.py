@@ -106,18 +106,16 @@ def examen():
 def get_examen():
     sujets = charger_exercices_md()
     if not sujets:
-        return jsonify({
-            "exercice1": "<p>❌ Exercice 1 introuvable</p>",
-            "exercice2": "<p>❌ Exercice 2 introuvable</p>"
-        })
-
+        return jsonify({"exercice1": "❌ Exercice 1 introuvable", "exercice2": "❌ Exercice 2 introuvable"})
+    
     sujet = random.choice(sujets)
-    ex1_html = markdown.markdown(sujet[0])
-    ex2_html = markdown.markdown(sujet[1])
-    return jsonify({
-        "exercice1": ex1_html,
-        "exercice2": ex2_html
-    })
+    
+    # 🪄 Convertir Markdown en HTML
+    ex1_html = markdown.markdown(sujet[0], extensions=['fenced_code'])
+    ex2_html = markdown.markdown(sujet[1], extensions=['fenced_code'])
+    
+    return jsonify({"exercice1": ex1_html, "exercice2": ex2_html})
+
 
 
 @app.route("/correction-examen", methods=["POST"])

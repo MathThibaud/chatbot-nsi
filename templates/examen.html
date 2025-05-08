@@ -1,124 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Examen Blanc - NSI</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/11.1.0/marked.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <!-- Highlight.js CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2em;
-            background-color: #f9f9f9;
-        }
-        .markdown-rendered {
-            background: white;
-            padding: 1em;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 2em;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            font-family: monospace;
-            font-size: 1em;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 6px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <!-- Highlight.js JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>
-  // Initialisation de Highlight.js après insertion des exercices
-  function appliquerColorationSyntaxique() {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightElement(block);
-    });
-  }
-
-  // Exemple : on appelle cette fonction après avoir injecté les exercices dans la page
-  fetch("/get_examen")
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("exercice1").innerHTML = data.exercice1;
-      document.getElementById("exercice2").innerHTML = data.exercice2;
-      appliquerColorationSyntaxique(); // ⚠️ très important
-    });
-</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-
+  <meta charset="UTF-8">
+  <title>🧪 Examen blanc de NSI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    .exercice {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #correction {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      background-color: #eef;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    pre {
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
 </head>
 <body>
-    <h1>🧪 Examen blanc de NSI</h1>
+  <h1>🧪 Examen blanc de NSI</h1>
 
-    <div id="exercice1-container">
-        <h2>Exercice 1</h2>
-        <div id="exercice1" class="markdown-rendered"></div>
-        <textarea id="reponse1" placeholder="Votre réponse ici..."></textarea>
-    </div>
+  <div class="exercice">
+    <h2>Exercice 1</h2>
+    <div id="exercice1"></div>
+    <textarea id="reponse1" placeholder="Votre réponse ici..."></textarea>
+  </div>
 
-    <div id="exercice2-container">
-        <h2>Exercice 2</h2>
-        <div id="exercice2" class="markdown-rendered"></div>
-        <textarea id="reponse2" placeholder="Votre réponse ici..."></textarea>
-    </div>
+  <div class="exercice">
+    <h2>Exercice 2</h2>
+    <div id="exercice2"></div>
+    <textarea id="reponse2" placeholder="Votre réponse ici..."></textarea>
+  </div>
 
-    <button onclick="envoyer()">Envoyer mes réponses</button>
+  <button onclick="envoyerCorrection()">Corriger</button>
 
-    <div id="correction" class="markdown-rendered"></div>
+  <div id="correction"></div>
 
-    <script>
-        function chargerExercices() {
-            fetch("/get_examen")
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("exercice1").innerHTML = marked.parse(data.exercice1);
-                    document.getElementById("exercice2").innerHTML = marked.parse(data.exercice2);
-                    hljs.highlightAll();
-                });
-        }
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    function appliquerColorationSyntaxique() {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    }
 
-        function envoyer() {
-            const reponse1 = document.getElementById("reponse1").value;
-            const reponse2 = document.getElementById("reponse2").value;
+    function chargerExamen() {
+      fetch("/get_examen")
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("exercice1").innerHTML = data.exercice1;
+          document.getElementById("exercice2").innerHTML = data.exercice2;
+          appliquerColorationSyntaxique();
+        });
+    }
 
-            fetch("/correction-examen", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ reponse1, reponse2 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("correction").innerHTML = marked.parse(data.response);
-                hljs.highlightAll();
-            });
-        }
+    function envoyerCorrection() {
+      const reponse1 = document.getElementById("reponse1").value;
+      const reponse2 = document.getElementById("reponse2").value;
 
-        window.onload = chargerExercices;
-    </script>
+      fetch("/correction-examen", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reponse1: reponse1, reponse2: reponse2 })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("correction").innerText = data.response;
+      });
+    }
+
+    chargerExamen();
+  </script>
 </body>
 </html>
