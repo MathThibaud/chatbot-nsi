@@ -192,40 +192,40 @@ def exercice_aleatoire():
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
 
-@app.route("/evaluer", methods=["POST"])
-def evaluer():
+
+@app.route("/entrainement_ask", methods=["POST"])
+def entrainement_ask():
     data = request.get_json()
-    code1 = data.get("code1", "")
-    code2 = data.get("code2", "")
+    historique = data.get("historique", [])
+    
+    # Si l'utilisateur vient d'arriver
+    if historique == ["initier"]:
+        try:
+            exercice = charger_exercices_markdown()
+            message_intro = (
+                "Voici un exercice d'entraînement extrait des annales :
 
-    prompt = f""" 
-Tu es un professeur de NSI. Voici deux codes d'élèves en réponse à deux exercices de bac.
-Tu dois évaluer s’ils répondent aux consignes, s’ils fonctionnent, et attribuer une note sur 10 pour chacun.
-Puis donne une note globale sur 20 avec un commentaire pédagogique.
+"
+                f"{exercice}
 
-💻 Exercice 1 :
-{code1}
-
-💻 Exercice 2 :
-{code2}
-
-Rends ton évaluation au format suivant :
-- Note Exercice 1 : /10
-- Note Exercice 2 : /10
-- Note Finale : /20
-- Commentaire : ...
-"""
-
+"
+                "Tu peux proposer une solution ou poser des questions, je te guiderai."
+            )
+            return jsonify({"reponse": message_intro})
+        except Exception as e:
+            return jsonify({"reponse": f"❌ Erreur lors du chargement d'un exercice : {e}"})
+    
+    # Sinon on continue la conversation avec le contexte
     try:
+        messages = [{"role": "system", "content": "Tu es un assistant pédagogique NSI qui aide un élève à résoudre un exercice de Python extrait du bac. Sois patient, clair et encourageant."}]
+        messages += historique  # on garde tout l'historique localement côté client
+
         completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "Tu es un enseignant de NSI expert, évaluateur pour le bac."},
-                {"role": "user", "content": prompt}
-            ]
+            messages=messages
         )
-        resultat = completion.choices[0].message.content
-        return jsonify({"resultat": resultat})
+        reponse = completion.choices[0].message.content
+        return jsonify({"reponse": reponse})
     except Exception as e:
-        return jsonify({"resultat": f"❌ Erreur lors de l'évaluation : {e}"}), 500
+        return jsonify({"reponse": f"❌ Erreur lors de l’appel à l’IA : {e}"}), 500
 
