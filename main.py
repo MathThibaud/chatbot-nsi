@@ -264,7 +264,6 @@ print("✅ Fin de main.py atteinte")
 application = app
 
 
-
 @app.route("/exercice_aleatoire")
 def exercice_aleatoire():
     dossier = "exercices"
@@ -276,49 +275,10 @@ def exercice_aleatoire():
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
 
-
-# ROUTES THÉMATIQUES DÉCOUVERTE
-
-@app.route("/theme/<nom>")
-def theme(nom):
-    try:
-        return render_template(f"theme/{nom}.html")
-    except:
-        return f"❌ La page pour le thème « {nom} » est introuvable.", 404
-
-
 @app.route("/theme/<theme>")
 def theme_page(theme):
     try:
         return render_template(f"theme/{theme}.html")
-    except:
-        return f"❌ La page pour le thème « {theme}.html » est introuvable.", 404
-
-
-
-@app.route("/api/theme", methods=["POST"])
-def api_theme():
-    data = request.json
-    theme_nom = data.get("theme", "").strip().lower()
-
-    # Exemple de prompt intelligent basé sur le nom du thème
-    prompt = (
-        f"Tu es un professeur de NSI. Tu dois expliquer le concept suivant à un élève de terminale : {theme_nom}. "
-        f"Commence par une présentation claire et progressive du thème, en Python, avec des exemples. "
-        f"Puis pose une première question simple à l’élève pour tester sa compréhension."
-    )
-
-    try:
-        completion = client.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7
-        )
-        reponse = completion.choices[0].message.content
-        return jsonify({"reponse": reponse})
     except Exception as e:
-        return jsonify({"reponse": f"❌ Erreur lors de l'appel à l'API : {e}"})
-
-
-
+        return f"❌ La page pour le thème « {theme} » est introuvable. Erreur : {e}"
 
