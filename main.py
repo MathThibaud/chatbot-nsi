@@ -16,6 +16,8 @@ except Exception as e:
     print("❌ Erreur lors de la création du client OpenAI :", e)
     client = None
 
+import re
+
 def charger_un_seul_exercice_markdown():
     dossier = "exercices"
     fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
@@ -26,22 +28,26 @@ def charger_un_seul_exercice_markdown():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
 
+    # Séparer en deux exercices si possible
     exercices = contenu.split("EXERCICE 2")
     exercice_choisi = random.choice(exercices)
 
     lignes = exercice_choisi.strip().split('\n')
 
-    # Modification importante ici (robuste contre variations d'espaces, majuscules et minuscules) :
+    # Supprimer les lignes avec "Exercice..." ou "(10 points)"
     lignes_filtrees = [
         ligne for ligne in lignes
-        if not ligne.strip().lower().startswith(('exercice 1', 'exercice 2', 'exercice'))
-        or 'points' not in ligne.lower()
+        if not re.match(r'(?i)^exercice\s*\d*\s*\(?10\s*points\)?', ligne.strip())  # supprime ligne complète
+        and "(10 points)" not in ligne  # supprime lignes contenant simplement ça
     ]
 
-    contenu_filtre = "\n".join(lignes_filtrees)
+    # Supprime aussi les parenthèses "(10 points)" dans une ligne qui contient du contenu utile
+    lignes_nettoyees = [ligne.replace("(10 points)", "").strip() for ligne in lignes_filtrees]
 
+    contenu_filtre = "\n".join(lignes_nettoyees)
     html = markdown.markdown(contenu_filtre, extensions=['fenced_code', 'codehilite'])
     return html
+
 
 
 
