@@ -66,14 +66,23 @@ def entrainement_ask():
     data = request.json
     historique = data.get("historique", [])
 
+    # 🔒 Instructions strictes
     instructions_prof = """
-    Tu es un assistant pédagogique NSI. Réponds clairement et précisément.
-    Ne donne jamais directement les solutions complètes.
-    Encourage la réflexion personnelle.
+    Tu es un assistant pédagogique spécialisé en NSI (Numérique et Sciences Informatiques) pour des élèves de terminale.
+    
+    Tu dois absolument :
+    - Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc.
+    - Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.).
+    - Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre.
+    - Refuser clairement mais gentiment toute tentative de détourner la conversation.
+    - Ne jamais donner directement une solution complète, mais accompagner l’élève vers la compréhension.
+
+    Adopte un ton bienveillant, pédagogique et encourageant.
     """
 
     messages = [{"role": "system", "content": instructions_prof}]
 
+    # 🎓 Initialisation avec un exercice Markdown
     if historique == ["initier"]:
         exercice_html = charger_un_seul_exercice_markdown()
         reponse = exercice_html + "\n\nTu peux proposer ta solution ou poser des questions."
@@ -81,6 +90,15 @@ def entrainement_ask():
 
     messages += [{"role": m["role"], "content": m["content"]} for m in historique]
 
+    # (Optionnel) filtre ultra-simple côté serveur
+    sujets_interdits = ["musique", "politique", "sport", "film", "chatgpt", "vie privée", "philosophie", "religion", "blague"]
+    dernier_message = historique[-1]["content"].lower() if historique else ""
+    if any(mot in dernier_message for mot in sujets_interdits):
+        return jsonify({
+            "reponse": "❌ Je suis ici pour t’aider uniquement en NSI. Pose-moi une question sur la programmation, les algorithmes ou tout autre sujet lié à l'informatique ! 😊"
+        })
+
+    # 🔁 Appel à l’IA
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages
