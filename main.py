@@ -289,10 +289,11 @@ def theme(nom):
 
 @app.route("/theme/<theme>")
 def theme_page(theme):
-    chemin = os.path.join("theme", f"{theme}.html")
-    if not os.path.exists(chemin):
+    try:
+        return render_template(f"theme/{theme}.html")
+    except:
         return f"❌ La page pour le thème « {theme}.html » est introuvable.", 404
-    return render_template(f"../theme/{theme}.html")
+
 
 
 @app.route("/api/theme", methods=["POST"])
