@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Examen Blanc</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen blanc</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       padding: 2em;
     }
@@ -28,7 +28,7 @@
     button {
       padding: 1em 2em;
       font-size: 1em;
-      margin-bottom: 2em;
+      cursor: pointer;
     }
     .exercice {
       margin-bottom: 3em;
@@ -37,7 +37,6 @@
       background: #eef;
       padding: 1em;
       margin-top: 1em;
-      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -46,50 +45,55 @@
 
   <div class="exercice" id="ex1">
     <h2>Exercice 1</h2>
-    <div id="enonce1"></div>
+    <div id="ex1-enonce">Chargement...</div>
     <textarea id="code1" placeholder="Votre code pour l'exercice 1 ici..."></textarea>
   </div>
 
   <div class="exercice" id="ex2">
     <h2>Exercice 2</h2>
-    <div id="enonce2"></div>
+    <div id="ex2-enonce">Chargement...</div>
     <textarea id="code2" placeholder="Votre code pour l'exercice 2 ici..."></textarea>
   </div>
 
   <button onclick="validerReponses()">Valider mes réponses</button>
-
-  <div id="resultat"></div>
+  <div id="resultat" class="feedback"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
 
   <script>
-    async function chargerEnonces() {
-      const res = await fetch("/get_examen");
-      const data = await res.json();
-      document.getElementById("enonce1").innerHTML = data.exercice1;
-      document.getElementById("enonce2").innerHTML = data.exercice2;
-      hljs.highlightAll();
-    }
+    // Chargement des énoncés au chargement de la page
+    window.onload = async function () {
+      const response = await fetch("/get_examen");
+      const data = await response.json();
 
+      document.getElementById("ex1-enonce").innerHTML = data.exercice1 || "❌ Problème avec l'exercice 1";
+      document.getElementById("ex2-enonce").innerHTML = data.exercice2 || "❌ Problème avec l'exercice 2";
+
+      // Reinitialise la coloration syntaxique après insertion HTML
+      document.querySelectorAll("pre code").forEach(block => hljs.highlightElement(block));
+    };
+
+    // Validation et envoi pour correction
     async function validerReponses() {
       const code1 = document.getElementById("code1").value;
       const code2 = document.getElementById("code2").value;
       const resultatDiv = document.getElementById("resultat");
 
-      resultatDiv.innerHTML = "<p>Analyse en cours...</p>";
+      resultatDiv.innerHTML = "<p>Correction en cours...</p>";
 
-      const response = await fetch("/api/evaluer", {
+      const response = await fetch("/correction-examen", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reponse1: code1, reponse2: code2 })
+        body: JSON.stringify({
+          reponse1: code1,
+          reponse2: code2
+        })
       });
 
       const data = await response.json();
-      resultatDiv.innerHTML = `<div class="feedback"><pre>${data.response}</pre></div>`;
+      resultatDiv.innerHTML = `<pre>${data.response}</pre>`;
     }
-
-    window.onload = chargerEnonces;
   </script>
 </body>
 </html>
