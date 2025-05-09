@@ -41,17 +41,19 @@ h1, h2 {
     white-space: pre-wrap;
 }
 
-pre, code {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: Consolas, 'Courier New', monospace;
-    font-size: 0.95em;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: auto;
+pre code {
+    background: #f5f5f5;
+    padding: 0.5em;
     display: block;
+    border-radius: 5px;
+    font-family: "Courier New", Courier, monospace;
+    overflow-x: auto;
+}
+code {
+    background: #f0f0f0;
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .copy-button {

@@ -5,8 +5,15 @@
     <meta charset="UTF-8">
     <title>Examen - Chatbot NSI</title>
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- CodeMirror for student responses -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/eclipse.min.css">
+
+    <!-- Highlight.js for syntax highlighting in Markdown -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <style>
         .exercice {
             background-color: #fff;
@@ -15,9 +22,26 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+
         .CodeMirror {
             border: 1px solid #ccc;
             font-size: 1em;
+        }
+
+        pre code {
+            background: #f5f5f5;
+            padding: 0.5em;
+            display: block;
+            border-radius: 5px;
+            font-family: "Courier New", Courier, monospace;
+            overflow-x: auto;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 0.1em 0.3em;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
         }
     </style>
 </head>
@@ -74,6 +98,7 @@
 
                     document.getElementById("markdown1").innerHTML = marked.parse(exercice1);
                     document.getElementById("markdown2").innerHTML = marked.parse(exercice2);
+                    hljs.highlightAll();
                     initialiserCodeMirror();
                 })
                 .catch(error => {
