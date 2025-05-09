@@ -49,7 +49,7 @@ Le négatif d’une image est l’image constituée des pixels x_n tels que x_n 
 La binarisation d’une image avec une valeur seuil s consiste à créer une image dont chaque pixel vaut 0 si x_i < s et 255 sinon.
 Compléter les fonctions suivantes :
 
-``python
+```python
 def nombre_lignes(image):
     '''Renvoie le nombre de lignes de l'image'''
     return ...
