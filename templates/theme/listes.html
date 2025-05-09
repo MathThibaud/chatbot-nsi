@@ -20,6 +20,28 @@
                 document.querySelector(".ia-response").innerHTML = data.response;
             });
         });
+
+        // Appel initial automatique
+window.onload = function () {
+    fetch("/ask_theme", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            message: "initier",
+            theme: "{{ theme }}"
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("response").innerText = "💬 " + data.response;
+        })
+        .catch(error => {
+            document.getElementById("response").innerText = "❌ Erreur lors du chargement initial.";
+        });
+};
+
     </script>
 </head>
 <body>

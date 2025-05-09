@@ -320,6 +320,30 @@ def api_theme():
         return jsonify({"reponse": f"❌ Erreur lors de l'appel à l'API : {e}"})
 
 
+@app.route("/ask_theme", methods=["POST"])
+def ask_theme():
+    data = request.json
+    user_input = data.get("message", "")
+    theme = data.get("theme", "")
+
+    if not theme:
+        return jsonify({"response": "❌ Aucun thème spécifié."})
+
+    prompt = (
+        f"Tu es un assistant pédagogique NSI qui aide un élève à comprendre la notion de {theme} en Python. "
+        f"Commence par une explication de cette notion, puis pose une première question simple. "
+        f"Tu dois ensuite corriger les réponses ou poser d'autres questions de manière bienveillante. "
+        f"L'élève vient d'écrire : {user_input}"
+    )
+
+    try:
+        completion = client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return jsonify({"response": completion.choices[0].message.content})
+    except Exception as e:
+        return jsonify({"response": f"❌ Erreur avec l'API OpenAI : {str(e)}"})
 
 
 
