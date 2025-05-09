@@ -4,44 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Examen - Chatbot NSI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/eclipse.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            padding: 2em;
-        }
-        pre {
-            background-color: #eee;
+        .exercice {
+            background-color: #fff;
             padding: 1em;
-            border-radius: 5px;
-            white-space: pre-wrap;
+            margin-bottom: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        button {
-            margin-top: 1em;
-            padding: 0.5em 1em;
+        .CodeMirror {
+            border: 1px solid #ccc;
             font-size: 1em;
         }
     </style>
 </head>
 <body>
-    <h1>Mode Examen</h1>
-    <button onclick="chargerExercice()">🔄 Charger un exercice aléatoire</button>
-    <pre id="zoneExercice">Clique sur le bouton pour charger un exercice...</pre>
+    <div class="container">
+        <h1>Mode Examen</h1>
+        <div id="exercice1" class="exercice">
+            <h2>Exercice 1</h2>
+            <div id="markdown1"></div>
+            <textarea id="code1"></textarea>
+        </div>
+        <div id="exercice2" class="exercice">
+            <h2>Exercice 2</h2>
+            <div id="markdown2"></div>
+            <textarea id="code2"></textarea>
+        </div>
+        <button onclick="evaluer()">✅ Valider mon code</button>
+        <pre id="resultat"></pre>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/python/python.min.js"></script>
 
     <script>
+        let editor1, editor2;
+
+        function initialiserCodeMirror() {
+            editor1 = CodeMirror.fromTextArea(document.getElementById("code1"), {
+                lineNumbers: true,
+                mode: "python",
+                theme: "eclipse",
+                indentUnit: 4,
+                tabSize: 4,
+                smartIndent: true
+            });
+            editor2 = CodeMirror.fromTextArea(document.getElementById("code2"), {
+                lineNumbers: true,
+                mode: "python",
+                theme: "eclipse",
+                indentUnit: 4,
+                tabSize: 4,
+                smartIndent: true
+            });
+        }
+
         function chargerExercice() {
             fetch("/exercice_aleatoire")
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("zoneExercice").innerText = data.contenu;
+                    let parties = data.contenu.split(/EXERCICE\s+2/i);
+                    let exercice1 = parties[0];
+                    let exercice2 = "EXERCICE 2" + (parties[1] || "");
+
+                    document.getElementById("markdown1").innerHTML = marked.parse(exercice1);
+                    document.getElementById("markdown2").innerHTML = marked.parse(exercice2);
+                    initialiserCodeMirror();
                 })
                 .catch(error => {
-                    console.error("Erreur lors du chargement de l'exercice :", error);
-                    document.getElementById("zoneExercice").innerText = "❌ Impossible de charger l'exercice.";
+                    document.getElementById("markdown1").innerText = "❌ Erreur de chargement.";
+                    document.getElementById("markdown2").innerText = "";
                 });
         }
 
-        // Optionnel : charger un exercice automatiquement au chargement de la page
+        function evaluer() {
+            const code1 = editor1.getValue();
+            const code2 = editor2.getValue();
+            fetch("/evaluer", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({code1, code2})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("resultat").innerText = data.resultat;
+            })
+            .catch(error => {
+                document.getElementById("resultat").innerText = "❌ Erreur lors de l'évaluation.";
+            });
+        }
+
         window.onload = chargerExercice;
     </script>
 </body>
