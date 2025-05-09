@@ -1,52 +1,74 @@
-EXERCICE 1 (10 points)
+## EXERCICE 1 (10 points)
 
-Programmer la fonction recherche, prenant en paramètre un tableau non vide tab (type list) d'entiers et un entier $n$, et qui renvoie l'indice de la dernière occurrence de l'élément cherché. Si l'élément n'est pas présent, la fonction renvoie None.
-Exemples
-```
->>> recherche([5, 3],1) # renvoie None
->>> recherche([2,4],2)
-0
->>> recherche([2,3,5,2,4],2)
-3
-```
+On considère dans cet exercice un graphe orienté représenté sous forme de listes d’adjacence.  
+On suppose que les sommets sont numérotés de 0 à n-1.  
 
-EXERCICE 2 (10 points)
+Par exemple, le graphe suivant :  
+**[graphique non restitué ici]**  
+est représenté par la liste d’adjacence suivante :
+```python
+adj = [[1, 2], [2], [0], [0]]
+````
 
-On souhaite programmer une fonction indiquant le point le plus proche d'un point de départ dans un tableau de points non vide. Les points sont tous à coordonnées entières et sont donnés sous la forme d'un tuple de deux entiers. Le tableau des points à traiter est donc un tableau de tuples.
-On rappelle que la distance $d$ entre deux points du plan de coordonnées $(x ; y)$ et $\left(x^{\prime} ; y^{\prime}\right)$ vérifie la formule :
+Écrire une fonction `voisins_entrants(adj, x)` qui prend en paramètre le graphe donné sous forme de liste d’adjacence et qui renvoie une liste contenant les voisins entrants du sommet `x`, c’est-à-dire les sommets `y` tels qu’il existe une arête de `y` vers `x`.
 
-$$
-d^2=\left(x-x^{\prime}\right)^2+\left(y-y^{\prime}\right)^2
-$$
+Exemples :
 
+```python
+>>> voisins_entrants([[1, 2], [2], [0], [0]], 0)
+[2, 3]
 
-Compléter le code des fonctions distance_carre et point_le_plus_proche fournies ci-dessous pour qu'elles répondent à leurs spécifications.
-```
-def distance_carre(point1, point2):
-    """ Calcule et renvoie la distance au carre entre
-    deux points."""
-    return (...)**2 + (...)**2
-def point_le_plus_proche(depart, tab):
-    """ Renvoie les coordonnées du premier point du tableau tab se
-    trouvant à la plus courte distance du point depart."""
-    min_point = tab[0]
-    min_dist = ...
-    for i in range(1, len(tab)):
-        if distance_carre(tab[i], depart) < ...:
-            min_point = ...
-            min_dist = ...
-    return min_point
+>>> voisins_entrants([[1, 2], [2], [0], [0]], 1)
+[0]
 ```
 
-Exemples:
+---
+
+## EXERCICE 2 (10 points)
+
+On considère la suite de nombres suivante :
+`1, 11, 21, 1211, 111221, …`
+
+Cette suite est construite ainsi :
+Pour passer d’une valeur à la suivante, on la lit et on l’écrit sous forme d’un nombre.
+
+Par exemple pour `1211` :
+
+* on lit un 1, un 2, deux 1 ;
+* on écrit donc en nombre `1 1`, `1 2`, `2 1` ;
+* puis on concatène `111221`.
+
+Compléter la fonction suivante :
+
+```python
+def nombre_suivant(s):
+    '''Renvoie le nombre suivant de celui représenté par s
+    en appliquant le procédé de lecture.'''
+    resultat = ''
+    chiffre = s[0]
+    compte = 1
+    for i in range(...):
+        if s[i] == chiffre:
+            compte = ...
+        else:
+            resultat += ... + ...
+            chiffre = ...
+            ...
+    lecture_chiffre = ... + ...
+    resultat += lecture_chiffre
+    return resultat
 ```
->>> distance_carre((1, 0), (5, 3))
-25
->>> distance_carre((1, 0), (0, 1))
-2
->>> point_le_plus_proche((0, 0), [(7, 9), (2, 5), (5, 2)])
-(2, 5)
->>> point_le_plus_proche((5, 2), [(7, 9), (2, 5), (5, 2)])
-(5, 2)
+
+Exemples :
+
+```python
+>>> nombre_suivant('1211')
+'111221'
+
+>>> nombre_suivant('311')
+'1321'
 ```
+
+```
+
 
