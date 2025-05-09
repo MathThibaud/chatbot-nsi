@@ -26,18 +26,23 @@ def charger_un_seul_exercice_markdown():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
 
-    # Séparer en deux exercices (en supposant que chaque sujet a 2 exercices)
     exercices = contenu.split("EXERCICE 2")
     exercice_choisi = random.choice(exercices)
 
     lignes = exercice_choisi.strip().split('\n')
-    # Filtrer les lignes contenant "Exercice..." (comme Exercice 1 (10 points))
-    lignes_filtrees = [ligne for ligne in lignes if not ligne.lower().startswith('exercice')]
+
+    # Modification importante ici (robuste contre variations d'espaces, majuscules et minuscules) :
+    lignes_filtrees = [
+        ligne for ligne in lignes
+        if not ligne.strip().lower().startswith(('exercice 1', 'exercice 2', 'exercice'))
+        or 'points' not in ligne.lower()
+    ]
+
     contenu_filtre = "\n".join(lignes_filtrees)
 
-    # Retourner HTML propre
     html = markdown.markdown(contenu_filtre, extensions=['fenced_code', 'codehilite'])
     return html
+
 
 
 
