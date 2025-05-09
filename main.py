@@ -51,24 +51,19 @@ def entrainement_ask():
     data = request.json
     historique = data.get("historique", [])
 
-    # Instructions pour conditionner le chatbot
     instructions_prof = """
-    Tu es un assistant pédagogique spécialisé en NSI pour l'entraînement au BAC.
-    Réponds clairement et précisément aux élèves.
+    Tu es un assistant pédagogique NSI. Réponds clairement et précisément.
     Ne donne jamais directement les solutions complètes.
-    Encourage les élèves à réfléchir par eux-mêmes en posant des questions ou en donnant des indices.
-    Utilise un ton bienveillant et pédagogique.
+    Encourage la réflexion personnelle.
     """
 
     messages = [{"role": "system", "content": instructions_prof}]
-    
-    # Gestion spéciale pour démarrage (initiation de l'exercice)
+
     if historique == ["initier"]:
         exercice_html = charger_un_seul_exercice_markdown()
         reponse = exercice_html + "\n\nTu peux proposer ta solution ou poser des questions."
         return jsonify({"reponse": reponse})
 
-    # Ajoute l'historique existant après les instructions initiales
     messages += [{"role": m["role"], "content": m["content"]} for m in historique]
 
     completion = client.chat.completions.create(
@@ -77,7 +72,6 @@ def entrainement_ask():
     )
 
     return jsonify({"reponse": completion.choices[0].message.content})
-
 
 
 @app.route("/get_examen_affichage")
@@ -246,46 +240,4 @@ def exercice_aleatoire():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
-
-@app.route("/entrainement_ask", methods=["POST"])
-def entrainement_ask():
-    data = request.get_json()
-    historique = data.get("historique", [])
-
-    # Étape 1 : Lancement de la session -> choisir un exercice
-    if historique == ["initier"]:
-        try:
-            texte = charger_exercices_markdown()
-            if "EXERCICE 2" in texte:
-                e1, e2 = texte.split("EXERCICE 2", 1)
-                e1 = e1.strip()
-                e2 = "EXERCICE 2" + e2.strip()
-                exercice_choisi = random.choice([e1, e2])
-            else:
-                exercice_choisi = texte.strip()
-            
-            message_intro = f""" 
-Voici un exercice d'entraînement extrait des annales :
-
-{exercice_choisi}
-
-Tu peux proposer une solution ou poser des questions, je te guiderai.
-"""
-            return jsonify({"reponse": message_intro})
-        except Exception as e:
-            return jsonify({"reponse": f"❌ Erreur lors du chargement d'un exercice : {e}"})
-
-    # Étape 2 : Interaction normale
-    try:
-        messages = [{"role": "system", "content": "Tu es un assistant pédagogique NSI qui aide un élève à résoudre un exercice Python extrait du bac. Sois patient, clair et progressif."}]
-        messages += historique  # historique maintenu côté client
-
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
-        reponse = completion.choices[0].message.content
-        return jsonify({"reponse": reponse})
-    except Exception as e:
-        return jsonify({"reponse": f"❌ Erreur lors de l’appel à l’IA : {e}"}), 500
 
