@@ -192,41 +192,29 @@ def exercice_aleatoire():
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
 
-
-
 @app.route("/evaluer", methods=["POST"])
 def evaluer():
     data = request.get_json()
     code1 = data.get("code1", "")
     code2 = data.get("code2", "")
 
-    prompt = (
-        "Tu es un professeur de NSI. "
-        "Voici deux codes d'élèves en réponse à deux exercices de bac. "
-        "Tu dois évaluer s’ils répondent aux consignes, s’ils fonctionnent, et attribuer une note sur 10 pour chacun. "
-        "Puis donne une note globale sur 20 avec un commentaire pédagogique.
+    prompt = f""" 
+Tu es un professeur de NSI. Voici deux codes d'élèves en réponse à deux exercices de bac.
+Tu dois évaluer s’ils répondent aux consignes, s’ils fonctionnent, et attribuer une note sur 10 pour chacun.
+Puis donne une note globale sur 20 avec un commentaire pédagogique.
 
-"
-        "💻 Exercice 1 :
-"
-        f"{code1}
+💻 Exercice 1 :
+{code1}
 
-"
-        "💻 Exercice 2 :
-"
-        f"{code2}
+💻 Exercice 2 :
+{code2}
 
-"
-        "Rends ton évaluation au format suivant :
-"
-        "- Note Exercice 1 : /10
-"
-        "- Note Exercice 2 : /10
-"
-        "- Note Finale : /20
-"
-        "- Commentaire : ..."
-    )
+Rends ton évaluation au format suivant :
+- Note Exercice 1 : /10
+- Note Exercice 2 : /10
+- Note Finale : /20
+- Commentaire : ...
+"""
 
     try:
         completion = client.chat.completions.create(
@@ -240,3 +228,4 @@ def evaluer():
         return jsonify({"resultat": resultat})
     except Exception as e:
         return jsonify({"resultat": f"❌ Erreur lors de l'évaluation : {e}"}), 500
+
