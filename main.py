@@ -289,3 +289,4 @@ def exercice_aleatoire():
 
 
 
+
