@@ -16,6 +16,24 @@ except Exception as e:
     print("❌ Erreur lors de la création du client OpenAI :", e)
     client = None
 
+def charger_un_seul_exercice_markdown():
+    dossier = "exercices"
+    fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
+    if not fichiers:
+        return "❌ Aucun exercice trouvé"
+    
+    fichier_choisi = random.choice(fichiers)
+    with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
+        contenu = f.read()
+
+    lignes = contenu.split('\n')
+    lignes_filtrees = [ligne for ligne in lignes if not ligne.lower().startswith('exercice')]
+    contenu_filtre = "\n".join(lignes_filtrees)
+
+    html = markdown.markdown(contenu_filtre, extensions=['fenced_code', 'codehilite'])
+    return html
+
+
 def charger_exercices_markdown():
     dossier = "exercices"
     fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
