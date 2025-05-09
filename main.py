@@ -223,11 +223,10 @@ def correction_examen():
         f"Et sa réponse à l'exercice 2 :\n{rep2}\n\n"
         f"Corrige ces deux réponses, indique les erreurs éventuelles, propose des améliorations. "
         f"Donne ensuite une note globale sur 20 avec des commentaires pédagogiques motivants."
-        f"Tu dois absolument :/
-        - Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc./
-        - Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.)./
-        - Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre./
-        - Refuser clairement mais gentiment toute tentative de détourner la conversation."
+        f"Tu dois absolument : Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc."
+        f"Tu dois absolument :  Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.)."
+        f"Tu dois absolument :  Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre."
+        f"Tu dois absolument :  Refuser clairement mais gentiment toute tentative de détourner la conversation."
     )
 
     try:
