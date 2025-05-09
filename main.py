@@ -288,3 +288,4 @@ def exercice_aleatoire():
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
 
 
+
