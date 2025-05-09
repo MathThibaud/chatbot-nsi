@@ -21,7 +21,7 @@ def charger_un_seul_exercice_markdown():
     fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
     if not fichiers:
         return "❌ Aucun exercice trouvé"
-    
+
     fichier_choisi = random.choice(fichiers)
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
@@ -29,6 +29,9 @@ def charger_un_seul_exercice_markdown():
     lignes = contenu.split('\n')
     lignes_filtrees = [ligne for ligne in lignes if not ligne.lower().startswith('exercice')]
     contenu_filtre = "\n".join(lignes_filtrees)
+
+    # Correction ici : Ajoute explicitement un titre Markdown pour structurer proprement
+    contenu_filtre = "### Exercice d'entraînement\n\n" + contenu_filtre
 
     html = markdown.markdown(contenu_filtre, extensions=['fenced_code', 'codehilite'])
     return html

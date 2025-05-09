@@ -31,18 +31,28 @@
             background-color: #efe;
             text-align: right;
         }
-        #exercice {
-            background: #fafafa;
-            border: 1px solid #ccc;
-            padding: 1em;
-            border-radius: 6px;
-            margin-bottom: 2em;
-        }
+        
         .CodeMirror {
             border: 1px solid #ccc;
             height: auto;
             font-size: 1em;
         }
+        #exercice {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 6px;
+    margin-bottom: 2em;
+    overflow-x: auto; /* Permet de scroller horizontalement si nécessaire */
+    max-width: 100%; /* Empêche l'élargissement excessif */
+    box-sizing: border-box; /* Gestion correcte des marges/paddings */
+}
+
+.message {
+    word-wrap: break-word;
+    overflow-x: auto;
+}
+
     </style>
 </head>
 <body>
