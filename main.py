@@ -26,15 +26,19 @@ def charger_un_seul_exercice_markdown():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
 
-    lignes = contenu.split('\n')
+    # Séparer en deux exercices (en supposant que chaque sujet a 2 exercices)
+    exercices = contenu.split("EXERCICE 2")
+    exercice_choisi = random.choice(exercices)
+
+    lignes = exercice_choisi.strip().split('\n')
+    # Filtrer les lignes contenant "Exercice..." (comme Exercice 1 (10 points))
     lignes_filtrees = [ligne for ligne in lignes if not ligne.lower().startswith('exercice')]
     contenu_filtre = "\n".join(lignes_filtrees)
 
-    # Correction ici : Ajoute explicitement un titre Markdown pour structurer proprement
-    contenu_filtre = "### Exercice d'entraînement\n\n" + contenu_filtre
-
+    # Retourner HTML propre
     html = markdown.markdown(contenu_filtre, extensions=['fenced_code', 'codehilite'])
     return html
+
 
 
 def charger_exercices_markdown():
@@ -72,6 +76,7 @@ def entrainement_ask():
     )
 
     return jsonify({"reponse": completion.choices[0].message.content})
+
 
 
 @app.route("/get_examen_affichage")
