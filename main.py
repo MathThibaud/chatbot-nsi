@@ -196,26 +196,34 @@ def exercice_aleatoire():
 def entrainement_ask():
     data = request.get_json()
     historique = data.get("historique", [])
-    
-    # Si l'utilisateur vient d'arriver
+
+    # Étape 1 : Lancement de la session -> choisir un exercice
     if historique == ["initier"]:
         try:
-            exercice = charger_exercices_markdown()
+            texte = charger_exercices_markdown()
+            if "EXERCICE 2" in texte:
+                e1, e2 = texte.split("EXERCICE 2", 1)
+                e1 = e1.strip()
+                e2 = "EXERCICE 2" + e2.strip()
+                exercice_choisi = random.choice([e1, e2])
+            else:
+                exercice_choisi = texte.strip()
+            
             message_intro = f""" 
 Voici un exercice d'entraînement extrait des annales :
 
-{exercice}
+{exercice_choisi}
 
 Tu peux proposer une solution ou poser des questions, je te guiderai.
 """
             return jsonify({"reponse": message_intro})
         except Exception as e:
             return jsonify({"reponse": f"❌ Erreur lors du chargement d'un exercice : {e}"})
-    
-    # Sinon on continue la conversation avec le contexte
+
+    # Étape 2 : Interaction normale
     try:
-        messages = [{"role": "system", "content": "Tu es un assistant pédagogique NSI qui aide un élève à résoudre un exercice de Python extrait du bac. Sois patient, clair et encourageant."}]
-        messages += historique  # on garde tout l'historique localement côté client
+        messages = [{"role": "system", "content": "Tu es un assistant pédagogique NSI qui aide un élève à résoudre un exercice Python extrait du bac. Sois patient, clair et progressif."}]
+        messages += historique  # historique maintenu côté client
 
         completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
