@@ -1,0 +1,160 @@
+<!-- fichier : entrainement_corrige.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Entraînement - Chatbot NSI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/eclipse.min.css">
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+    async function chargerTheme() {
+        const theme = window.location.pathname.split("/").pop();
+        const response = await fetch("/api/theme", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({theme: theme})
+        });
+        const data = await response.json();
+        document.getElementById("contenu").innerHTML = "<pre>" + data.reponse + "</pre>";
+    }
+    window.onload = chargerTheme;
+</script>
+
+    <style>
+        .chat-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 2em;
+        }
+        .message {
+            margin-bottom: 1em;
+            padding: 1em;
+            border-radius: 6px;
+        }
+        .bot {
+            background-color: #eef;
+        }
+        .user {
+            background-color: #efe;
+            text-align: right;
+        }
+        .CodeMirror {
+            border: 1px solid #ccc;
+            font-size: 1em;
+            min-height: 250px;
+        }
+        #exercice {
+            background: #fafafa;
+            border: 1px solid #ccc;
+            padding: 1em;
+            border-radius: 6px;
+            margin-bottom: 2em;
+            overflow-x: auto;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #005bbb;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003f8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Découverte : Gloutons</h1>
+    </div>
+    <div class="chat-container">
+        <div id="exercice">Chargement de l'exercice...</div>
+        <div id="chatbox"></div>
+
+        <textarea id="userInput" placeholder="Écris ta réponse ici..."></textarea>
+        <button onclick="envoyer()">Envoyer</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/python/python.min.js"></script>
+
+    <script>
+        let chatbox = document.getElementById("chatbox");
+        let historique = [];
+        let editor;
+
+        function afficherMessage(contenu, auteur) {
+            const div = document.createElement("div");
+            div.className = "message " + auteur;
+            div.innerHTML = marked.parse(contenu);
+            hljs.highlightAll();
+            chatbox.appendChild(div);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function envoyer() {
+            const message = editor.getValue().trim();
+            if (!message) return;
+            afficherMessage("```python\n" + message + "\n```", "user");
+            historique.push({ role: "user", content: message });
+            editor.setValue("");
+
+            fetch("/notion_ask/gloutons", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ historique })
+            })
+            .then(response => response.json())
+            .then(data => {
+                afficherMessage(data.reponse, "bot");
+                historique.push({ role: "assistant", content: data.reponse });
+            })
+            .catch(() => afficherMessage("❌ Erreur de communication avec le serveur", "bot"));
+        }
+
+        function initialiserCodeMirror() {
+            editor = CodeMirror.fromTextArea(document.getElementById("userInput"), {
+                lineNumbers: true,
+                mode: "python",
+                theme: "eclipse",
+                indentUnit: 4,
+                tabSize: 4,
+                smartIndent: true
+            });
+            editor.setSize("100%", "250px");
+        }
+
+        window.onload = () => {
+            initialiserCodeMirror();
+            fetch("/notion_ask/gloutons", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ historique: ["initier"] })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let [ex, ...consignes] = data.reponse.split("Tu peux proposer");
+                document.getElementById("exercice").innerHTML = ex;
+                hljs.highlightAll();
+                if (consignes.length > 0) {
+                    const suite = "Tu peux proposer" + consignes.join("Tu peux proposer");
+                    afficherMessage(suite, "bot");
+                    historique.push({ role: "assistant", content: suite });
+                }
+            });
+        };
+    </script>
+</body>
+</html>
