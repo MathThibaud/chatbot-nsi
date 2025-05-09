@@ -196,7 +196,7 @@ def get_examen_markdown():
     except Exception as e:
         return jsonify({"markdown": f"❌ Erreur : {str(e)}"})
 
-@@app.route("/correction-examen", methods=["POST"])
+@app.route("/correction-examen", methods=["POST"])
 def correction_examen():
     data = request.json
     rep1 = data.get("reponse1", "").strip()
