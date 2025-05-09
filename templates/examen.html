@@ -1,99 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Examen blanc</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: auto;
-      padding: 2em;
-    }
-    pre code {
-      display: block;
-      background: #f4f4f4;
-      padding: 1em;
-      overflow-x: auto;
-    }
-    textarea {
-      width: 100%;
-      height: 200px;
-      font-family: monospace;
-      font-size: 1em;
-      margin-bottom: 2em;
-    }
-    button {
-      padding: 1em 2em;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    .exercice {
-      margin-bottom: 3em;
-    }
-    .feedback {
-      background: #eef;
-      padding: 1em;
-      margin-top: 1em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Examen - Chatbot NSI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 2em;
+        }
+        pre {
+            background-color: #eee;
+            padding: 1em;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        button {
+            margin-top: 1em;
+            padding: 0.5em 1em;
+            font-size: 1em;
+        }
+    </style>
 </head>
 <body>
-  <h1>Examen blanc</h1>
+    <h1>Mode Examen</h1>
+    <button onclick="chargerExercice()">🔄 Charger un exercice aléatoire</button>
+    <pre id="zoneExercice">Clique sur le bouton pour charger un exercice...</pre>
 
-  <div class="exercice" id="ex1">
-    <h2>Exercice 1</h2>
-    <div id="ex1-enonce">Chargement...</div>
-    <textarea id="code1" placeholder="Votre code pour l'exercice 1 ici..."></textarea>
-  </div>
+    <script>
+        function chargerExercice() {
+            fetch("/exercice_aleatoire")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("zoneExercice").innerText = data.contenu;
+                })
+                .catch(error => {
+                    console.error("Erreur lors du chargement de l'exercice :", error);
+                    document.getElementById("zoneExercice").innerText = "❌ Impossible de charger l'exercice.";
+                });
+        }
 
-  <div class="exercice" id="ex2">
-    <h2>Exercice 2</h2>
-    <div id="ex2-enonce">Chargement...</div>
-    <textarea id="code2" placeholder="Votre code pour l'exercice 2 ici..."></textarea>
-  </div>
-
-  <button onclick="validerReponses()">Valider mes réponses</button>
-  <div id="resultat" class="feedback"></div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-
-  <script>
-    // Chargement des énoncés au chargement de la page
-    window.onload = async function () {
-      const response = await fetch("/get_examen");
-      const data = await response.json();
-
-      document.getElementById("ex1-enonce").innerHTML = data.exercice1 || "❌ Problème avec l'exercice 1";
-      document.getElementById("ex2-enonce").innerHTML = data.exercice2 || "❌ Problème avec l'exercice 2";
-
-      // Reinitialise la coloration syntaxique après insertion HTML
-      document.querySelectorAll("pre code").forEach(block => hljs.highlightElement(block));
-    };
-
-    // Validation et envoi pour correction
-    async function validerReponses() {
-      const code1 = document.getElementById("code1").value;
-      const code2 = document.getElementById("code2").value;
-      const resultatDiv = document.getElementById("resultat");
-
-      resultatDiv.innerHTML = "<p>Correction en cours...</p>";
-
-      const response = await fetch("/correction-examen", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          reponse1: code1,
-          reponse2: code2
-        })
-      });
-
-      const data = await response.json();
-      resultatDiv.innerHTML = `<pre>${data.response}</pre>`;
-    }
-  </script>
+        // Optionnel : charger un exercice automatiquement au chargement de la page
+        window.onload = chargerExercice;
+    </script>
 </body>
 </html>

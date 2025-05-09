@@ -179,3 +179,15 @@ if __name__ == "__main__":
 print("✅ Fin de main.py atteinte")
 
 application = app
+
+
+@app.route("/exercice_aleatoire")
+def exercice_aleatoire():
+    dossier = "exercices"
+    fichiers = [f for f in os.listdir(dossier) if f.endswith(".md")]
+    if not fichiers:
+        return jsonify({"contenu": "❌ Aucun exercice trouvé."})
+    fichier_choisi = random.choice(fichiers)
+    with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
+        contenu = f.read()
+    return jsonify({"fichier": fichier_choisi, "contenu": contenu})
