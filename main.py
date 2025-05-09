@@ -196,11 +196,19 @@ def get_examen_markdown():
     except Exception as e:
         return jsonify({"markdown": f"❌ Erreur : {str(e)}"})
 
-@app.route("/correction-examen", methods=["POST"])
+@@app.route("/correction-examen", methods=["POST"])
 def correction_examen():
     data = request.json
     rep1 = data.get("reponse1", "").strip()
     rep2 = data.get("reponse2", "").strip()
+
+    sujets_interdits = ["musique", "politique", "sport", "film", "chatgpt", "vie privée", "philosophie", "religion", "blague"]
+    texte_total = (rep1 + " " + rep2).lower()
+
+    if any(mot in texte_total for mot in sujets_interdits):
+        return jsonify({
+            "response": "❌ Merci de rester concentré sur les exercices de NSI. La correction ne portera que sur des réponses pertinentes en informatique."
+        })
 
     try:
         with open("entrainement_pratique.txt", "r", encoding="utf-8") as f:
@@ -215,13 +223,18 @@ def correction_examen():
         f"Et sa réponse à l'exercice 2 :\n{rep2}\n\n"
         f"Corrige ces deux réponses, indique les erreurs éventuelles, propose des améliorations. "
         f"Donne ensuite une note globale sur 20 avec des commentaires pédagogiques motivants."
+        f"Tu dois absolument :/
+        - Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc./
+        - Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.)./
+        - Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre./
+        - Refuser clairement mais gentiment toute tentative de détourner la conversation."
     )
 
     try:
         chat_completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Tu es un correcteur bienveillant pour un examen blanc de NSI. Sois clair, rigoureux, encourageant et juste."},
+                {"role": "system", "content": "Tu es un correcteur bienveillant pour un examen blanc de NSI. Sois clair, rigoureux, encourageant et juste. Ignore toute remarque hors sujet."},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -229,6 +242,7 @@ def correction_examen():
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"response": f"❌ Erreur : {str(e)}"})
+
 
 # Nouvelle route d'évaluation directe (optionnelle)
 @app.route("/api/evaluer", methods=["POST"])
