@@ -1,3 +1,4 @@
+<!-- fichier : entrainement_corrige.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,11 +6,11 @@
     <title>Entraînement - Chatbot NSI</title>
     <link rel="stylesheet" href="/static/css/style.css">
 
-    <!-- CodeMirror pour les réponses des élèves -->
+    <!-- CodeMirror -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/eclipse.min.css">
 
-    <!-- Highlight.js pour Markdown -->
+    <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
@@ -34,8 +35,7 @@
         .CodeMirror {
             border: 1px solid #ccc;
             font-size: 1em;
-            height: auto;
-            min-height: 250px; /* Hauteur minimum confortable */
+            min-height: 250px;
         }
         #exercice {
             background: #fafafa;
@@ -44,11 +44,7 @@
             border-radius: 6px;
             margin-bottom: 2em;
             overflow-x: auto;
-            max-width: 100%;
             box-sizing: border-box;
-        }
-        textarea {
-            display: none; /* masqué car remplacé par CodeMirror */
         }
         button {
             margin-top: 10px;
@@ -87,7 +83,7 @@
         let editor;
 
         function afficherMessage(contenu, auteur) {
-            let div = document.createElement("div");
+            const div = document.createElement("div");
             div.className = "message " + auteur;
             div.innerHTML = marked.parse(contenu);
             hljs.highlightAll();
@@ -96,7 +92,7 @@
         }
 
         function envoyer() {
-            let message = editor.getValue().trim();
+            const message = editor.getValue().trim();
             if (!message) return;
             afficherMessage("```python\n" + message + "\n```", "user");
             historique.push({ role: "user", content: message });
@@ -112,7 +108,7 @@
                 afficherMessage(data.reponse, "bot");
                 historique.push({ role: "assistant", content: data.reponse });
             })
-            .catch(err => afficherMessage("❌ Erreur de communication avec le serveur", "bot"));
+            .catch(() => afficherMessage("❌ Erreur de communication avec le serveur", "bot"));
         }
 
         function initialiserCodeMirror() {
@@ -124,7 +120,7 @@
                 tabSize: 4,
                 smartIndent: true
             });
-            editor.setSize("100%", "250px");  // Large et confortable
+            editor.setSize("100%", "250px");
         }
 
         window.onload = () => {
@@ -140,8 +136,9 @@
                 document.getElementById("exercice").innerHTML = ex;
                 hljs.highlightAll();
                 if (consignes.length > 0) {
-                    afficherMessage("Tu peux proposer" + consignes.join("Tu peux proposer"), "bot");
-                    historique.push({ role: "assistant", content: "Tu peux proposer" + consignes.join("Tu peux proposer") });
+                    const suite = "Tu peux proposer" + consignes.join("Tu peux proposer");
+                    afficherMessage(suite, "bot");
+                    historique.push({ role: "assistant", content: suite });
                 }
             });
         };
