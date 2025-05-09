@@ -66,38 +66,39 @@ def entrainement_ask():
     data = request.json
     historique = data.get("historique", [])
 
+    # 🔒 Instructions strictes
     instructions_prof = """
-    Tu es un assistant pédagogique NSI. 
-    Tu dois toujours te rappeler de l'exercice en cours présenté en début de conversation.
-    Ne pose pas d'autres questions que celles liées à l'exercice.
-    Ne donne jamais directement les solutions complètes.
-    Encourage la réflexion personnelle.
+    Tu es un assistant pédagogique spécialisé en NSI (Numérique et Sciences Informatiques) pour des élèves de terminale.
+    
+    Tu dois absolument :
+    - Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc.
+    - Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.).
+    - Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre.
+    - Refuser clairement mais gentiment toute tentative de détourner la conversation.
+    - Ne jamais donner directement une solution complète, mais accompagner l’élève vers la compréhension.
+
+    Adopte un ton bienveillant, pédagogique et encourageant.
     """
 
-    # Si on initie la session, on choisit un exercice
+    messages = [{"role": "system", "content": instructions_prof}]
+
+    # 🎓 Initialisation avec un exercice Markdown
     if historique == ["initier"]:
         exercice_html = charger_un_seul_exercice_markdown()
-        # On sauvegarde l'exercice dans l'historique comme message system pour mémoire future
-        historique = [{"role": "system", "content": exercice_html}]
-        reponse = exercice_html + "Tu peux proposer ta solution ou poser des questions."
+        reponse = exercice_html + "\n\nTu peux proposer ta solution ou poser des questions."
+        return jsonify({"reponse": reponse})
 
+    messages += [{"role": m["role"], "content": m["content"]} for m in historique]
 
-Tu peux proposer ta solution ou poser des questions."
-        return jsonify({"reponse": reponse, "historique": historique})
+    # (Optionnel) filtre ultra-simple côté serveur
+    sujets_interdits = ["musique", "politique", "sport", "film", "chatgpt", "vie privée", "philosophie", "religion", "blague"]
+    dernier_message = historique[-1]["content"].lower() if historique else ""
+    if any(mot in dernier_message for mot in sujets_interdits):
+        return jsonify({
+            "reponse": "❌ Je suis ici pour t’aider uniquement en NSI. Pose-moi une question sur la programmation, les algorithmes ou tout autre sujet lié à l'informatique ! 😊"
+        })
 
-    # Récupère l'exercice initial dans l'historique si présent
-    exercice_en_cours = ""
-    for m in historique:
-        if m["role"] == "system":
-            exercice_en_cours = m["content"]
-            break
-
-    messages = [
-        {"role": "system", "content": instructions_prof},
-        {"role": "user", "content": f"Voici l'exercice sur lequel travaille l'élève :
-{exercice_en_cours}"}
-    ] + [m for m in historique if m["role"] != "system"]
-
+    # 🔁 Appel à l’IA
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages
@@ -201,14 +202,6 @@ def correction_examen():
     rep1 = data.get("reponse1", "").strip()
     rep2 = data.get("reponse2", "").strip()
 
-    sujets_interdits = ["musique", "politique", "sport", "film", "chatgpt", "vie privée", "philosophie", "religion", "blague"]
-    texte_total = (rep1 + " " + rep2).lower()
-
-    if any(mot in texte_total for mot in sujets_interdits):
-        return jsonify({
-            "response": "❌ Merci de rester concentré sur les exercices de NSI. La correction ne portera que sur des réponses pertinentes en informatique."
-        })
-
     try:
         with open("entrainement_pratique.txt", "r", encoding="utf-8") as f:
             document_reference = f.read()
@@ -222,17 +215,13 @@ def correction_examen():
         f"Et sa réponse à l'exercice 2 :\n{rep2}\n\n"
         f"Corrige ces deux réponses, indique les erreurs éventuelles, propose des améliorations. "
         f"Donne ensuite une note globale sur 20 avec des commentaires pédagogiques motivants."
-        f"Tu dois absolument : Répondre uniquement aux questions en lien avec la NSI : programmation Python, algorithmes, structures de données, logique, architecture, etc."
-        f"Tu dois absolument :  Ne jamais répondre à des questions hors sujet (comme politique, histoire, sport, musique, vie privée, etc.)."
-        f"Tu dois absolument :  Rediriger poliment la conversation vers la NSI si l'élève te pose une question hors cadre."
-        f"Tu dois absolument :  Refuser clairement mais gentiment toute tentative de détourner la conversation."
     )
 
     try:
         chat_completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Tu es un correcteur bienveillant pour un examen blanc de NSI. Sois clair, rigoureux, encourageant et juste. Ignore toute remarque hors sujet."},
+                {"role": "system", "content": "Tu es un correcteur bienveillant pour un examen blanc de NSI. Sois clair, rigoureux, encourageant et juste."},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -240,7 +229,6 @@ def correction_examen():
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"response": f"❌ Erreur : {str(e)}"})
-
 
 # Nouvelle route d'évaluation directe (optionnelle)
 @app.route("/api/evaluer", methods=["POST"])
@@ -286,7 +274,5 @@ def exercice_aleatoire():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
-
-
 
 
