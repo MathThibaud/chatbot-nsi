@@ -192,7 +192,6 @@ def exercice_aleatoire():
         contenu = f.read()
     return jsonify({"fichier": fichier_choisi, "contenu": contenu})
 
-
 @app.route("/entrainement_ask", methods=["POST"])
 def entrainement_ask():
     data = request.get_json()
@@ -202,15 +201,13 @@ def entrainement_ask():
     if historique == ["initier"]:
         try:
             exercice = charger_exercices_markdown()
-            message_intro = (
-                "Voici un exercice d'entraînement extrait des annales :
+            message_intro = f""" 
+Voici un exercice d'entraînement extrait des annales :
 
-"
-                f"{exercice}
+{exercice}
 
-"
-                "Tu peux proposer une solution ou poser des questions, je te guiderai."
-            )
+Tu peux proposer une solution ou poser des questions, je te guiderai.
+"""
             return jsonify({"reponse": message_intro})
         except Exception as e:
             return jsonify({"reponse": f"❌ Erreur lors du chargement d'un exercice : {e}"})
