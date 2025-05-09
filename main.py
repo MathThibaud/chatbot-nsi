@@ -90,18 +90,19 @@ def ask():
 def examen():
     return render_template("examen.html")
 
+
+
 @app.route("/get_examen", methods=["GET"])
 def get_examen():
     sujets = charger_exercices_md()
     if not sujets:
         return jsonify({"exercice1": "❌ Exercice 1 introuvable", "exercice2": "❌ Exercice 2 introuvable"})
-    
+
     sujet = random.choice(sujets)
-    
-    # 🪄 Convertir Markdown en HTML
+
     ex1_html = markdown.markdown(sujet[0], extensions=['fenced_code'])
     ex2_html = markdown.markdown(sujet[1], extensions=['fenced_code'])
-    
+
     return jsonify({"exercice1": ex1_html, "exercice2": ex2_html})
 
 @app.route("/get_examen_markdown", methods=["GET"])
@@ -145,6 +146,31 @@ def correction_examen():
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"response": f"❌ Erreur : {str(e)}"})
+
+# Nouvelle route d'évaluation directe (optionnelle)
+@app.route("/api/evaluer", methods=["POST"])
+def evaluer_code():
+    data = request.get_json()
+    code1 = data.get("code1", "")
+    code2 = data.get("code2", "")
+
+    prompt = f"""Tu es un professeur de NSI. Voici un code d'élève à corriger et noter sur 10.
+    Exercice 1 :
+    {code1}
+
+    Exercice 2 :
+    {code2}
+
+    Pour chaque exercice, commente le code, indique les erreurs, donne des conseils, et attribue une note sur 10."""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return jsonify({"result": response.choices[0].message.content})
+    except Exception as e:
+        return jsonify({"result": f"❌ Erreur lors de l’évaluation : {str(e)}"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
