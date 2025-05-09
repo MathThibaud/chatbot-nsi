@@ -79,7 +79,7 @@ def entrainement_ask():
         exercice_html = charger_un_seul_exercice_markdown()
         # On sauvegarde l'exercice dans l'historique comme message system pour mémoire future
         historique = [{"role": "system", "content": exercice_html}]
-        reponse = exercice_html + "Tu peux proposer une solution quand tu es prêt."
+        reponse = exercice_html + "Tu peux proposer ta solution ou poser des questions."
 
 
 Tu peux proposer ta solution ou poser des questions."
