@@ -31,28 +31,38 @@
             background-color: #efe;
             text-align: right;
         }
-        
         .CodeMirror {
             border: 1px solid #ccc;
-            height: auto;
             font-size: 1em;
+            height: auto;
+            min-height: 250px; /* Hauteur minimum confortable */
         }
         #exercice {
-    background: #fafafa;
-    border: 1px solid #ccc;
-    padding: 1em;
-    border-radius: 6px;
-    margin-bottom: 2em;
-    overflow-x: auto; /* Permet de scroller horizontalement si nécessaire */
-    max-width: 100%; /* Empêche l'élargissement excessif */
-    box-sizing: border-box; /* Gestion correcte des marges/paddings */
-}
-
-.message {
-    word-wrap: break-word;
-    overflow-x: auto;
-}
-
+            background: #fafafa;
+            border: 1px solid #ccc;
+            padding: 1em;
+            border-radius: 6px;
+            margin-bottom: 2em;
+            overflow-x: auto;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        textarea {
+            display: none; /* masqué car remplacé par CodeMirror */
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #005bbb;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003f8a;
+        }
     </style>
 </head>
 <body>
@@ -60,11 +70,10 @@
         <h1>Mode Entraînement</h1>
     </div>
     <div class="chat-container">
-        
         <div id="exercice">Chargement de l'exercice...</div>
         <div id="chatbox"></div>
-        
-        <textarea id="user-input" rows="8" style="width: 100%; font-family: monospace;" placeholder="Écris ta réponse ici…"></textarea>
+
+        <textarea id="userInput" placeholder="Écris ta réponse ici..."></textarea>
         <button onclick="envoyer()">Envoyer</button>
     </div>
 
@@ -115,6 +124,7 @@
                 tabSize: 4,
                 smartIndent: true
             });
+            editor.setSize("100%", "250px");  // Large et confortable
         }
 
         window.onload = () => {
