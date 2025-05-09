@@ -43,6 +43,40 @@ def charger_exercices_markdown():
     with open(os.path.join(dossier, fichier_choisi), "r", encoding="utf-8") as f:
         return f.read()
 
+@app.route("/entrainement_ask", methods=["POST"])
+def entrainement_ask():
+    data = request.json
+    historique = data.get("historique", [])
+
+    # Instructions pour conditionner le chatbot
+    instructions_prof = """
+    Tu es un assistant pédagogique spécialisé en NSI pour l'entraînement au BAC.
+    Réponds clairement et précisément aux élèves.
+    Ne donne jamais directement les solutions complètes.
+    Encourage les élèves à réfléchir par eux-mêmes en posant des questions ou en donnant des indices.
+    Utilise un ton bienveillant et pédagogique.
+    """
+
+    messages = [{"role": "system", "content": instructions_prof}]
+    
+    # Gestion spéciale pour démarrage (initiation de l'exercice)
+    if historique == ["initier"]:
+        exercice_html = charger_un_seul_exercice_markdown()
+        reponse = exercice_html + "\n\nTu peux proposer ta solution ou poser des questions."
+        return jsonify({"reponse": reponse})
+
+    # Ajoute l'historique existant après les instructions initiales
+    messages += [{"role": m["role"], "content": m["content"]} for m in historique]
+
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+
+    return jsonify({"reponse": completion.choices[0].message.content})
+
+
+
 @app.route("/get_examen_affichage")
 def get_examen_affichage():
     try:
