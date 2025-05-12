@@ -1,1 +1,8 @@
-{'deploy': {'script': 'pip install -r requirements.txt'}}
+{
+  "deploy": {
+    "script": "pip install -r requirements.txt"
+  },
+  "build": {
+    "type": "pip"
+  }
+}
