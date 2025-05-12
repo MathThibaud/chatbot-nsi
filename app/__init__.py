@@ -2,6 +2,12 @@ from flask import Flask
 import os
 from openai import OpenAI
 
+
+from . import main
+
+app = Flask(__name__)
+
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def create_app():
