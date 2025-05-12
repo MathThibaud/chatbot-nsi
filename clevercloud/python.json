@@ -1,6 +1,6 @@
 {
-  "deploy": [
-    "pip install -r requirements.txt"
-  ],
-  "run": "uwsgi --http :8080 --wsgi-file wsgi.py --callable app"
+  "deploy": {
+    "python_version": "3",
+    "module": "wsgi"
+  }
 }
