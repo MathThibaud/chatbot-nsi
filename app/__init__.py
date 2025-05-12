@@ -1,4 +1,3 @@
-# app/__init__.py
 from flask import Flask
 import os
 from openai import OpenAI
@@ -18,6 +17,6 @@ def create_app():
 
     @app.route("/")
     def index():
-        return app.send_static_file("index.html")
+        return "✅ Application Flask en ligne !"
 
     return app
