@@ -1,9 +1,6 @@
 {
-    "build": {
-      "requirements": "requirements.txt"
-    },
-    "deploy": {
-      "script": "uwsgi --ini uwsgi.ini"
-    }
-  }
-  
+  "deploy": [
+    "pip install -r requirements.txt"
+  ],
+  "run": "python app/main.py"
+}
