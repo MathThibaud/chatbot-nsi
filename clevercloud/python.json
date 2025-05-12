@@ -1,5 +1,1 @@
-{
-  "deploy": {
-    "restart": "uwsgi --ini uwsgi.ini"
-  }
-}
+{'deploy': {'script': 'pip install -r requirements.txt'}}
