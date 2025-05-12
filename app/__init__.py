@@ -1,6 +1,6 @@
-from flask import render_template
-from . import app
+from flask import Flask
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+app = Flask(__name__)
+
+# Importer les routes *après* la création de `app`
+from . import main
