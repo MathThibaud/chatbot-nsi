@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon Site avec IA</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Accueil - Chatbot NSI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 3rem;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chat avec IA</h1>
-    <div id="chat-container"></div>
-    <input type="text" id="user-input" placeholder="Posez votre question...">
-    <button onclick="sendMessage()">Envoyer</button>
-
-    <script>
-        function sendMessage() {
-            const input = document.getElementById('user-input');
-            const message = input.value;
-            
-            axios.post('/ask', {message: message})
-                .then(response => {
-                    const chat = document.getElementById('chat-container');
-                    chat.innerHTML += `<p><strong>Vous:</strong> ${message}</p>`;
-                    chat.innerHTML += `<p><strong>IA:</strong> ${response.data.response}</p>`;
-                    input.value = '';
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-    </script>
+    <h1>Bienvenue sur le Chatbot de NSI</h1>
+    <p>Choisissez un mode pour commencer :</p>
+    
+    <a href="{{ url_for('entrainement.index') }}" class="button">Mode Entraînement</a>
 </body>
 </html>
