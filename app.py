@@ -26,6 +26,7 @@ def entrainement(type_entrainement):
 def examen(type_examen):
     return render_template(f"examens/{type_examen}.html")
 
+"""
 # API pour le chatbot
 @app.route("/api/chat", methods=["POST"])
 def chat():
@@ -33,6 +34,18 @@ def chat():
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": data["message"]}]
+    )
+    return jsonify({"reply": response.choices[0].message.content})
+"""
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    data = request.json
+    # Personnalisez le prompt selon la page
+    prompt = f"Tu es un expert NSI. Réponds à cette question sur {data.get('context', 'Python')}:\n{data['message']}"
+    
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
     )
     return jsonify({"reply": response.choices[0].message.content})
 

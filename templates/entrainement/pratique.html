@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Entraînement Pratique - NSI{% endblock %}
+
+{% block content %}
+<div class="training-container">
+    <h2><i class="fas fa-dumbbell"></i> Entraînement Pratique</h2>
+    
+    <div class="difficulty-selector">
+        <h3>Choisissez un niveau :</h3>
+        <select id="level-select">
+            <option value="debutant">Débutant</option>
+            <option value="intermediaire">Intermédiaire</option>
+            <option value="expert">Expert</option>
+        </select>
+    </div>
+
+    <div class="exercise-random">
+        <h3>Exercice aléatoire :</h3>
+        <div id="random-exercise">
+            <p>Chargement en cours...</p>
+        </div>
+        <button onclick="newExercise()">Nouvel exercice</button>
+    </div>
+</div>
+{% endblock %}

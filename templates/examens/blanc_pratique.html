@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Examen Blanc Pratique - NSI{% endblock %}
+
+{% block content %}
+<div class="exam-container">
+    <h2><i class="fas fa-laptop-code"></i> Examen Blanc (Pratique)</h2>
+    <div class="timer">Temps restant : <span id="countdown">01:00:00</span></div>
+    
+    <div class="exercise">
+        <h3>Exercice 1 : Manipulation de listes</h3>
+        <p>Écrire une fonction <code>inverser(liste)</code> qui retourne une nouvelle liste inversée.</p>
+        <textarea class="exam-code"></textarea>
+    </div>
+
+    <div class="navigation">
+        <button class="btn-exam-practice">Sauvegarder</button>
+        <button class="btn-exam-theory">Terminer l'examen</button>
+    </div>
+</div>
+{% endblock %}

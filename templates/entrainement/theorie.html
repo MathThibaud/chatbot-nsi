@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Entraînement Théorique - NSI{% endblock %}
+
+{% block content %}
+<div class="theory-training-container">
+    <h2><i class="fas fa-book-open"></i> Entraînement Théorique</h2>
+    
+    <div class="flashcards">
+        <div class="flashcard" onclick="flipCard(this)">
+            <div class="front">
+                <p>Qu'est-ce qu'un tuple ?</p>
+            </div>
+            <div class="back">
+                <p>Une collection <strong>immutable</strong> et ordonnée d'éléments.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevCard()"><i class="fas fa-arrow-left"></i></button>
+        <span class="card-count">1/10</span>
+        <button onclick="nextCard()"><i class="fas fa-arrow-right"></i></button>
+    </div>
+</div>
+{% endblock %}

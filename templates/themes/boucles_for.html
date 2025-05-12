@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Boucles For - NSI{% endblock %}
+
+{% block content %}
+<div class="theme-container">
+    <h2><i class="fas fa-redo"></i> Boucles For</h2>
+    
+    <div class="interactive-section">
+        <div class="code-editor">
+            <h3>Exercice interactif :</h3>
+            <textarea id="for-loop-code">for i in range(5):
+    print(□)</textarea>
+            <button onclick="runCode('for-loop-code')">Exécuter</button>
+            <div class="output" id="for-output"></div>
+        </div>
+    </div>
+
+    <div class="examples">
+        <h3>Exemples classiques :</h3>
+        <pre><code># Parcours de liste
+for element in ma_liste:
+    print(element * 2)</code></pre>
+    </div>
+</div>
+{% endblock %}

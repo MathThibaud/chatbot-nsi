@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Dictionnaires Python - NSI{% endblock %}
+
+{% block content %}
+<div class="theme-container">
+    <h2><i class="fas fa-book"></i> Les Dictionnaires</h2>
+    
+    <div class="theory-section">
+        <h3>Concepts fondamentaux :</h3>
+        <pre><code>mon_dict = {"clé": "valeur", "age": 20}</code></pre>
+        <ul>
+            <li>Accès : <code>mon_dict["clé"]</code></li>
+            <li>Méthodes : <code>.keys()</code>, <code>.items()</code></li>
+            <li>Particularité : Non ordonné (avant Python 3.7)</li>
+        </ul>
+    </div>
+
+    <div class="chatbot-section">
+        <h3>Quiz Express</h3>
+        <div class="quiz">
+            <p>Comment ajouter une paire clé-valeur ?</p>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'correct')">mon_dict['nouveau'] = 42</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'wrong')">mon_dict.append(42)</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
