@@ -2,6 +2,12 @@ from flask import render_template, request, jsonify
 from app import app
 from .openai_helper import get_openai_response
 
+
+@main.route("/")
+def index():
+    return render_template("index.html")
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
