@@ -1,7 +1,7 @@
 from flask import Flask
 
-app = Flask(__name__)
+application = Flask(__name__)
 
-@app.route("/")
+@aapplication.route("/")
 def index():
     return "✅ Application Flask déployée avec succès sur CleverCloud !"
