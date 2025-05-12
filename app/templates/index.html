@@ -2,34 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil - Chatbot NSI</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 3rem;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #333;
-        }
-        .button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            margin-top: 2rem;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 0.5rem;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Chatbot NSI - Accueil</title>
 </head>
 <body>
-    <h1>Bienvenue sur le Chatbot de NSI</h1>
-    <p>Choisissez un mode pour commencer :</p>
-    
-    <a href="{{ url_for('entrainement.index') }}" class="button">Mode Entraînement</a>
+    <h1>Bienvenue sur le chatbot de NSI</h1>
+    <p>Choisissez un mode :</p>
+    <a href="{{ url_for('entrainement') }}">🧠 Mode Entraînement</a>
 </body>
 </html>
