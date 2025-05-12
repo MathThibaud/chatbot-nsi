@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <div class="themes-section">
+        <h2>Thèmes de révision</h2>
+        <div class="themes-grid">
+            <a href="{{ url_for('theme_page', theme='listes') }}">Listes</a>
+            <a href="{{ url_for('theme_page', theme='dictionnaires') }}">Dictionnaires</a>
+            <a href="{{ url_for('theme_page', theme='boucles_for') }}">Boucles For</a>
+            <!-- Ajoutez d'autres thèmes -->
+        </div>
+    </div>
+
+    <div class="training-section">
+        <h2>Entraînement</h2>
+        <div class="training-links">
+            <a href="{{ url_for('entrainement', type_entrainement='pratique') }}" class="btn-practice">Pratique</a>
+            <a href="{{ url_for('entrainement', type_entrainement='theorie') }}" class="btn-theory">Théorie</a>
+        </div>
+        <h2>Examens Blancs</h2>
+        <div class="exam-links">
+            <a href="{{ url_for('examen', type_examen='blanc_pratique') }}" class="btn-exam-practice">Pratique</a>
+            <a href="{{ url_for('examen', type_examen='blanc_theorie') }}" class="btn-exam-theory">Théorie</a>
+        </div>
+    </div>
+{% endblock %}
