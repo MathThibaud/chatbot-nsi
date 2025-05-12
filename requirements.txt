@@ -1,5 +1,5 @@
 flask
 openai
-python-dotenv  # si tu veux gérer .env localement (optionnel)
+python-dotenv
 PyMuPDF
 markdown
