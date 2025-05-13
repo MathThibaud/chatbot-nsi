@@ -10,7 +10,7 @@ client = OpenAI(
     # Supprimez les proxies ou utilisez cette syntaxe si nécessaire :
     # http_client=httpx.Client(proxies={...}) 
 )
-)
+
 
 
 @listes_bp.route('/')
