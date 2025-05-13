@@ -14,8 +14,9 @@ from routes import init_app
 from routes import listes_bp
 
 app = Flask(__name__)
-app.register_blueprint(listes_bp) 
 
+
+app.register_blueprint(listes_bp)
 
 # Page d'accueil
 @app.route("/")
