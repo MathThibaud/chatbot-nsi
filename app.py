@@ -4,8 +4,21 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-app = Flask(__name__)
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
+from routes.route_listes import listes_bp
+
+from routes import init_app
+
+app = Flask(__name__)
+
+# Initialisation des routes
+init_app(app)  # Si vous utilisez la fonction init_app
+# OU directement :
+# from routes.route_listes import listes_bp
+# app.register_blueprint(listes_bp)
 
 # Page d'accueil
 @app.route("/")

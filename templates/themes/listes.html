@@ -1,3 +1,7 @@
+
+### 4. Fichier listes.html modifié
+
+```html
 {% extends "base.html" %}
 
 {% block title %}Les Listes Python - NSI{% endblock %}
@@ -18,12 +22,24 @@
     <div class="chatbot-section">
         <h3>Assistant Listes</h3>
         <div class="chatbox" id="listes-chat">
-            <!-- Messages apparaîtront ici -->
+            <div class="message bot-message">
+                <p>Bonjour ! Je suis votre assistant pour les listes en Python.</p>
+                <p>Posez-moi vos questions ou essayez de répondre à ce petit défi :</p>
+                <p class="challenge">Comment ajouter l'élément 5 à la liste [1,2,3] ?</p>
+            </div>
         </div>
-        <input type="text" id="listes-input" placeholder="Votre question sur les listes...">
-        <button onclick="sendMessage('listes')">Envoyer</button>
+        <div class="input-container">
+            <textarea id="listes-input" placeholder="Votre question ou code ici..."></textarea>
+            <div class="button-group">
+                <button id="btn-code" class="code-btn">Code</button>
+                <button id="btn-text" class="text-btn">Question</button>
+                <button id="btn-send" onclick="sendMessage()">Envoyer</button>
+            </div>
+        </div>
     </div>
     
     <a href="{{ url_for('entrainement', type_entrainement='pratique') }}?theme=listes" class="btn-practice">S'entraîner</a>
 </div>
+
+<script src="{{ url_for('static', filename='js/listes_chat.js') }}"></script>
 {% endblock %}
