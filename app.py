@@ -11,14 +11,11 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 from routes.route_listes import listes_bp
 
 from routes import init_app
+from routes import listes_bp
 
 app = Flask(__name__)
+app.register_blueprint(listes_bp) 
 
-# Initialisation des routes
-init_app(app)  # Si vous utilisez la fonction init_app
-# OU directement :
-# from routes.route_listes import listes_bp
-# app.register_blueprint(listes_bp)
 
 # Page d'accueil
 @app.route("/")

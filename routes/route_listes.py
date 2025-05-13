@@ -4,8 +4,14 @@ import os
 
 listes_bp = Blueprint('listes', __name__, url_prefix='/themes/listes')
 
-# Configuration OpenAI
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Configuration OpenAI corrigée
+client = OpenAI(
+    api_key=os.getenv('OPENAI_API_KEY'),
+    # Supprimez les proxies ou utilisez cette syntaxe si nécessaire :
+    # http_client=httpx.Client(proxies={...}) 
+)
+)
+
 
 @listes_bp.route('/')
 def listes_home():
