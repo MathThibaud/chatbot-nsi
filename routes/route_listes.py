@@ -7,6 +7,7 @@ listes_bp = Blueprint('listes', __name__, url_prefix='/themes/listes')
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
+
 @listes_bp.route('/')
 def listes_home():
     return render_template('themes/listes.html')
