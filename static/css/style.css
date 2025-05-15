@@ -209,10 +209,15 @@ a:hover {
 }
 
 .user-message {
-    margin-left: auto;
+    text-align: left; /* Avant : right */
     background: #e3f2fd;
-    border-radius: 15px 15px 0 15px;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 10px 10px 10px 0;
+    font-size: 1rem; /* Taille de police augmentée */
+    white-space: pre-wrap; /* Pour conserver les indentations */
 }
+
 
 .bot-message {
     margin-right: auto;
@@ -233,11 +238,17 @@ a:hover {
     padding: 10px 15px;
 }
 
-.chat-input {
+.chat-input textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 10px;
-    background: white;
-    border-top: 1px solid #e1e4e8;
+    resize: vertical;
+    font-family: 'Courier New', monospace;
+    min-height: 120px; /* Augmentée */
+    font-size: 1rem; /* Augmentée */
 }
+
 
 .chat-input textarea {
     width: 100%;
