@@ -101,3 +101,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return `<p>${content.replace(/\n/g, '<br>')}</p>`;
     }
 });
+
+document.getElementById("send-button").addEventListener("click", async () => {
+    const input = document.getElementById("user-input").value;
+    const chat = document.getElementById("chat-messages");
+
+    chat.innerHTML += `<div class="message user-message">${input}</div>`;
+
+    const res = await fetch("/ask_listes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
+    });
+
+    const data = await res.json();
+
+    chat.innerHTML += `<div class="message bot-message">${data.response}</div>`;
+    document.getElementById("user-input").value = "";
+});

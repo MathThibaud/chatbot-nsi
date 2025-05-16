@@ -1,18 +1,22 @@
-
 from flask import Blueprint, request, jsonify
 import os
-from openai import OpenAI
+import openai
 
 listes_bp = Blueprint("listes", __name__)
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# Configuration de l'API Key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @listes_bp.route("/ask_listes", methods=["POST"])
 def ask_listes():
     data = request.get_json()
     user_input = data.get("message", "").strip().lower()
 
-    with open("nsi_ressources/listes.md", "r", encoding="utf-8") as f:
-        reference = f.read()
+    try:
+        with open("nsi_ressources/listes.md", "r", encoding="utf-8") as f:
+            reference = f.read()
+    except FileNotFoundError:
+        return jsonify({"response": "❌ Le fichier listes.md est introuvable."})
 
     if "exercice" in user_input:
         prompt = (
@@ -23,33 +27,23 @@ def ask_listes():
         )
     elif "théorie" in user_input or "définition" in user_input:
         prompt = (
-            f"Tu es un assistant NSI. Résume brièvement ce qu'est une liste en Python "
-            f"à partir du document suivant :\n{reference}\n\n"
-            f"Utilise un ton clair et accessible."
-        )
-    elif "def " in user_input or "[" in user_input or "append" in user_input:
-        prompt = (
-            f"Voici un code soumis par un élève :\n{user_input}\n\n"
-            f"Analyse, corrige si nécessaire, et explique clairement en t'appuyant sur :\n{reference}"
+            f"Tu es un assistant NSI. "
+            f"À partir du document suivant :\n{reference}\n\n"
+            f"Explique de manière claire et synthétique les principales notions à connaître sur les listes en Python."
         )
     else:
         prompt = (
-            f"Tu es un assistant pédagogique NSI bienveillant. "
-            f"Voici ce qu'un élève t'a écrit :\n{user_input}\n\n"
-            f"Réponds de façon pédagogique, en lien avec les listes Python, en t'appuyant sur :\n{reference}"
+            f"Tu es un assistant pédagogique NSI. "
+            f"Voici un extrait de cours :\n{reference}\n\n"
+            f"En t'appuyant sur ce contenu, répond à la question suivante :\n{user_input}"
         )
 
     try:
-        completion = client.chat.completions.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "Tu es un assistant NSI qui aide les élèves en Python. Sois clair, concis et bienveillant."},
-                {"role": "user", "content": prompt},
-            ],
-            temperature=0.5
+        response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
         )
-        response = completion.choices[0].message.content
-        return jsonify({"response": response})
+        return jsonify({"response": response.choices[0].message.content})
     except Exception as e:
-        return jsonify({"response": f"❌ Erreur : {e}"}), 500
-
+        return jsonify({"response": f"❌ Erreur OpenAI : {e}"})
